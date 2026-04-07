@@ -1,0 +1,353 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  .brand-hero {
+    background: #0F3D2E;
+    border-radius: var(--border-radius-lg);
+    padding: 48px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .logo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-icon {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+  }
+
+  .logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .logo-name {
+    font-size: 32px;
+    font-weight: 500;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .logo-slogan {
+    font-size: 12px;
+    color: #7AC4A0;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+  }
+
+  .logo-mono {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+  }
+
+  .logo-mono svg { width: 32px; height: 32px; }
+  .logo-mono-text { font-size: 18px; font-weight: 500; color: #FFFFFF; letter-spacing: -0.02em; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+  }
+
+  .swatch-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .swatch {
+    flex: 1;
+    height: 48px;
+    border-radius: var(--border-radius-md);
+  }
+
+  .color-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .color-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+  }
+
+  .color-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .color-name { font-weight: 500; color: var(--color-text-primary); }
+  .color-hex { font-family: var(--font-mono); font-size: 11px; }
+
+  .type-sample {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .type-sample:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .type-label { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 4px; }
+  .type-display { color: var(--color-text-primary); line-height: 1.2; }
+
+  .usage-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 100px;
+    margin-top: 4px;
+  }
+
+  .tag-primary { background: #D4EDDC; color: #1A5C38; }
+  .tag-secondary { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-label { font-size: 11px; color: var(--color-text-tertiary); text-align: center; }
+
+  .brand-card-preview {
+    background: #F5FAF7;
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-left { display: flex; align-items: center; gap: 12px; }
+  .card-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: #0F3D2E;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-info-name { font-size: 14px; font-weight: 500; color: #0F3D2E; }
+  .card-info-role { font-size: 12px; color: #3B8B62; }
+  .card-domain { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+
+  .tagline-options { display: flex; flex-direction: column; gap: 8px; }
+  .tagline-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-tertiary);
+    font-size: 14px;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .tagline-item:hover { background: var(--color-background-secondary); }
+  .tagline-item.selected { border-color: #1A6B45; background: #EAF5EE; color: #0F3D2E; }
+  .tagline-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    border: 1.5px solid var(--color-border-secondary);
+    flex-shrink: 0;
+  }
+  .tagline-item.selected .tagline-dot { background: #1A6B45; border-color: #1A6B45; }
+</style>
+
+<div style="padding: 0 0 24px;">
+
+  <!-- Hero con logo -->
+  <div class="brand-hero">
+    <div class="logo-lockup">
+      <svg class="logo-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ícono: flecha/camino ascendente compuesto por tres segmentos -->
+        <rect width="56" height="56" rx="14" fill="white" fill-opacity="0.08"/>
+        <!-- Segmento inferior (gris claro) -->
+        <rect x="12" y="38" width="10" height="6" rx="3" fill="#7AC4A0"/>
+        <!-- Segmento medio -->
+        <rect x="24" y="28" width="10" height="6" rx="3" fill="#3DBB7A"/>
+        <!-- Segmento superior -->
+        <rect x="36" y="18" width="10" height="6" rx="3" fill="#FFFFFF"/>
+        <!-- Línea conectora -->
+        <path d="M22 41 L26 31 L38 21" stroke="white" stroke-width="1.5" stroke-opacity="0.3" stroke-dasharray="3 3" fill="none"/>
+      </svg>
+      <div class="logo-wordmark">
+        <span class="logo-name">Scalvia</span>
+        <span class="logo-slogan">The path to scale.</span>
+      </div>
+    </div>
+    <div class="logo-mono">
+      <svg viewBox="0 0 56 56" fill="none">
+        <rect x="12" y="38" width="10" height="6" rx="3" fill="white" fill-opacity="0.4"/>
+        <rect x="24" y="28" width="10" height="6" rx="3" fill="white" fill-opacity="0.6"/>
+        <rect x="36" y="18" width="10" height="6" rx="3" fill="white"/>
+      </svg>
+      <span class="logo-mono-text">S</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+
+    <!-- Paleta de colores -->
+    <div class="card">
+      <p class="section-label">Paleta de color</p>
+      <div class="swatch-row">
+        <div class="swatch" style="background:#0F3D2E;" title="Forest Deep"></div>
+        <div class="swatch" style="background:#1A6B45;" title="Scalvia Green"></div>
+        <div class="swatch" style="background:#3DBB7A;" title="Growth"></div>
+        <div class="swatch" style="background:#A8DFC4;" title="Soft Mint"></div>
+        <div class="swatch" style="background:#1A1A1A;" title="Ink"></div>
+      </div>
+      <div class="color-info">
+        <div class="color-item"><div class="color-dot" style="background:#0F3D2E"></div><span class="color-name">Forest Deep</span><span class="color-hex">#0F3D2E</span><span class="usage-tag tag-primary">principal</span></div>
+        <div class="color-item"><div class="color-dot" style="background:#1A6B45"></div><span class="color-name">Scalvia Green</span><span class="color-hex">#1A6B45</span><span class="usage-tag tag-secondary">acento</span></div>
+        <div class="color-item"><div class="color-dot" style="background:#3DBB7A"></div><span class="color-name">Growth</span><span class="color-hex">#3DBB7A</span><span class="usage-tag tag-secondary">vibrante</span></div>
+        <div class="color-item"><div class="color-dot" style="background:#1A1A1A"></div><span class="color-name">Ink</span><span class="color-hex">#1A1A1A</span><span class="usage-tag tag-secondary">tipografía</span></div>
+      </div>
+    </div>
+
+    <!-- Tipografía -->
+    <div class="card">
+      <p class="section-label">Tipografía</p>
+      <div class="type-sample">
+        <p class="type-label">Display · 28px · 500</p>
+        <p class="type-display" style="font-size:28px;font-weight:500;">Crecimiento con dirección.</p>
+      </div>
+      <div class="type-sample">
+        <p class="type-label">Heading · 18px · 500</p>
+        <p class="type-display" style="font-size:18px;font-weight:500;">Tu negocio en el mapa.</p>
+      </div>
+      <div class="type-sample">
+        <p class="type-label">Body · 14px · 400</p>
+        <p class="type-display" style="font-size:14px;font-weight:400;color:var(--color-text-secondary);">Ayudamos a negocios locales a crecer con presencia digital y visibilidad real.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Eslogan opciones -->
+  <div class="card" style="margin-bottom:16px;">
+    <p class="section-label">Eslogan · selecciona el tuyo</p>
+    <div class="tagline-options" id="taglines">
+      <div class="tagline-item selected" onclick="selectTagline(this)"><div class="tagline-dot"></div>The path to scale.</div>
+      <div class="tagline-item" onclick="selectTagline(this)"><div class="tagline-dot"></div>Crecimiento con dirección.</div>
+      <div class="tagline-item" onclick="selectTagline(this)"><div class="tagline-dot"></div>Your growth, our road.</div>
+      <div class="tagline-item" onclick="selectTagline(this)"><div class="tagline-dot"></div>De local a referente.</div>
+    </div>
+  </div>
+
+  <!-- Vista de tarjeta de presentación -->
+  <p class="section-label" style="margin-bottom:12px;">Aplicación · tarjeta de presentación</p>
+  <div class="brand-card-preview">
+    <div class="card-left">
+      <div class="card-avatar">
+        <svg width="20" height="20" viewBox="0 0 56 56" fill="none">
+          <rect x="12" y="38" width="10" height="6" rx="3" fill="white" fill-opacity="0.5"/>
+          <rect x="24" y="28" width="10" height="6" rx="3" fill="white" fill-opacity="0.75"/>
+          <rect x="36" y="18" width="10" height="6" rx="3" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <p class="card-info-name">Scalvia</p>
+        <p class="card-info-role">Agencia de presencia digital</p>
+      </div>
+    </div>
+    <p class="card-domain">scalvia.com</p>
+  </div>
+
+  <!-- Iconografía del sistema -->
+  <div class="card">
+    <p class="section-label">Sistema de íconos · servicios</p>
+    <div class="icon-grid">
+      <div class="icon-item">
+        <div class="icon-circle" style="background:#EAF5EE;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#1A6B45"/></svg>
+        </div>
+        <span class="icon-label">Google Maps</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-circle" style="background:#EAF5EE;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#1A6B45"/></svg>
+        </div>
+        <span class="icon-label">Reseñas</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-circle" style="background:#EAF5EE;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#1A6B45"/></svg>
+        </div>
+        <span class="icon-label">Sitio web</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-circle" style="background:#EAF5EE;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" fill="#1A6B45"/></svg>
+        </div>
+        <span class="icon-label">Crecimiento</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function selectTagline(el) {
+  document.querySelectorAll('.tagline-item').forEach(i => i.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
