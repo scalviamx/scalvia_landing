@@ -1360,9 +1360,21 @@
 
           <div class="form-row">
             <div class="form-group full">
+              <label class="form-label" for="giro">Giro del negocio</label>
+              <input class="form-input" type="text" id="giro" name="giro" placeholder="Ej. Restaurante, Médico, Ferretería..." autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
               <label class="form-label" for="mensaje">¿Cómo podemos ayudarte?</label>
               <textarea class="form-textarea" id="mensaje" name="mensaje" placeholder="Cuéntanos un poco sobre tu negocio y lo que quieres mejorar..."></textarea>
             </div>
+          </div>
+
+          <!-- honeypot anti-bot: no visible para humanos -->
+          <div style="display:none" aria-hidden="true">
+            <input type="text" name="_honeypot" tabindex="-1" autocomplete="off" />
           </div>
 
           <button type="submit" class="form-submit">
@@ -1469,20 +1481,53 @@
       });
     });
 
-    // ── Form submit (basic feedback) ──
+    // ── Form submit (fetch real → /api/contact) ──
     const form = document.querySelector('.contact-form');
     const submitBtn = form.querySelector('.form-submit');
+    const originalText = submitBtn.textContent;
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       submitBtn.textContent = 'Enviando...';
       submitBtn.disabled = true;
 
-      setTimeout(() => {
-        submitBtn.textContent = '¡Mensaje enviado! Te contactamos pronto.';
-        submitBtn.style.background = '#1A6B45';
+      const data = Object.fromEntries(new FormData(form));
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+
+        if (res.ok && json.success) {
+          submitBtn.textContent = '¡Mensaje enviado! Te contactamos pronto.';
+          submitBtn.style.background = '#1A6B45';
+          submitBtn.style.color = '#fff';
+          form.reset();
+        } else {
+          submitBtn.textContent = json.error || 'Error al enviar. Intenta de nuevo.';
+          submitBtn.style.background = '#c0392b';
+          submitBtn.style.color = '#fff';
+          submitBtn.disabled = false;
+          setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+            submitBtn.style.color = '';
+          }, 4000);
+        }
+      } catch {
+        submitBtn.textContent = 'Error de red. Intenta de nuevo.';
+        submitBtn.style.background = '#c0392b';
         submitBtn.style.color = '#fff';
-      }, 1200);
+        submitBtn.disabled = false;
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.style.background = '';
+          submitBtn.style.color = '';
+        }, 4000);
+      }
     });
   </script>
 

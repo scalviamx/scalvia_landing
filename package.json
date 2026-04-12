@@ -1,0 +1,7 @@
+{
+  "name": "scalvia-landing",
+  "private": true,
+  "dependencies": {
+    "resend": "^4.0.0"
+  }
+}
