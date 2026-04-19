@@ -58,7 +58,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.1em] uppercase text-growth bg-growth/10 border border-growth/20 px-3.5 py-1.5 rounded-full w-fit"
             >
               <span className="w-1.5 h-1.5 bg-growth rounded-full animate-pulse-dot" />
-              Agencia de IA · Monterrey, México
+              The path to scale
             </motion.div>
 
             {/* Headline con animación palabra-por-palabra */}
