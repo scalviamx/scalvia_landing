@@ -1,0 +1,433 @@
+<!--
+/*
+ * AESTHETIC_DNA: "Boutique Local Roots" - High-trust, warm, premium B2B editorial.
+ * UI_PARADIGM: Asymmetrical Scrollytelling with Sticky Architecture. Breaks generic SaaS molds in favor of a guided, narrative approach suitable for first-time digital adopters.
+ * PALETTE: Forest Green (#082614), Growth Green (#3DBB7A), Soft Mint (#EAF2EC), Warm Paper (#F9F8F6).
+ */
+-->
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scalvia · The path to scale.</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Playfair Display for elegant headings, DM Sans for modern, approachable body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#082614',
+                        growth: '#3DBB7A',
+                        mint: '#EAF2EC',
+                        paper: '#F9F8F6',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(8, 38, 20, 0.05)',
+                        'float': '0 30px 60px -20px rgba(8, 38, 20, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::selection {
+            background-color: #3DBB7A;
+            color: #082614;
+        }
+
+        body {
+            background-color: #F9F8F6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #EAF2EC; }
+        ::-webkit-scrollbar-thumb { background: #082614; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3DBB7A; }
+
+        .mask-arch {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            border-top-left-radius: 999px;
+            border-top-right-radius: 999px;
+        }
+
+        .mask-pill { border-radius: 999px; }
+
+        .bg-grain { position: relative; }
+        .bg-grain::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-element { animation: float 6s ease-in-out infinite; }
+        .floating-element-delayed { animation: float 6s ease-in-out 3s infinite; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="font-sans text-forest antialiased relative">
+
+    <!-- NAV -->
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300 py-6 px-6 md:px-12 mix-blend-difference text-paper">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer group">
+                <i class="ph-fill ph-plant text-3xl group-hover:text-growth transition-colors duration-300"></i>
+                <span class="font-serif text-xl font-bold tracking-tight">Scalvia.</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#proceso" class="hover:text-growth transition-colors">Nuestro Proceso</a>
+                <a href="#clientes" class="hover:text-growth transition-colors">A Quién Ayudamos</a>
+                <a href="#contacto" class="px-6 py-3 bg-growth text-forest rounded-full hover:bg-white transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(61,187,122,0.3)]">
+                    Hacer Consulta Gratuita
+                </a>
+            </div>
+            <button class="md:hidden text-2xl">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="relative min-h-screen bg-forest text-paper bg-grain overflow-hidden flex flex-col justify-center">
+        <div class="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-growth/20 blur-[120px] rounded-full point-events-none"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-mint/10 blur-[100px] rounded-full point-events-none"></div>
+
+        <div class="max-w-7xl mx-auto w-full px-6 md:px-12 pt-32 pb-20 relative z-20 flex flex-col md:flex-row items-center gap-16">
+
+            <div class="w-full md:w-3/5">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-growth/30 bg-growth/10 backdrop-blur-sm mb-8">
+                    <span class="w-2 h-2 rounded-full bg-growth"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-growth">Agencia Digital · Monterrey, NL</span>
+                </div>
+
+                <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] font-serif leading-[1.05] tracking-tight mb-8">
+                    Tu negocio es <span class="italic text-growth">real.</span><br>
+                    Tu presencia digital también debe serlo.
+                </h1>
+
+                <p class="text-lg md:text-xl text-paper/80 max-w-lg mb-10 font-light leading-relaxed">
+                    Ayudamos a doctores, restaurantes y comercios locales a dar su primer paso en internet. Sin jerga técnica, sin plantillas genéricas. Solo clientes cruzando tu puerta.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#proceso" class="group flex items-center justify-center gap-3 px-8 py-4 bg-growth text-forest rounded-full font-bold text-lg hover:bg-mint transition-all shadow-[0_0_30px_rgba(61,187,122,0.2)]">
+                        Ver cómo lo hacemos
+                        <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <div class="flex items-center gap-4 px-6 py-4 rounded-full border border-paper/20">
+                        <div class="flex -space-x-3">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" alt="Cliente" class="w-10 h-10 rounded-full border-2 border-forest object-cover">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Cliente" class="w-10 h-10 rounded-full border-2 border-forest object-cover">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="Cliente" class="w-10 h-10 rounded-full border-2 border-forest object-cover">
+                        </div>
+                        <span class="text-sm text-paper/70 font-medium">Negocios locales<br>confían en nosotros.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-2/5 relative h-[500px] hidden md:block">
+                <div class="absolute right-0 top-10 w-[85%] h-[400px] mask-arch overflow-hidden shadow-2xl floating-element z-10">
+                    <div class="absolute inset-0 bg-forest/20 z-10 mix-blend-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" alt="Negocio local" class="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-700">
+                </div>
+
+                <div class="absolute left-[-20%] bottom-20 bg-paper text-forest p-5 rounded-2xl shadow-float floating-element-delayed z-20 w-64 border border-mint">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="w-12 h-12 bg-mint rounded-full flex items-center justify-center text-growth text-2xl">
+                            <i class="ph-fill ph-map-pin"></i>
+                        </div>
+                        <span class="text-xs font-bold text-forest/50 bg-forest/5 px-2 py-1 rounded">HOY</span>
+                    </div>
+                    <p class="font-serif font-bold text-lg mb-1">Clínica San José</p>
+                    <p class="text-sm text-forest/70 mb-3">Apareció en Google Maps por primera vez.</p>
+                    <div class="w-full bg-mint h-1 rounded-full overflow-hidden">
+                        <div class="w-[80%] bg-growth h-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-20 hidden md:block">
+            <i class="ph ph-arrow-down text-2xl text-paper/50"></i>
+        </div>
+    </header>
+
+    <!-- EMPATHY SECTION -->
+    <section class="py-24 bg-mint relative z-30">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <i class="ph-duotone ph-storefront text-5xl text-growth mb-6 inline-block"></i>
+            <h2 class="text-3xl md:text-5xl font-serif text-forest mb-8 leading-tight">
+                El boca a boca es excelente.<br>
+                <span class="text-forest/60 italic">Pero ya no es suficiente.</span>
+            </h2>
+            <p class="text-lg md:text-xl text-forest/80 max-w-3xl mx-auto font-medium">
+                Cuando alguien en tu ciudad necesita tus servicios, <span class="bg-growth/20 px-2 rounded">buscan en su celular</span>. Si no tienes un perfil de Google optimizado y una página web clara, esa persona acaba de entrar al negocio de tu competencia.
+            </p>
+        </div>
+    </section>
+
+    <!-- PROCESS / 3 PHASES -->
+    <section id="proceso" class="bg-paper relative z-30 pb-32">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col lg:flex-row gap-20">
+                <div class="lg:w-1/3 relative">
+                    <div class="sticky top-32 pt-20">
+                        <span class="text-growth font-bold tracking-widest uppercase text-sm mb-4 block">Nuestra Metodología</span>
+                        <h2 class="text-4xl md:text-5xl font-serif text-forest mb-6 leading-tight">Del anonimato al dominio local.</h2>
+                        <p class="text-forest/70 mb-8 font-medium">
+                            No te vendemos humo ni estrategias complejas. Implementamos un sistema de 3 fases diseñado específicamente para que negocios físicos atraigan clientes digitales.
+                        </p>
+                        <div class="hidden lg:block w-px h-64 bg-gradient-to-b from-growth to-transparent absolute left-[-2rem] top-40"></div>
+                    </div>
+                </div>
+
+                <div class="lg:w-2/3 pt-20 lg:pt-40 space-y-24">
+
+                    <!-- Phase 1 -->
+                    <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-soft border border-mint group hover:shadow-float transition-all duration-500">
+                        <div class="absolute -top-6 -left-6 w-16 h-16 bg-forest text-growth text-2xl font-serif font-bold rounded-2xl flex items-center justify-center rotate-[-5deg] group-hover:rotate-0 transition-transform">01</div>
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-serif text-forest mb-3">En el Mapa (Visibilidad)</h3>
+                                <p class="text-forest/70 mb-6">
+                                    Reclamamos, verificamos y optimizamos tu Perfil de Negocio en Google. Añadimos fotos profesionales, horarios exactos y respondemos las reseñas. Existir en el mapa es existir en la vida real hoy en día.
+                                </p>
+                                <ul class="space-y-3 font-medium text-sm text-forest">
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Alta en Google Maps y Waze</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Optimización de palabras clave locales</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Gestión de las primeras reseñas</li>
+                                </ul>
+                            </div>
+                            <div class="w-full md:w-1/3 bg-mint rounded-xl p-4 aspect-square flex flex-col justify-center items-center text-center">
+                                <i class="ph-duotone ph-map-pin-line text-5xl text-growth mb-3"></i>
+                                <span class="font-bold text-forest block">Búsqueda:</span>
+                                <span class="text-xs text-forest/60 italic">"Dentista cerca de mi"</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-soft border border-mint group hover:shadow-float transition-all duration-500">
+                        <div class="absolute -top-6 -left-6 w-16 h-16 bg-forest text-growth text-2xl font-serif font-bold rounded-2xl flex items-center justify-center rotate-[5deg] group-hover:rotate-0 transition-transform">02</div>
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-serif text-forest mb-3">Tu Casa Digital (Sitio Web)</h3>
+                                <p class="text-forest/70 mb-6">
+                                    Creamos una página web ultrarrápida, elegante y directo al grano. Que se vea perfecta en celulares y que tenga botones claros para que te llamen o agenden una cita al instante.
+                                </p>
+                                <ul class="space-y-3 font-medium text-sm text-forest">
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Diseño premium, no plantillas rotas</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> 100% optimizado para móviles</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Botones de WhatsApp integrados</li>
+                                </ul>
+                            </div>
+                            <div class="w-full md:w-1/3 bg-forest rounded-xl p-4 aspect-square flex flex-col justify-center items-center text-paper relative overflow-hidden">
+                                <i class="ph-duotone ph-devices text-5xl text-growth mb-3 z-10"></i>
+                                <span class="font-bold z-10">Alta conversión</span>
+                                <div class="absolute top-[-20%] right-[-20%] w-24 h-24 bg-growth/20 blur-xl rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-soft border border-mint group hover:shadow-float transition-all duration-500">
+                        <div class="absolute -top-6 -left-6 w-16 h-16 bg-forest text-growth text-2xl font-serif font-bold rounded-2xl flex items-center justify-center rotate-[-5deg] group-hover:rotate-0 transition-transform">03</div>
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-serif text-forest mb-3">Crecimiento (Aceleración)</h3>
+                                <p class="text-forest/70 mb-6">
+                                    Una vez que la base está lista, inyectamos tráfico cualificado. Anuncios locales en Google y Facebook para que domines tu zona. Solo métricas que importan: clientes reales.
+                                </p>
+                                <ul class="space-y-3 font-medium text-sm text-forest">
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Campañas locales de Google Ads</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Retargeting sutil en redes sociales</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-growth text-lg"></i> Reportes mensuales honestos</li>
+                                </ul>
+                            </div>
+                            <div class="w-full md:w-1/3 bg-growth/10 border border-growth/20 rounded-xl p-4 aspect-square flex flex-col justify-center items-center text-forest">
+                                <i class="ph-duotone ph-trend-up text-5xl text-growth mb-3"></i>
+                                <span class="font-bold text-xl">+42%</span>
+                                <span class="text-xs text-forest/60">Llamadas mensuales (Promedio)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENTO VERTICALS -->
+    <section id="clientes" class="py-32 bg-forest text-paper relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-mint/20 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-16 md:w-1/2">
+                <span class="text-growth font-bold tracking-widest uppercase text-sm mb-4 block">Especialización</span>
+                <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">No somos para todos. Somos para el comercio local.</h2>
+                <p class="text-paper/70 text-lg">Comprendemos las dinámicas del mundo físico. Sabemos que necesitas que el teléfono suene, no "likes" de personas a 5,000 kilómetros de distancia.</p>
+            </div>
+
+            <div class="bento-grid h-auto md:h-[600px]">
+                <div class="col-span-12 md:col-span-8 rounded-3xl relative overflow-hidden group min-h-[300px]">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1200&q=80" alt="Médico en consultorio" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
+                        <div class="w-12 h-12 bg-growth rounded-full flex items-center justify-center text-forest text-2xl mb-4 shadow-lg">
+                            <i class="ph-fill ph-stethoscope"></i>
+                        </div>
+                        <h3 class="text-3xl font-serif font-bold mb-2">Clínicas y Especialistas</h3>
+                        <p class="text-paper/90 max-w-md">Posicionamiento para dentistas, médicos especialistas y fisioterapeutas para que los pacientes de la zona agenden de inmediato.</p>
+                    </div>
+                </div>
+
+                <div class="col-span-12 md:col-span-4 rounded-3xl relative overflow-hidden group min-h-[300px]">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="Interior de restaurante" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
+                        <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center text-forest text-xl mb-3">
+                            <i class="ph-fill ph-fork-knife"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold">Restaurantes</h3>
+                        <p class="text-paper/80 text-sm">Menús digitales y reservas.</p>
+                    </div>
+                </div>
+
+                <div class="col-span-12 md:col-span-4 rounded-3xl bg-mint text-forest p-8 flex flex-col justify-between min-h-[300px]">
+                    <div>
+                        <i class="ph-duotone ph-quotes text-4xl text-growth/50 mb-4"></i>
+                        <p class="font-medium text-lg leading-snug">"Por fin una agencia que entiende que mi ferretería no necesita un blog de estilo de vida, sino aparecer cuando alguien busca un tubo roto a las 6 PM."</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="font-bold underline decoration-growth underline-offset-4">Humberto Torres</p>
+                        <p class="text-sm text-forest/60">Ferretería El Cincel, Monterrey</p>
+                    </div>
+                </div>
+
+                <div class="col-span-12 md:col-span-8 rounded-3xl relative overflow-hidden group min-h-[300px]">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1581030018872-9abeb284897f?auto=format&fit=crop&w=1200&q=80" alt="Taller local" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 p-8 z-20 w-full flex justify-between items-end">
+                        <div>
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-forest text-2xl mb-4">
+                                <i class="ph-fill ph-wrench"></i>
+                            </div>
+                            <h3 class="text-3xl font-serif font-bold mb-2">Comercio Físico y Talleres</h3>
+                            <p class="text-paper/90 max-w-sm">Notarías, refaccionarias, gimnasios y despachos contables.</p>
+                        </div>
+                        <a href="#contacto" class="hidden sm:inline-flex items-center justify-center w-12 h-12 bg-growth rounded-full hover:scale-110 transition-transform">
+                            <i class="ph-bold ph-arrow-up-right text-forest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST LOGOS -->
+    <section class="py-12 bg-white border-y border-mint">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+            <p class="text-forest/60 font-medium text-sm md:w-1/4 uppercase tracking-wider">Tecnologías que dominamos para ti:</p>
+            <div class="flex-1 flex flex-wrap justify-around items-center gap-6 saturate-0 opacity-60 hover:saturate-100 hover:opacity-100 transition-all duration-500">
+                <div class="flex items-center gap-2 font-bold text-xl"><i class="ph-fill ph-google-logo"></i> Google Business</div>
+                <div class="flex items-center gap-2 font-bold text-xl"><i class="ph-fill ph-meta-logo"></i> Meta Ads</div>
+                <div class="flex items-center gap-2 font-bold text-xl"><i class="ph-fill ph-wordpress-logo"></i> WordPress Premium</div>
+                <div class="flex items-center gap-2 font-bold text-xl"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp Business</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FOOTER -->
+    <footer id="contacto" class="bg-forest pt-32 pb-12 text-paper relative overflow-hidden flex flex-col justify-between">
+        <h2 class="absolute top-10 left-[-5%] text-[15vw] font-serif font-bold text-paper/[0.03] whitespace-nowrap select-none pointer-events-none">CRECIMIENTO LOCAL</h2>
+
+        <div class="max-w-5xl mx-auto px-6 relative z-10 w-full">
+            <div class="bg-mint text-forest p-10 md:p-16 rounded-[40px] shadow-2xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 w-64 h-64 bg-growth/10 mask-arch translate-y-10 translate-x-10"></div>
+
+                <h3 class="text-4xl md:text-6xl font-serif mb-6 leading-tight">Tu competencia ya está en Google.<br><span class="italic text-growth mix-blend-multiply">Es hora de superarlos.</span></h3>
+                <p class="text-lg text-forest/70 mb-10 max-w-xl">Agenda una videollamada sin compromiso de 20 minutos. Auditaremos tu presencia actual y te daremos un plan claro, nos contrates o no.</p>
+
+                <form class="space-y-4 max-w-md relative z-10">
+                    <div>
+                        <input type="text" placeholder="Nombre completo" class="w-full bg-white border-0 py-4 px-6 rounded-xl focus:ring-2 focus:ring-growth outline-none text-forest placeholder-forest/40 transition-shadow">
+                    </div>
+                    <div class="flex gap-4">
+                        <input type="text" placeholder="Tipo de negocio (Ej. Clínica)" class="w-1/2 bg-white border-0 py-4 px-6 rounded-xl focus:ring-2 focus:ring-growth outline-none text-forest placeholder-forest/40 transition-shadow">
+                        <input type="tel" placeholder="Teléfono" class="w-1/2 bg-white border-0 py-4 px-6 rounded-xl focus:ring-2 focus:ring-growth outline-none text-forest placeholder-forest/40 transition-shadow">
+                    </div>
+                    <button type="button" class="w-full bg-forest text-growth py-4 rounded-xl font-bold text-lg hover:bg-forest/90 transition-colors flex justify-center items-center gap-2 group">
+                        Solicitar Auditoría Gratuita
+                        <i class="ph-bold ph-paper-plane-tilt group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    </button>
+                    <p class="text-xs text-center text-forest/50 mt-4"><i class="ph ph-lock-key"></i> Información 100% confidencial.</p>
+                </form>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full mt-32 flex flex-col md:flex-row justify-between items-end border-t border-paper/10 pt-8 relative z-10">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="ph-fill ph-plant text-3xl text-growth"></i>
+                    <span class="font-serif text-2xl font-bold tracking-tight">Scalvia.</span>
+                </div>
+                <p class="text-paper/50 text-sm">The path to scale. Monterrey, Nuevo León.</p>
+            </div>
+            <div class="mt-8 md:mt-0 text-right space-y-2 text-sm text-paper/50">
+                <p><a href="#" class="hover:text-growth transition-colors">Política de Privacidad</a></p>
+                <p>Monterrey, Nuevo León · México</p>
+                <p>&copy; 2026 Scalvia. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.remove('mix-blend-difference');
+                nav.classList.add('bg-forest/90', 'backdrop-blur-md', 'shadow-sm');
+            } else {
+                nav.classList.add('mix-blend-difference');
+                nav.classList.remove('bg-forest/90', 'backdrop-blur-md', 'shadow-sm');
+            }
+        });
+    </script>
+</body>
+</html>
