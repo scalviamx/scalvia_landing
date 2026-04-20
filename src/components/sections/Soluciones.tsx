@@ -63,7 +63,7 @@ export function Soluciones() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
           {PILARES.map((pilar, i) => (
             <BlurFade key={pilar.name} delay={0.1 * (i + 1)}>
-              <MagicCard className="bg-white border border-border h-full">
+              <MagicCard className="bg-white border border-border h-full hover:border-growth/30 hover:bg-growth/5 transition-all duration-300">
                 <a
                   href="/soluciones"
                   className="flex flex-col gap-5 p-8 h-full group cursor-pointer"
