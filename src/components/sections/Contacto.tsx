@@ -42,19 +42,65 @@ export function Contacto() {
   return (
     <section id="contacto" className="py-24 bg-forest" aria-labelledby="cta-title">
       <div className="w-full max-w-[1120px] mx-auto px-6">
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-          <BlurFade>
-            <p className="text-xs font-bold tracking-widest uppercase text-growth mb-3">Contacto</p>
-            <h2 id="cta-title" className="text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold tracking-tight leading-tight text-white mb-4">
-              ¿Listo para que tu empresa trabaje más{' '}
-              <span className="text-growth">inteligente</span>?
-            </h2>
-            <p className="text-base text-white/60 leading-relaxed mb-12">
-              Agenda un diagnóstico gratuito. Analizamos tu operación y te mostramos exactamente qué se puede automatizar.
-            </p>
+          {/* Columna izquierda */}
+          <BlurFade className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
+              <p className="text-xs font-bold tracking-widest uppercase text-growth">Contacto</p>
+              <h2 id="cta-title" className="text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold tracking-tight leading-tight text-white">
+                ¿Listo para que tu empresa trabaje más{' '}
+                <span className="text-growth">inteligente</span>?
+              </h2>
+              <p className="text-base text-white/60 leading-relaxed">
+                Agenda un diagnóstico gratuito. Analizamos tu operación y te mostramos exactamente qué se puede automatizar.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-4 bg-white/6 border border-white/10 rounded-2xl px-5 py-4">
+                <div className="w-9 h-9 rounded-xl bg-growth/15 flex items-center justify-center flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DBB7A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs text-white/40 font-medium mb-0.5">Correo</p>
+                  <p className="text-sm font-semibold text-white">hola@scalvia.mx</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 bg-white/6 border border-white/10 rounded-2xl px-5 py-4">
+                <div className="w-9 h-9 rounded-xl bg-growth/15 flex items-center justify-center flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DBB7A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs text-white/40 font-medium mb-0.5">Tiempo de respuesta</p>
+                  <p className="text-sm font-semibold text-white">Menos de 24 horas</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-sm text-white/40 mb-3">o si prefieres</p>
+              <a
+                href="https://wa.me/528131119893?text=Hola%20Scalvia%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 text-sm font-bold text-growth bg-growth/10 border border-growth/20 hover:bg-growth/15 px-5 py-3 rounded-xl transition-all duration-200"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.554 4.103 1.523 5.824L.057 23.428a.75.75 0 0 0 .915.915l5.604-1.466A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.92 0-3.722-.51-5.27-1.402l-.372-.217-3.863 1.012 1.013-3.729-.232-.384A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                </svg>
+                Escribirnos por WhatsApp
+              </a>
+            </div>
           </BlurFade>
 
+          {/* Columna derecha — form */}
           <BlurFade delay={0.15}>
             <form
               onSubmit={handleSubmit}
@@ -166,25 +212,6 @@ export function Contacto() {
                 {state === 'idle' && 'Solicitar diagnóstico gratuito →'}
               </motion.button>
             </form>
-          </BlurFade>
-
-          <BlurFade delay={0.3} className="mt-6 flex flex-col items-center gap-3">
-            <div className="flex items-center gap-3 flex-wrap justify-center">
-              <span className="text-sm text-white/40">o si prefieres</span>
-              <a
-                href="https://wa.me/528131119893?text=Hola%20Scalvia%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-bold text-growth hover:opacity-80 transition-opacity"
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.554 4.103 1.523 5.824L.057 23.428a.75.75 0 0 0 .915.915l5.604-1.466A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.92 0-3.722-.51-5.27-1.402l-.372-.217-3.863 1.012 1.013-3.729-.232-.384A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-                </svg>
-                Escribirnos por WhatsApp
-              </a>
-            </div>
-            <p className="text-xs text-white/30">Sin compromiso. Te contactamos en menos de 24 horas.</p>
           </BlurFade>
 
         </div>
