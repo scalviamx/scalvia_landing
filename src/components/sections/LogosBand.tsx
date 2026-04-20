@@ -68,6 +68,46 @@ const INDUSTRIES = [
       </svg>
     ),
   },
+  {
+    name: 'Restaurantes / Alimentos',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6h3.5a1.5 1.5 0 0 1 0 3H16v4"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Médico / Salud Dental',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M12 2v20M2 12h20"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Construcción',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M2 20h20"/><path d="M4 20V10l8-8 8 8v10"/><path d="M10 20v-6h4v6"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Transporte / Flota',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Tecnología',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+      </svg>
+    ),
+  },
 ]
 
 export function LogosBand() {
@@ -76,10 +116,7 @@ export function LogosBand() {
       className="bg-surface border-t border-b border-border py-4 overflow-hidden"
       aria-label="Industrias que servimos"
     >
-      <div className="flex items-center gap-4 max-w-[1120px] mx-auto px-6 mb-0 md:mb-0">
-        <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-ink-40 shrink-0 hidden sm:block">
-          Industrias
-        </span>
+      <div className="flex items-center max-w-[1120px] mx-auto px-6 mb-0 md:mb-0">
         <Marquee pauseOnHover className="[--gap:2.5rem]">
           {INDUSTRIES.map((ind) => (
             <div
