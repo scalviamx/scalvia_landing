@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { href: '#soluciones', label: 'Soluciones' },
   { href: '#proceso', label: 'Proceso' },
   { href: '#marketing', label: 'Marketing' },
+  { href: '/resultados', label: 'Resultados' },
 ]
 
 export function Nav() {
