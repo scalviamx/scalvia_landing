@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 const ScalviaLogo = () => (
   <svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true">
@@ -14,16 +15,17 @@ const ScalviaLogo = () => (
 )
 
 const NAV_LINKS = [
-  { href: '#problema', label: 'El problema' },
-  { href: '#soluciones', label: 'Soluciones' },
-  { href: '#proceso', label: 'Proceso' },
-  { href: '#marketing', label: 'Marketing' },
+  { href: '/problema', label: 'El problema' },
+  { href: '/soluciones', label: 'Soluciones' },
+  { href: '/proceso', label: 'Proceso' },
+  { href: '/marketing', label: 'Marketing' },
   { href: '/resultados', label: 'Resultados' },
 ]
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -45,27 +47,34 @@ export function Nav() {
         }`}
       >
         <div className="w-full max-w-[1120px] mx-auto px-6 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2.5 no-underline" aria-label="Scalvia inicio">
+          <a href="/" className="flex items-center gap-2.5 no-underline" aria-label="Scalvia inicio">
             <ScalviaLogo />
             <span className="text-white font-extrabold text-lg tracking-tight">Scalvia</span>
           </a>
 
           {/* Desktop links */}
           <ul className="hidden md:flex items-center gap-1 list-none" role="list">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-white/70 hover:text-white text-sm font-semibold px-3 py-1.5 rounded-lg hover:bg-white/8 transition-all duration-200"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive = pathname === link.href
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className={`text-sm font-semibold px-3 py-1.5 rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? 'text-white bg-white/10'
+                        : 'text-white/70 hover:text-white hover:bg-white/8'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              )
+            })}
           </ul>
 
           <a
-            href="#contacto"
+            href="/#contacto"
             className="hidden md:inline-flex items-center text-sm font-bold text-ink bg-growth px-4 py-2 rounded-lg hover:bg-[#2ea865] transition-all duration-200 hover:-translate-y-px"
           >
             Diagnóstico gratuito
@@ -109,13 +118,17 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={closeMenu}
-                className="text-white/80 hover:text-white font-semibold text-base py-2 px-3 rounded-lg hover:bg-white/8 transition-all"
+                className={`font-semibold text-base py-2 px-3 rounded-lg transition-all ${
+                  pathname === link.href
+                    ? 'text-white bg-white/10'
+                    : 'text-white/80 hover:text-white hover:bg-white/8'
+                }`}
               >
                 {link.label}
               </a>
             ))}
             <a
-              href="#contacto"
+              href="/#contacto"
               onClick={closeMenu}
               className="mt-2 text-center font-bold text-ink bg-growth py-3 rounded-lg hover:bg-[#2ea865] transition-all"
             >

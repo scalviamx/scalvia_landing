@@ -8,7 +8,7 @@ const CARDS = [
       </svg>
     ),
     title: 'Pierdes leads porque nadie responde a tiempo',
-    desc: 'Los prospectos que llegan fuera de horario o en momentos de alta demanda se van sin respuesta — y se van con la competencia.',
+    desc: 'Los prospectos fuera de horario se van sin respuesta — y se van con la competencia.',
   },
   {
     icon: (
@@ -17,27 +17,7 @@ const CARDS = [
       </svg>
     ),
     title: 'Tu equipo invierte horas en tareas que se repiten',
-    desc: 'Facturas, seguimientos, reportes, correos — procesos repetitivos que consumen tiempo valioso de tu gente todos los días.',
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>
-    ),
-    title: 'Sin visibilidad de cuántos prospectos se van sin seguimiento',
-    desc: 'No hay forma de saber cuántos leads llegaron, cuántos recibieron seguimiento y cuántos se fueron fríos por falta de atención.',
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-    ),
-    title: 'Contratar nuevo personal toma semanas y sigue saliendo mal',
-    desc: 'El proceso de reclutamiento consume semanas del equipo de RH y aún así los candidatos no siempre son los correctos.',
+    desc: 'Facturas, seguimientos, reportes — procesos que consumen tiempo valioso todos los días.',
   },
 ]
 
@@ -55,7 +35,7 @@ export function Problema() {
           </h2>
         </BlurFade>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
           {CARDS.map((card, i) => (
             <BlurFade key={card.title} delay={0.1 * (i + 1)}>
               <div className="group bg-surface border border-border rounded-2xl p-7 flex gap-4 items-start hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300">
@@ -73,15 +53,13 @@ export function Problema() {
           ))}
         </div>
 
-        <BlurFade delay={0.5}>
-          <div className="bg-forest rounded-2xl px-8 py-8 text-center">
-            <p className="text-[clamp(2rem,5vw,3rem)] font-extrabold text-growth mb-2">60%</p>
-            <p className="text-base text-white/70 max-w-lg mx-auto leading-relaxed">
-              de las PyMEs mexicanas pierde más de{' '}
-              <strong className="text-white font-bold">20 horas semanales</strong>{' '}
-              en procesos que pueden automatizarse hoy con inteligencia artificial.
-            </p>
-          </div>
+        <BlurFade delay={0.4} className="text-center">
+          <a
+            href="/problema"
+            className="inline-flex items-center gap-2 text-sm font-bold text-green hover:text-growth transition-colors duration-200"
+          >
+            Ver el diagnóstico completo →
+          </a>
         </BlurFade>
 
       </div>

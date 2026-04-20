@@ -1,5 +1,4 @@
 import { BlurFade } from '@/components/ui/BlurFade'
-import { ShimmerButton } from '@/components/ui/ShimmerButton'
 
 const SERVICIOS = [
   {
@@ -9,8 +8,7 @@ const SERVICIOS = [
       </svg>
     ),
     name: 'Presencia en Google Maps',
-    desc: 'Google Business Profile optimizado + estrategia de reseñas',
-    price: '$1,500–2,500 único + $500/mes',
+    desc: 'Google Business Profile + reseñas orgánicas',
   },
   {
     icon: (
@@ -19,8 +17,7 @@ const SERVICIOS = [
       </svg>
     ),
     name: 'Sitio web profesional',
-    desc: 'Landing page o sitio 3–5 páginas, SEO básico, responsive',
-    price: '$6,000–9,000 + $800/mes',
+    desc: 'Landing page o sitio 3–5 páginas, SEO, responsive',
   },
   {
     icon: (
@@ -29,9 +26,8 @@ const SERVICIOS = [
         <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
       </svg>
     ),
-    name: 'Gestión de redes sociales',
+    name: 'Redes sociales',
     desc: '8–12 posts/mes, diseño y copywriting en español',
-    price: '$3,000–5,000/mes',
   },
   {
     icon: (
@@ -41,7 +37,6 @@ const SERVICIOS = [
     ),
     name: 'Publicidad pagada',
     desc: 'Google Ads y Meta Ads orientados a resultados',
-    price: '$4,000–8,000/mes + presupuesto',
   },
 ]
 
@@ -61,18 +56,13 @@ export function Marketing() {
             </h2>
             <p className="text-base text-ink-60 leading-relaxed">
               Integramos tu marketing digital con tus agentes de IA para un ecosistema que trabaja solo.
-              El canal correcto, con el mensaje correcto, en el momento correcto.
             </p>
-            <ShimmerButton
-              as="a"
-              href="#contacto"
-              className="w-fit rounded-xl mt-2"
+            <a
+              href="/marketing"
+              className="inline-flex items-center gap-2 text-sm font-bold text-green hover:text-growth transition-colors duration-200 mt-2"
             >
-              Ver todos los servicios
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </ShimmerButton>
+              Ver todos los servicios →
+            </a>
           </BlurFade>
 
           <BlurFade delay={0.2} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -88,7 +78,6 @@ export function Marketing() {
                   <p className="text-sm font-bold text-ink mb-0.5">{s.name}</p>
                   <p className="text-xs text-ink-60 leading-relaxed">{s.desc}</p>
                 </div>
-                <p className="text-xs font-semibold text-growth mt-auto">{s.price}</p>
               </div>
             ))}
           </BlurFade>
