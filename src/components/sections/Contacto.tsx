@@ -355,7 +355,7 @@ export function Contacto() {
                     paddingRight: '36px',
                   }}
                 >
-                  <option value="" disabled>Selecciona tu sector</option>
+                  <option value="">Selecciona tu sector</option>
                   <option value="industrial" className="bg-forest text-white">Industrial / Manufactura</option>
                   <option value="bienes_raices" className="bg-forest text-white">Bienes Raíces</option>
                   <option value="despacho" className="bg-forest text-white">Despacho / Servicios Profesionales</option>
