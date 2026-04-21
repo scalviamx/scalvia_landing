@@ -4,23 +4,29 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "design:export": "node scripts/design-export/run.mjs",
+    "design:export:capture": "node scripts/design-export/capture.mjs",
+    "design:export:capture:local": "node scripts/design-export/capture.mjs --base-url http://127.0.0.1:4173"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.18.2",
+    "gsap": "^3.15.0",
     "next": "^15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "framer-motion": "^11.18.2",
-    "resend": "^4.0.0",
-    "clsx": "^2.1.1"
+    "resend": "^4.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.51.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5",
-    "tailwindcss": "^3.4.17",
     "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3"
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
   }
 }

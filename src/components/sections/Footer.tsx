@@ -50,17 +50,17 @@ export function Footer() {
               <ScalviaLogo />
               <div>
                 <div className="text-white font-extrabold text-lg tracking-tight leading-none">Scalvia</div>
-                <div className="text-white/40 text-xs">The path to scale.</div>
+                <div className="text-white/70 text-xs">The path to scale.</div>
               </div>
             </div>
-            <p className="text-sm text-white/45 leading-relaxed max-w-[220px]">
+            <p className="text-sm text-white/85 leading-relaxed max-w-[220px]">
               Agencia de inteligencia artificial para empresas que quieren escalar sin contratar más.
             </p>
           </div>
 
           {COLS.map((col) => (
             <div key={col.title}>
-              <p className="text-[0.6875rem] font-bold tracking-widest uppercase text-white/40 mb-4">
+              <p className="text-[0.6875rem] font-bold tracking-widest uppercase text-white/70 mb-4">
                 {col.title}
               </p>
               <ul className="flex flex-col gap-2.5 list-none">

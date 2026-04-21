@@ -61,7 +61,7 @@ const PILARES = [
       </svg>
     ),
     title: 'Automatización de operaciones',
-    desc: 'Facturas, reportes, correos, WhatsApp, documentos — todo fluye automáticamente sin intervención manual.',
+    desc: 'Facturas, reportes, correos, WhatsApp, documentos, todo fluye automáticamente sin intervención manual.',
     results: [
       'Emisión automática de CFDI al cerrar una venta',
       'Reportes ejecutivos generados y enviados sin intervención',

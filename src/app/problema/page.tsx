@@ -6,7 +6,7 @@ import { ProblemaContent } from '@/components/sections/ProblemaPage'
 
 export const metadata: Metadata = {
   title: 'El Problema · Scalvia',
-  description: 'Por qué las empresas pierden tiempo y dinero en procesos manuales — y cómo la IA lo resuelve.',
+  description: 'Por qué las empresas pierden tiempo y dinero en procesos manuales, y cómo la IA lo resuelve.',
 }
 
 export default function ProblemaPage() {

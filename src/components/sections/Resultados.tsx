@@ -1,4 +1,6 @@
 import { BlurFade } from '@/components/ui/BlurFade'
+import { MagicCard } from '@/components/ui/MagicCard'
+import { SectionTextCta } from '@/components/ui/SectionTextCta'
 
 const CASOS = [
   {
@@ -33,7 +35,7 @@ export function Resultados() {
           <h2 id="resultados-title" className="text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold tracking-tight leading-tight text-white mb-4">
             Resultados por industria
           </h2>
-          <p className="text-base text-white/60">
+          <p className="text-base text-white/85">
             Así se ve la IA aplicada al negocio real en los sectores que más atendemos.
           </p>
         </BlurFade>
@@ -41,7 +43,7 @@ export function Resultados() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {CASOS.map((caso, i) => (
             <BlurFade key={caso.industry} delay={0.1 * (i + 1)}>
-              <div className="group bg-white/4 border border-white/10 rounded-3xl p-8 flex flex-col gap-4 hover:bg-white/7 hover:border-growth/30 transition-all duration-300">
+              <MagicCard className="bg-white/4 border border-white/10 rounded-3xl p-8 flex flex-col gap-4 h-full">
                 <p className="text-xs font-bold tracking-widest uppercase text-growth">
                   {caso.industry}
                 </p>
@@ -49,21 +51,27 @@ export function Resultados() {
                   {caso.result}
                 </p>
                 <div className="h-px bg-white/8" />
-                <p className="text-[0.8125rem] text-white/50 leading-relaxed">
-                  <strong className="text-white/70 font-semibold">Problema: </strong>
+                <p className="text-[0.8125rem] text-white/85 leading-relaxed">
+                  <strong className="text-white/85 font-semibold">Problema: </strong>
                   {caso.problema}
                 </p>
-                <p className="text-sm text-white/65 leading-relaxed">
-                  <strong className="text-white/80 font-semibold">Solución: </strong>
+                <p className="text-sm text-white/85 leading-relaxed">
+                  <strong className="text-white/85 font-semibold">Solución: </strong>
                   {caso.solucion}
                 </p>
-                <p className="text-xs text-white/30 mt-auto pt-2">
+                <p className="text-xs text-white/70 mt-auto pt-2">
                   Proyección basada en implementaciones similares en el sector.
                 </p>
-              </div>
+              </MagicCard>
             </BlurFade>
           ))}
         </div>
+
+        <SectionTextCta
+          href="/resultados"
+          label="Ver resultados completos →"
+          theme="dark"
+        />
 
       </div>
     </section>

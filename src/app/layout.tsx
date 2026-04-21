@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Scalvia · The path to scale.',
     description:
-      'Agentes de IA para atención al cliente, ventas, reclutamiento y operaciones — implementados en 2 a 4 semanas.',
+      'Agentes de IA para atención al cliente, ventas, reclutamiento y operaciones, implementados en 2 a 4 semanas.',
     url: 'https://scalvia.mx',
     siteName: 'Scalvia',
     locale: 'es_MX',

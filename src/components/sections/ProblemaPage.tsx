@@ -1,6 +1,7 @@
 'use client'
 
 import { BlurFade } from '@/components/ui/BlurFade'
+import { MagicCard } from '@/components/ui/MagicCard'
 import { ShimmerButton } from '@/components/ui/ShimmerButton'
 
 const PROBLEMAS = [
@@ -11,7 +12,7 @@ const PROBLEMAS = [
       </svg>
     ),
     title: 'Pierdes leads porque nadie responde a tiempo',
-    desc: 'Los prospectos que llegan fuera de horario o en momentos de alta demanda se van sin respuesta — y se van con la competencia.',
+    desc: 'Los prospectos que llegan fuera de horario o en momentos de alta demanda se van sin respuesta, y se van con la competencia.',
     consecuencia: 'Cada lead perdido puede representar $5,000–50,000 MXN en ingresos no capturados.',
   },
   {
@@ -21,7 +22,7 @@ const PROBLEMAS = [
       </svg>
     ),
     title: 'Tu equipo invierte horas en tareas que se repiten',
-    desc: 'Facturas, seguimientos, reportes, correos — procesos repetitivos que consumen tiempo valioso de tu gente todos los días.',
+    desc: 'Facturas, seguimientos, reportes, correos, procesos repetitivos que consumen tiempo valioso de tu gente todos los días.',
     consecuencia: 'El equipo promedio pierde más de 20 horas semanales en tareas automatizables.',
   },
   {
@@ -73,7 +74,7 @@ export function ProblemaContent() {
           </BlurFade>
           <BlurFade delay={0.35}>
             <p className="text-white/60 text-lg leading-relaxed max-w-[560px] mx-auto">
-              Cuatro problemas que el 80% de las PyMEs mexicanas tienen hoy — y que la IA resuelve en semanas.
+              Cuatro problemas que el 80% de las PyMEs mexicanas tienen hoy, y que la IA resuelve en semanas.
             </p>
           </BlurFade>
         </div>
@@ -98,7 +99,7 @@ export function ProblemaContent() {
         <div className="max-w-[1120px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
           {PROBLEMAS.map((p, i) => (
             <BlurFade key={p.title} delay={0.1 + i * 0.1}>
-              <div className="group bg-surface border border-border rounded-2xl p-7 flex flex-col gap-4 h-full hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300">
+              <MagicCard className="group bg-surface border border-border p-7 flex flex-col gap-4 h-full">
                 <div className="flex items-start gap-4">
                   <div className="w-11 h-11 rounded-lg bg-growth/10 flex items-center justify-center text-green flex-shrink-0 group-hover:bg-growth/15 transition-colors duration-200">
                     {p.icon}
@@ -109,7 +110,7 @@ export function ProblemaContent() {
                 <div className="mt-auto pt-4 border-t border-border">
                   <p className="text-xs font-semibold text-green leading-relaxed">{p.consecuencia}</p>
                 </div>
-              </div>
+              </MagicCard>
             </BlurFade>
           ))}
         </div>

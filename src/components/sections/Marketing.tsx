@@ -1,4 +1,6 @@
 import { BlurFade } from '@/components/ui/BlurFade'
+import { MagicCard } from '@/components/ui/MagicCard'
+import { SectionTextCta } from '@/components/ui/SectionTextCta'
 
 const SERVICIOS = [
   {
@@ -47,29 +49,31 @@ export function Marketing() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-          <BlurFade className="flex flex-col gap-5">
-            <p className="text-xs font-bold tracking-widest uppercase text-growth">
-              Servicios complementarios
-            </p>
-            <h2 id="marketing-title" className="text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold tracking-tight leading-tight text-ink">
-              También cubrimos tu presencia digital completa
-            </h2>
-            <p className="text-base text-ink-60 leading-relaxed">
-              Integramos tu marketing digital con tus agentes de IA para un ecosistema que trabaja solo.
-            </p>
-            <a
+          <div className="flex flex-col">
+            <BlurFade className="flex flex-col gap-5">
+              <p className="text-xs font-bold tracking-widest uppercase text-growth">
+                Servicios complementarios
+              </p>
+              <h2 id="marketing-title" className="text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold tracking-tight leading-tight text-ink">
+                También cubrimos tu presencia digital completa
+              </h2>
+              <p className="text-base text-ink-60 leading-relaxed">
+                Integramos tu marketing digital con tus agentes de IA para un ecosistema que trabaja solo.
+              </p>
+            </BlurFade>
+            <SectionTextCta
               href="/marketing"
-              className="inline-flex items-center gap-2 text-sm font-bold text-green hover:text-growth transition-colors duration-200 mt-2"
-            >
-              Ver todos los servicios →
-            </a>
-          </BlurFade>
+              label="Ver todos los servicios →"
+              theme="light"
+              className="text-left mt-2"
+            />
+          </div>
 
           <BlurFade delay={0.2} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {SERVICIOS.map((s) => (
-              <div
+              <MagicCard
                 key={s.name}
-                className="group bg-surface border border-border rounded-2xl p-5 flex flex-col gap-3 hover:shadow-[0_4px_20px_rgba(0,0,0,0.07)] hover:-translate-y-0.5 transition-all duration-300"
+                className="group bg-surface border border-border p-5 flex flex-col gap-3 h-full"
               >
                 <div className="w-9 h-9 rounded-lg bg-growth/8 flex items-center justify-center text-green group-hover:bg-growth/12 transition-colors duration-200">
                   {s.icon}
@@ -78,7 +82,7 @@ export function Marketing() {
                   <p className="text-sm font-bold text-ink mb-0.5">{s.name}</p>
                   <p className="text-xs text-ink-60 leading-relaxed">{s.desc}</p>
                 </div>
-              </div>
+              </MagicCard>
             ))}
           </BlurFade>
 

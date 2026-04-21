@@ -1,6 +1,7 @@
 'use client'
 
 import { BlurFade } from '@/components/ui/BlurFade'
+import { MagicCard } from '@/components/ui/MagicCard'
 import { ShimmerButton } from '@/components/ui/ShimmerButton'
 
 const STEPS = [
@@ -14,7 +15,7 @@ const STEPS = [
   {
     n: '02',
     title: 'Propuesta a medida',
-    desc: 'Diseñamos el agente o automatización específica para tu operación, industria y objetivos. No vendemos plantillas — cada solución es construida para tu caso.',
+    desc: 'Diseñamos el agente o automatización específica para tu operación, industria y objetivos. No vendemos plantillas, cada solución es construida para tu caso.',
     duracion: '3–5 días hábiles',
     entregable: 'Propuesta técnica + cronograma + métricas de éxito',
   },
@@ -70,7 +71,7 @@ export function ProcesoContent() {
         <div className="max-w-[860px] mx-auto flex flex-col gap-6">
           {STEPS.map((step, i) => (
             <BlurFade key={step.n} delay={0.1 + i * 0.1}>
-              <div className="group bg-surface border border-border rounded-2xl p-8 flex gap-6 items-start hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300">
+              <MagicCard className="group bg-surface border border-border p-8 flex gap-6 items-start">
                 <div className="w-14 h-14 rounded-full bg-white border-2 border-growth flex items-center justify-center font-extrabold text-green text-lg flex-shrink-0 shadow-[0_0_0_6px_rgba(243,250,248,1)] group-hover:shadow-[0_0_0_6px_rgba(61,187,122,0.08)] transition-all duration-300">
                   {step.n}
                 </div>
@@ -87,7 +88,7 @@ export function ProcesoContent() {
                     <span className="text-sm font-semibold text-growth">Entregable: {step.entregable}</span>
                   </div>
                 </div>
-              </div>
+              </MagicCard>
             </BlurFade>
           ))}
         </div>
@@ -98,7 +99,7 @@ export function ProcesoContent() {
         <BlurFade delay={0.1}>
           <div className="max-w-[640px] mx-auto text-center flex flex-col items-center gap-6">
             <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold text-white leading-tight tracking-tight">
-              Empieza con el paso 1 — es gratis
+              Empieza con el paso 1, es gratis
             </h2>
             <p className="text-white/60 text-lg leading-relaxed">
               30 minutos de diagnóstico y ya sabes exactamente qué automatizar y cuánto cuesta.

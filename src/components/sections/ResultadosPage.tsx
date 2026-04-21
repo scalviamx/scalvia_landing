@@ -116,13 +116,13 @@ export function ResultadosContent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {METRICAS.map((m, i) => (
               <BlurFade key={m.value} delay={0.1 + i * 0.1}>
-                <div className="bg-white border border-border rounded-2xl p-6 flex flex-col gap-3 h-full">
+                <MagicCard className="bg-white border border-border p-6 flex flex-col gap-3 h-full">
                   <span className="text-[2.5rem] font-extrabold text-growth leading-none tracking-tight">
                     {m.value}
                   </span>
                   <p className="text-sm font-bold text-ink leading-snug">{m.label}</p>
                   <p className="text-sm text-ink-60 leading-relaxed flex-1">{m.description}</p>
-                </div>
+                </MagicCard>
               </BlurFade>
             ))}
           </div>

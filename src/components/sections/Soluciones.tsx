@@ -1,5 +1,6 @@
 import { BlurFade } from '@/components/ui/BlurFade'
 import { MagicCard } from '@/components/ui/MagicCard'
+import { SectionTextCta } from '@/components/ui/SectionTextCta'
 
 const PILARES = [
   {
@@ -39,7 +40,7 @@ const PILARES = [
       </svg>
     ),
     name: 'Automatización de operaciones',
-    desc: 'Facturas, reportes, correos y documentos — todo fluye sin intervención.',
+    desc: 'Facturas, reportes, correos y documentos, todo fluye sin intervención.',
   },
 ]
 
@@ -90,14 +91,12 @@ export function Soluciones() {
           ))}
         </div>
 
-        <BlurFade delay={0.5} className="text-center">
-          <a
-            href="/soluciones"
-            className="inline-flex items-center gap-2 text-sm font-bold text-green hover:text-growth transition-colors duration-200"
-          >
-            Ver todas las soluciones con detalle completo →
-          </a>
-        </BlurFade>
+        <SectionTextCta
+          href="/soluciones"
+          label="Ver todas las soluciones con detalle completo →"
+          theme="light"
+          className="text-center"
+        />
 
       </div>
     </section>

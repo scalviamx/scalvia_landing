@@ -3,6 +3,8 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { BlurFade } from '@/components/ui/BlurFade'
+import { SectionTextCta } from '@/components/ui/SectionTextCta'
+import { gsap, useGSAP } from '@/lib/gsap'
 
 const STEPS = [
   { n: '01', title: 'Diagnóstico gratuito' },
@@ -29,8 +31,25 @@ function StepNumber({ n, index }: { n: string; index: number }) {
 }
 
 export function Proceso() {
+  const containerRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef(null)
   const lineInView = useInView(lineRef, { once: true, margin: '-60px' })
+
+  // GSAP Demo A: ScrollTrigger stagger on step cards
+  useGSAP(() => {
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 70%',
+      },
+    }).from('.paso-card', {
+      autoAlpha: 0,
+      y: 40,
+      stagger: 0.15,
+      duration: 0.6,
+      ease: 'power2.out',
+    })
+  }, { scope: containerRef })
 
   return (
     <section id="proceso" className="py-24 bg-white" aria-labelledby="proceso-title">
@@ -46,7 +65,7 @@ export function Proceso() {
           <p className="text-base text-ink-60">Sin fricción. Sin interrumpir tu operación.</p>
         </BlurFade>
 
-        <div className="relative mb-10">
+        <div ref={containerRef} className="relative mb-10">
           <div ref={lineRef} className="hidden md:block absolute top-7 left-[calc(12.5%+28px)] right-[calc(12.5%+28px)] h-0.5 bg-border">
             <motion.div
               initial={{ scaleX: 0 }}
@@ -58,22 +77,20 @@ export function Proceso() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
             {STEPS.map((step, i) => (
-              <BlurFade key={step.n} delay={0.1 * i} className="flex flex-col items-center text-center px-4">
+              <div key={step.n} className="paso-card flex flex-col items-center text-center px-4">
                 <StepNumber n={step.n} index={i} />
                 <h3 className="text-sm font-bold text-ink leading-snug">{step.title}</h3>
-              </BlurFade>
+              </div>
             ))}
           </div>
         </div>
 
-        <BlurFade delay={0.5} className="text-center">
-          <a
-            href="/proceso"
-            className="inline-flex items-center gap-2 text-sm font-bold text-green hover:text-growth transition-colors duration-200"
-          >
-            Ver el proceso completo →
-          </a>
-        </BlurFade>
+        <SectionTextCta
+          href="/proceso"
+          label="Ver el proceso completo →"
+          theme="light"
+          className="text-center"
+        />
 
       </div>
     </section>

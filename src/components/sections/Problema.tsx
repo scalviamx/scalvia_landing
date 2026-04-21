@@ -1,4 +1,6 @@
 import { BlurFade } from '@/components/ui/BlurFade'
+import { MagicCard } from '@/components/ui/MagicCard'
+import { SectionTextCta } from '@/components/ui/SectionTextCta'
 
 const CARDS = [
   {
@@ -8,7 +10,7 @@ const CARDS = [
       </svg>
     ),
     title: 'Pierdes leads porque nadie responde a tiempo',
-    desc: 'Los prospectos fuera de horario se van sin respuesta — y se van con la competencia.',
+    desc: 'Los prospectos fuera de horario se van sin respuesta, y se van con la competencia.',
   },
   {
     icon: (
@@ -17,7 +19,7 @@ const CARDS = [
       </svg>
     ),
     title: 'Tu equipo invierte horas en tareas que se repiten',
-    desc: 'Facturas, seguimientos, reportes — procesos que consumen tiempo valioso todos los días.',
+    desc: 'Facturas, seguimientos, reportes, procesos que consumen tiempo valioso todos los días.',
   },
 ]
 
@@ -38,7 +40,7 @@ export function Problema() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
           {CARDS.map((card, i) => (
             <BlurFade key={card.title} delay={0.1 * (i + 1)}>
-              <div className="group bg-surface border border-border rounded-2xl p-7 flex gap-4 items-start hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300">
+              <MagicCard className="group bg-surface border border-border p-7 flex gap-4 items-start h-full">
                 <div className="w-11 h-11 rounded-lg bg-growth/10 flex items-center justify-center text-green flex-shrink-0 group-hover:bg-growth/15 transition-colors duration-200">
                   {card.icon}
                 </div>
@@ -48,19 +50,17 @@ export function Problema() {
                   </p>
                   <p className="text-sm text-ink-60 leading-relaxed">{card.desc}</p>
                 </div>
-              </div>
+              </MagicCard>
             </BlurFade>
           ))}
         </div>
 
-        <BlurFade delay={0.4} className="text-center">
-          <a
-            href="/problema"
-            className="inline-flex items-center gap-2 text-sm font-bold text-green hover:text-growth transition-colors duration-200"
-          >
-            Ver el diagnóstico completo →
-          </a>
-        </BlurFade>
+        <SectionTextCta
+          href="/problema"
+          label="Ver el diagnóstico completo →"
+          theme="light"
+          className="text-center"
+        />
 
       </div>
     </section>

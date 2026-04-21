@@ -1,12 +1,39 @@
 'use client'
 
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { BackgroundPaths } from '@/components/ui/BackgroundPaths'
 import { AnimatedHeroWord } from '@/components/ui/AnimatedHero'
 import { ShimmerButton } from '@/components/ui/ShimmerButton'
 import { BlurFade } from '@/components/ui/BlurFade'
+import { gsap, SplitText, useGSAP } from '@/lib/gsap'
 
 export function Hero() {
+  const headlineRef = useRef<HTMLHeadingElement>(null)
+  const line1Ref = useRef<HTMLSpanElement>(null)
+  const line2Ref = useRef<HTMLSpanElement>(null)
+
+  // GSAP Demo B: SplitText char-by-char reveal on static heading lines
+  useGSAP(() => {
+    const split1 = SplitText.create(line1Ref.current!, { type: 'words, chars' })
+    const split2 = SplitText.create(line2Ref.current!, { type: 'words, chars' })
+
+    gsap.set(headlineRef.current, { autoAlpha: 1 })
+    gsap.from([...split1.chars, ...split2.chars], {
+      autoAlpha: 0,
+      y: 20,
+      stagger: 0.03,
+      duration: 0.4,
+      ease: 'power2.out',
+      delay: 0.15,
+    })
+
+    return () => {
+      split1.revert()
+      split2.revert()
+    }
+  }, [])
+
   return (
     <section
       id="inicio"
@@ -41,32 +68,25 @@ export function Hero() {
             The path to scale
           </motion.div>
 
-          {/* Headline con palabra rotatoria */}
-          <h1 className="text-[clamp(2.2rem,5.5vw,3.75rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white">
-            <motion.span
-              initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ delay: 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="block mb-2"
-            >
+          {/* Headline — static lines use GSAP SplitText; rotating word stays Framer Motion */}
+          <h1
+            ref={headlineRef}
+            className="text-[clamp(2.2rem,5.5vw,3.75rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white opacity-0"
+          >
+            <span ref={line1Ref} className="block mb-2">
               Automatizamos tu
-            </motion.span>
+            </span>
             <AnimatedHeroWord />
-            <motion.span
-              initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ delay: 0.4, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="block mt-2"
-            >
+            <span ref={line2Ref} className="block mt-2">
               con inteligencia artificial.
-            </motion.span>
+            </span>
           </h1>
 
           {/* Subheadline */}
           <BlurFade delay={0.75}>
-            <p className="text-[clamp(1rem,2vw,1.2rem)] text-white/60 leading-relaxed max-w-[580px]">
-              Agentes de IA para atención al cliente, ventas, reclutamiento y operaciones —
-              implementados en <span className="text-white/90 font-semibold">2 a 4 semanas</span>.
+            <p className="text-[clamp(1rem,2vw,1.2rem)] text-white leading-relaxed max-w-[580px]">
+              <span className="block">Agentes de IA</span>
+              <span className="block">Para atención al cliente, ventas, reclutamiento y operaciones.</span>
             </p>
           </BlurFade>
 
@@ -96,7 +116,9 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      <noscript>
+        <style>{`#inicio h1 { opacity: 1 !important; }`}</style>
+      </noscript>
     </section>
   )
 }
