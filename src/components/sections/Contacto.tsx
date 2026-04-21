@@ -73,6 +73,7 @@ function loadTurnstileScript() {
 export function Contacto() {
   const [state, setState] = useState<FormState>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [sector, setSector] = useState('')
   const [challenge, setChallenge] = useState<ContactChallenge | null>(null)
   const [challengeFetchedAt, setChallengeFetchedAt] = useState(0)
 
@@ -211,6 +212,7 @@ export function Contacto() {
       if (res.ok && json.success) {
         setState('success')
         form.reset()
+        setSector('')
         void fetchChallenge()
       } else {
         setTransientError(json.error || 'Error al enviar. Intenta de nuevo.')
@@ -341,14 +343,17 @@ export function Contacto() {
                 </label>
                 <select
                   id="sector" name="sector"
-                  className="text-white bg-white/6 border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white/9 transition-all appearance-none cursor-pointer"
+                  value={sector}
+                  onChange={(event) => setSector(event.target.value)}
+                  className={`bg-white/6 border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white/9 transition-all appearance-none cursor-pointer ${
+                    sector === '' ? 'text-white/55' : 'text-white'
+                  }`}
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'right 14px center',
                     paddingRight: '36px',
                   }}
-                  defaultValue=""
                 >
                   <option value="" disabled>Selecciona tu sector</option>
                   <option value="industrial" className="bg-forest text-white">Industrial / Manufactura</option>
