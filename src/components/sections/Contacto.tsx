@@ -1,41 +1,222 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BlurFade } from '@/components/ui/BlurFade'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
+type ContactChallenge = { submittedAt: string; submittedSig: string }
+type ContactApiResponse = {
+  success?: boolean
+  error?: string
+  code?: string
+  challenge?: ContactChallenge
+}
+
+const TURNSTILE_SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
+const CHALLENGE_MAX_AGE_MS = 90 * 60 * 1000
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (element: HTMLElement, options: Record<string, unknown>) => string
+      execute: (widgetId: string) => void
+      remove: (widgetId: string) => void
+    }
+  }
+}
+
+let turnstileScriptPromise: Promise<void> | null = null
+
+function loadTurnstileScript() {
+  if (typeof window === 'undefined') return Promise.resolve()
+  if (window.turnstile) return Promise.resolve()
+  if (turnstileScriptPromise) return turnstileScriptPromise
+
+  turnstileScriptPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector<HTMLScriptElement>(
+      `script[src="${TURNSTILE_SCRIPT_SRC}"]`
+    )
+    if (existing) {
+      if (window.turnstile) {
+        resolve()
+        return
+      }
+
+      const onLoad = () => resolve()
+      const onError = () => reject(new Error('turnstile_script_error'))
+      existing.addEventListener('load', onLoad, { once: true })
+      existing.addEventListener('error', onError, { once: true })
+      window.setTimeout(() => {
+        if (window.turnstile) {
+          resolve()
+        } else {
+          reject(new Error('turnstile_script_timeout'))
+        }
+      }, 4_000)
+      return
+    }
+
+    const script = document.createElement('script')
+    script.src = TURNSTILE_SCRIPT_SRC
+    script.async = true
+    script.defer = true
+    script.onload = () => resolve()
+    script.onerror = () => reject(new Error('turnstile_script_error'))
+    document.head.appendChild(script)
+  })
+
+  return turnstileScriptPromise
+}
 
 export function Contacto() {
   const [state, setState] = useState<FormState>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [challenge, setChallenge] = useState<ContactChallenge | null>(null)
+  const [challengeFetchedAt, setChallengeFetchedAt] = useState(0)
+
+  const setTransientError = useCallback((message: string) => {
+    setErrorMsg(message)
+    setState('error')
+    window.setTimeout(() => setState('idle'), 5000)
+  }, [])
+
+  const fetchChallenge = useCallback(async () => {
+    try {
+      const res = await fetch('/api/contact/challenge', { cache: 'no-store' })
+      const json = (await res.json().catch(() => null)) as ContactChallenge | null
+      if (!res.ok || !json?.submittedAt || !json?.submittedSig) return null
+      setChallenge(json)
+      setChallengeFetchedAt(Date.now())
+      return json
+    } catch {
+      return null
+    }
+  }, [])
+
+  useEffect(() => {
+    void fetchChallenge()
+  }, [fetchChallenge])
+
+  const ensureChallenge = useCallback(async () => {
+    if (challenge && Date.now() - challengeFetchedAt < CHALLENGE_MAX_AGE_MS) {
+      return challenge
+    }
+    return fetchChallenge()
+  }, [challenge, challengeFetchedAt, fetchChallenge])
+
+  const requestTurnstileToken = useCallback(async () => {
+    if (!TURNSTILE_SITE_KEY) return null
+
+    try {
+      await loadTurnstileScript()
+      if (!window.turnstile) return null
+      const turnstile = window.turnstile
+
+      return await new Promise<string | null>((resolve) => {
+        const host = document.createElement('div')
+        host.style.display = 'none'
+        document.body.appendChild(host)
+
+        let widgetId: string | null = null
+        let settled = false
+        const finish = (value: string | null) => {
+          if (settled) return
+          settled = true
+          if (widgetId) {
+            turnstile.remove(widgetId)
+          }
+          host.remove()
+          resolve(value)
+        }
+
+        widgetId = turnstile.render(host, {
+          sitekey: TURNSTILE_SITE_KEY,
+          size: 'invisible',
+          callback: (token: string) => finish(token),
+          'error-callback': () => finish(null),
+          'expired-callback': () => finish(null),
+        })
+
+        turnstile.execute(widgetId)
+        window.setTimeout(() => finish(null), 9_000)
+      })
+    } catch {
+      return null
+    }
+  }, [])
+
+  const postContact = useCallback(async (payload: Record<string, unknown>) => {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    const json = (await res.json().catch(() => ({}))) as ContactApiResponse
+    return { res, json }
+  }, [])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setErrorMsg('')
     setState('loading')
 
-    const data = Object.fromEntries(new FormData(e.currentTarget))
+    const form = e.currentTarget
+    const data = Object.fromEntries(new FormData(form))
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      const json = await res.json()
+      const contactChallenge = await ensureChallenge()
+      if (!contactChallenge) {
+        setTransientError('No pudimos validar tu envío. Intenta de nuevo.')
+        return
+      }
+
+      const basePayload: Record<string, unknown> = {
+        ...data,
+        submittedAt: contactChallenge.submittedAt,
+        submittedSig: contactChallenge.submittedSig,
+      }
+
+      let { res, json } = await postContact(basePayload)
+
+      if (res.status === 403 && json.code === 'challenge_required') {
+        const serverChallenge =
+          json.challenge?.submittedAt && json.challenge?.submittedSig ? json.challenge : null
+        if (serverChallenge) {
+          setChallenge(serverChallenge)
+          setChallengeFetchedAt(Date.now())
+        }
+
+        const turnstileToken = await requestTurnstileToken()
+        if (!turnstileToken) {
+          setTransientError('No pudimos validar tu envío. Intenta de nuevo.')
+          return
+        }
+
+        const retryChallenge = serverChallenge ?? (await ensureChallenge())
+        if (!retryChallenge) {
+          setTransientError('No pudimos validar tu envío. Intenta de nuevo.')
+          return
+        }
+
+        ;({ res, json } = await postContact({
+          ...data,
+          turnstileToken,
+          submittedAt: retryChallenge.submittedAt,
+          submittedSig: retryChallenge.submittedSig,
+        }))
+      }
 
       if (res.ok && json.success) {
         setState('success')
-        ;(e.target as HTMLFormElement).reset()
+        form.reset()
+        void fetchChallenge()
       } else {
-        setErrorMsg(json.error || 'Error al enviar. Intenta de nuevo.')
-        setState('error')
-        setTimeout(() => setState('idle'), 5000)
+        setTransientError(json.error || 'Error al enviar. Intenta de nuevo.')
       }
     } catch {
-      setErrorMsg('Error de red. Intenta de nuevo.')
-      setState('error')
-      setTimeout(() => setState('idle'), 5000)
+      setTransientError('Error de red. Intenta de nuevo.')
     }
   }
 
@@ -52,7 +233,7 @@ export function Contacto() {
                 ¿Listo para que tu empresa trabaje más{' '}
                 <span className="text-growth">inteligente</span>?
               </h2>
-              <p className="text-base text-white/60 leading-relaxed">
+              <p className="text-base text-white/85 leading-relaxed">
                 Agenda un diagnóstico gratuito. Analizamos tu operación y te mostramos exactamente qué se puede automatizar.
               </p>
             </div>
@@ -65,7 +246,7 @@ export function Contacto() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-white/40 font-medium mb-0.5">Correo</p>
+                  <p className="text-xs text-white/70 font-medium mb-0.5">Correo</p>
                   <p className="text-sm font-semibold text-white">hola@scalvia.mx</p>
                 </div>
               </div>
@@ -77,14 +258,14 @@ export function Contacto() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs text-white/40 font-medium mb-0.5">Tiempo de respuesta</p>
+                  <p className="text-xs text-white/70 font-medium mb-0.5">Tiempo de respuesta</p>
                   <p className="text-sm font-semibold text-white">Menos de 24 horas</p>
                 </div>
               </div>
             </div>
 
             <div>
-              <p className="text-sm text-white/40 mb-3">o si prefieres</p>
+              <p className="text-sm text-white/70 mb-3">o si prefieres</p>
               <a
                 href="https://wa.me/528131119893?text=Hola%20Scalvia%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito."
                 target="_blank"
@@ -208,7 +389,7 @@ export function Contacto() {
               >
                 {state === 'loading' && 'Enviando...'}
                 {state === 'success' && '¡Diagnóstico agendado! Te contactamos pronto ✓'}
-                {state === 'error' && (errorMsg || 'Error — intenta de nuevo')}
+                {state === 'error' && (errorMsg || 'Error, intenta de nuevo')}
                 {state === 'idle' && 'Solicitar diagnóstico gratuito →'}
               </motion.button>
             </form>
