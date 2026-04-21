@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { HashAnchorScroller } from '@/components/HashAnchorScroller'
 
 export const metadata: Metadata = {
   title: 'Scalvia · The path to scale.',
@@ -29,7 +30,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="font-sans text-ink bg-white">{children}</body>
+      <body className="font-sans text-ink bg-white">
+        <HashAnchorScroller />
+        {children}
+      </body>
     </html>
   )
 }

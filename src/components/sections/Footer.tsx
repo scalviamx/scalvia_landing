@@ -12,26 +12,26 @@ const COLS = [
   {
     title: 'Soluciones IA',
     links: [
-      { label: 'Atención a clientes', href: '#soluciones' },
-      { label: 'Agente de ventas', href: '#soluciones' },
-      { label: 'Reclutamiento IA', href: '#soluciones' },
-      { label: 'Automatización de ops', href: '#soluciones' },
+      { label: 'Atención a clientes', href: '/#soluciones' },
+      { label: 'Agente de ventas', href: '/#soluciones' },
+      { label: 'Reclutamiento IA', href: '/#soluciones' },
+      { label: 'Automatización de ops', href: '/#soluciones' },
     ],
   },
   {
     title: 'Marketing digital',
     links: [
-      { label: 'Google Maps', href: '#marketing' },
-      { label: 'Sitio web', href: '#marketing' },
-      { label: 'Redes sociales', href: '#marketing' },
-      { label: 'Publicidad pagada', href: '#marketing' },
+      { label: 'Google Maps', href: '/#marketing' },
+      { label: 'Sitio web', href: '/#marketing' },
+      { label: 'Redes sociales', href: '/#marketing' },
+      { label: 'Publicidad pagada', href: '/#marketing' },
     ],
   },
   {
     title: 'Empresa',
     links: [
-      { label: 'Cómo trabajamos', href: '#proceso' },
-      { label: 'Contacto', href: '#contacto' },
+      { label: 'Cómo trabajamos', href: '/#proceso' },
+      { label: 'Contacto', href: '/#contacto' },
       { label: 'hola@scalvia.mx', href: 'mailto:hola@scalvia.mx' },
       { label: '@scalviamx', href: 'https://instagram.com/scalviamx' },
     ],
