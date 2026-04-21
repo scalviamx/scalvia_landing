@@ -341,26 +341,36 @@ export function Contacto() {
                 <label className="text-[0.8125rem] font-semibold text-white/70" htmlFor="sector">
                   Sector
                 </label>
-                <select
-                  id="sector" name="sector"
-                  value={sector}
-                  onChange={(event) => setSector(event.target.value)}
-                  className={`bg-white/6 border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white/9 transition-all appearance-none cursor-pointer ${
-                    sector === '' ? 'text-white/55' : 'text-white'
-                  }`}
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'right 14px center',
-                    paddingRight: '36px',
-                  }}
-                >
-                  <option value="">Selecciona tu sector</option>
-                  <option value="industrial" className="bg-forest text-white">Industrial / Manufactura</option>
-                  <option value="bienes_raices" className="bg-forest text-white">Bienes Raíces</option>
-                  <option value="despacho" className="bg-forest text-white">Despacho / Servicios Profesionales</option>
-                  <option value="otro" className="bg-forest text-white">Otro</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="sector" name="sector"
+                    value={sector}
+                    onChange={(event) => setSector(event.target.value)}
+                    className={`w-full bg-white/6 border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white/9 transition-all appearance-none cursor-pointer ${
+                      sector === '' ? 'text-transparent' : 'text-white'
+                    }`}
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'right 14px center',
+                      paddingRight: '36px',
+                    }}
+                  >
+                    <option value="">Selecciona tu sector</option>
+                    <option value="industrial" className="bg-forest text-white">Industrial / Manufactura</option>
+                    <option value="bienes_raices" className="bg-forest text-white">Bienes Raíces</option>
+                    <option value="despacho" className="bg-forest text-white">Despacho / Servicios Profesionales</option>
+                    <option value="otro" className="bg-forest text-white">Otro</option>
+                  </select>
+                  {sector === '' && (
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-0 left-4 right-10 flex items-center text-[0.9375rem] text-white/55"
+                    >
+                      Selecciona tu sector
+                    </span>
+                  )}
+                </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
