@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useMotionProfile } from '@/lib/motion'
 
 const WORDS = [
   'atención al cliente',
@@ -11,14 +12,24 @@ const WORDS = [
 ]
 
 export function AnimatedHeroWord() {
+  const isLite = useMotionProfile('auto') === 'lite'
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
+    if (isLite) return
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % WORDS.length)
     }, 2500)
     return () => clearInterval(interval)
-  }, [])
+  }, [isLite])
+
+  if (isLite) {
+    return (
+      <span className="relative inline-flex items-center justify-start">
+        <span className="text-growth italic">{WORDS[0]}</span>
+      </span>
+    )
+  }
 
   return (
     <span className="relative inline-flex items-center justify-start">

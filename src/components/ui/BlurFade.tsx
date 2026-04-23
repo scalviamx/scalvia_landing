@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView, Variants } from 'framer-motion'
+import { MotionMode, useMotionProfile } from '@/lib/motion'
 
 interface BlurFadeProps {
   children: React.ReactNode
@@ -13,6 +14,7 @@ interface BlurFadeProps {
   blur?: string
   inView?: boolean
   inViewMargin?: string
+  mode?: MotionMode
 }
 
 export function BlurFade({
@@ -25,8 +27,11 @@ export function BlurFade({
   blur = '8px',
   inView = true,
   inViewMargin = '-40px',
+  mode = 'auto',
 }: BlurFadeProps) {
   const ref = useRef(null)
+  const profile = useMotionProfile(mode)
+  const isLite = profile === 'lite'
   const inViewResult = useInView(ref, {
     once: true,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,12 +40,18 @@ export function BlurFade({
   const isVisible = !inView || inViewResult
 
   const defaultVariant: Variants = {
-    hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})` },
+    hidden: isLite
+      ? { y: Math.min(yOffset, 12), opacity: 0 }
+      : { y: yOffset, opacity: 0, filter: `blur(${blur})` },
     visible: {
       y: 0,
       opacity: 1,
-      filter: 'blur(0px)',
-      transition: { duration, delay, ease: [0.16, 1, 0.3, 1] },
+      ...(isLite ? {} : { filter: 'blur(0px)' }),
+      transition: {
+        duration: isLite ? Math.min(duration, 0.3) : duration,
+        delay,
+        ease: [0.16, 1, 0.3, 1],
+      },
     },
   }
 

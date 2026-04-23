@@ -5,6 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import { BlurFade } from '@/components/ui/BlurFade'
 import { SectionTextCta } from '@/components/ui/SectionTextCta'
 import { gsap, useGSAP } from '@/lib/gsap'
+import { useMotionProfile } from '@/lib/motion'
 
 const STEPS = [
   { n: '01', title: 'Diagnóstico gratuito' },
@@ -31,12 +32,15 @@ function StepNumber({ n, index }: { n: string; index: number }) {
 }
 
 export function Proceso() {
+  const isLite = useMotionProfile('auto') === 'lite'
   const containerRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef(null)
   const lineInView = useInView(lineRef, { once: true, margin: '-60px' })
 
-  // GSAP Demo A: ScrollTrigger stagger on step cards
+  // Full profile: ScrollTrigger stagger. Lite profile: static render.
   useGSAP(() => {
+    if (isLite) return
+
     gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -49,7 +53,7 @@ export function Proceso() {
       duration: 0.6,
       ease: 'power2.out',
     })
-  }, { scope: containerRef })
+  }, { scope: containerRef, dependencies: [isLite], revertOnUpdate: true })
 
   return (
     <section id="proceso" className="py-24 bg-white" aria-labelledby="proceso-title">

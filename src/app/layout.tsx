@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
+import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { HashAnchorScroller } from '@/components/HashAnchorScroller'
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Scalvia · The path to scale.',
@@ -27,10 +35,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="font-sans text-ink bg-white">
+      <body className={`${plusJakartaSans.className} text-ink bg-white`}>
         <HashAnchorScroller />
         {children}
       </body>

@@ -1,4 +1,5 @@
 import { BlurFade } from '@/components/ui/BlurFade'
+import Link from 'next/link'
 
 type SectionTextCtaTheme = 'light' | 'dark'
 
@@ -23,12 +24,12 @@ export function SectionTextCta({
 
   return (
     <BlurFade delay={delay} className={className}>
-      <a
+      <Link
         href={href}
         className={`inline-flex items-center gap-2 text-sm font-bold transition-colors duration-200 ${themeClasses}`}
       >
         {label}
-      </a>
+      </Link>
     </BlurFade>
   )
 }

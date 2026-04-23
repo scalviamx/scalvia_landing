@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { useMotionProfile } from '@/lib/motion'
 
 const ScalviaLogo = () => (
   <svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true">
@@ -23,6 +25,7 @@ const NAV_LINKS = [
 ]
 
 export function Nav() {
+  const isLite = useMotionProfile('auto') === 'lite'
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
@@ -43,14 +46,18 @@ export function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center transition-all duration-300 ${
-          scrolled ? 'bg-forest/95 backdrop-blur-md shadow-[0_1px_0_rgba(255,255,255,0.06)]' : ''
+          scrolled
+            ? isLite
+              ? 'bg-forest shadow-[0_1px_0_rgba(255,255,255,0.06)]'
+              : 'bg-forest/95 backdrop-blur-md shadow-[0_1px_0_rgba(255,255,255,0.06)]'
+            : ''
         }`}
       >
         <div className="w-full max-w-[1120px] mx-auto px-6 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2.5 no-underline" aria-label="Scalvia inicio">
+          <Link href="/" className="flex items-center gap-2.5 no-underline" aria-label="Scalvia inicio">
             <ScalviaLogo />
             <span className="text-white font-extrabold text-lg tracking-tight">Scalvia</span>
-          </a>
+          </Link>
 
           {/* Desktop links */}
           <ul className="hidden md:flex items-center gap-1 list-none" role="list">
@@ -58,7 +65,7 @@ export function Nav() {
               const isActive = pathname === link.href
               return (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className={`text-sm font-semibold px-3 py-1.5 rounded-lg transition-all duration-200 ${
                       isActive
@@ -67,18 +74,18 @@ export function Nav() {
                     }`}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               )
             })}
           </ul>
 
-          <a
+          <Link
             href="/contacto"
             className="hidden md:inline-flex items-center text-sm font-bold text-ink bg-growth px-4 py-2 rounded-lg hover:bg-[#2ea865] transition-all duration-200 hover:-translate-y-px"
           >
             Diagnóstico gratuito
-          </a>
+          </Link>
 
           {/* Hamburger */}
           <button
@@ -111,10 +118,12 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 bg-forest/98 backdrop-blur-xl border-b border-white/8 px-6 py-5 flex flex-col gap-2 md:hidden"
+            className={`fixed top-16 left-0 right-0 z-40 border-b border-white/8 px-6 py-5 flex flex-col gap-2 md:hidden ${
+              isLite ? 'bg-forest' : 'bg-forest/98 backdrop-blur-xl'
+            }`}
           >
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={closeMenu}
@@ -125,15 +134,15 @@ export function Nav() {
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
+            <Link
               href="/contacto"
               onClick={closeMenu}
               className="mt-2 text-center font-bold text-ink bg-growth py-3 rounded-lg hover:bg-[#2ea865] transition-all"
             >
               Diagnóstico gratuito
-            </a>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

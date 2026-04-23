@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { BlurFade } from '@/components/ui/BlurFade'
 import { MagicCard } from '@/components/ui/MagicCard'
 
@@ -179,7 +180,7 @@ export function ResultadosContent() {
             <p className="text-white/60 text-lg leading-relaxed">
               Agenda un diagnóstico gratuito de 30 minutos y te mostramos exactamente qué automatizar primero.
             </p>
-            <a
+            <Link
               href="/contacto"
               className="inline-flex items-center gap-2 text-[0.9375rem] font-bold text-ink bg-growth px-7 py-4 rounded-xl hover:bg-[#2ea865] transition-all duration-200 hover:-translate-y-px"
             >
@@ -187,7 +188,7 @@ export function ResultadosContent() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </a>
+            </Link>
           </div>
         </BlurFade>
       </section>
