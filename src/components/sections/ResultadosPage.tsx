@@ -180,7 +180,7 @@ export function ResultadosContent() {
               Agenda un diagnóstico gratuito de 30 minutos y te mostramos exactamente qué automatizar primero.
             </p>
             <a
-              href="/#contacto"
+              href="/contacto"
               className="inline-flex items-center gap-2 text-[0.9375rem] font-bold text-ink bg-growth px-7 py-4 rounded-xl hover:bg-[#2ea865] transition-all duration-200 hover:-translate-y-px"
             >
               Agendar diagnóstico gratuito

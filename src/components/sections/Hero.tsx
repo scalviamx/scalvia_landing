@@ -95,7 +95,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-3 justify-center">
               <ShimmerButton
                 as="a"
-                href="#contacto"
+                href="/contacto"
                 className="rounded-xl text-[0.9375rem]"
               >
                 Agendar diagnóstico gratuito

@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BlurFade } from '@/components/ui/BlurFade'
+import { MagicCard } from '@/components/ui/MagicCard'
+import { MagneticButton } from '@/components/ui/magnetic-button'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 type ContactChallenge = { submittedAt: string; submittedSig: string }
@@ -223,145 +225,218 @@ export function Contacto() {
   }
 
   return (
-    <section id="contacto" className="py-24 bg-forest" aria-labelledby="cta-title">
-      <div className="w-full max-w-[1120px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:items-stretch">
+    <>
+      <section className="bg-forest pt-32 pb-28 relative overflow-hidden">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 80% at 50% 0%, rgba(61,187,122,0.08) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
+        />
+        <div className="relative z-10 w-full max-w-[1120px] mx-auto px-6">
+          <BlurFade delay={0.1}>
+            <div className="max-w-[860px] mx-auto text-center">
+              <div>
+                <div className="inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.1em] uppercase text-growth bg-growth/10 border border-growth/20 px-3.5 py-1.5 rounded-full mb-6">
+                  <span className="w-1.5 h-1.5 bg-growth rounded-full animate-pulse-dot" />
+                  Asistente virtual
+                </div>
+                <h2 className="text-[clamp(2rem,5vw,3.25rem)] font-extrabold text-white leading-[1.1] tracking-tight mb-5">
+                  ¿Quieres probar la experiencia de
+                  <br />
+                  <span className="text-growth">un agente de IA?</span>
+                </h2>
+                <p className="text-white/60 text-lg leading-relaxed max-w-[560px] mx-auto">
+                  Contacta a Sofía, nuestra asistente virtual.
+                </p>
+              </div>
 
-          {/* Columna izquierda */}
-          <BlurFade className="flex h-full flex-col justify-center">
-            <div className="flex flex-col gap-4">
-              <p className="text-xs font-bold tracking-widest uppercase text-growth">Contacto</p>
-              <h2 id="cta-title" className="text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold tracking-tight leading-tight text-white">
-                ¿Listo para que tu empresa trabaje más{' '}
-                <span className="text-growth">inteligente</span>?
-              </h2>
-              <p className="text-base text-white/85 leading-relaxed">
-                Agenda un diagnóstico gratuito. Analizamos tu operación y te mostramos exactamente qué se puede automatizar.
-              </p>
+              <div className="flex justify-center mt-8">
+                <MagicCard className="group border border-growth/25 bg-growth/8 p-1 rounded-2xl">
+                  <MagneticButton>
+                    <button
+                      type="button"
+                      className="inline-flex items-center justify-center text-[0.9375rem] font-bold text-ink bg-growth px-6 py-3.5 rounded-xl group-hover:bg-[#2ea865] transition-all duration-200"
+                    >
+                      Agente IA
+                    </button>
+                  </MagneticButton>
+                </MagicCard>
+              </div>
             </div>
           </BlurFade>
-
-          {/* Columna derecha — form */}
-          <BlurFade delay={0.15}>
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              className="bg-white/4 border border-white/10 rounded-3xl p-8 sm:p-10 text-left flex flex-col gap-5 backdrop-blur-sm"
-              aria-label="Formulario de contacto"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[0.8125rem] font-semibold text-white/70" htmlFor="nombre">
-                    Nombre completo <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="nombre" name="nombre" type="text" required autoComplete="name"
-                    placeholder="Tu nombre"
-                    className="text-ink bg-white border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white transition-all placeholder:text-ink/45"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[0.8125rem] font-semibold text-white/70" htmlFor="empresa">
-                    Empresa <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="empresa" name="empresa" type="text" required autoComplete="organization"
-                    placeholder="Nombre de tu empresa"
-                    className="text-ink bg-white border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white transition-all placeholder:text-ink/45"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[0.8125rem] font-semibold text-white/70" htmlFor="email">
-                    Correo electrónico <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="email" name="email" type="email" required autoComplete="email"
-                    placeholder="tu@empresa.com"
-                    className="text-ink bg-white border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white transition-all placeholder:text-ink/45"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[0.8125rem] font-semibold text-white/70" htmlFor="whatsapp">
-                    WhatsApp <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="whatsapp" name="whatsapp" type="tel" required autoComplete="tel"
-                    placeholder="+52 81 1234 5678"
-                    className="text-ink bg-white border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white transition-all placeholder:text-ink/45"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[0.8125rem] font-semibold text-white/70" htmlFor="sector">
-                  Sector
-                </label>
-                <div className="relative">
-                  <select
-                    id="sector" name="sector"
-                    value={sector}
-                    onChange={(event) => setSector(event.target.value)}
-                    className={`w-full bg-white border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white transition-all appearance-none cursor-pointer ${
-                      sector === '' ? 'text-ink/55' : 'text-ink'
-                    }`}
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(30,41,59,0.45)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
-                      backgroundRepeat: 'no-repeat',
-                      backgroundPosition: 'right 14px center',
-                      paddingRight: '36px',
-                    }}
-                  >
-                    <option value="">Selecciona tu sector</option>
-                    <option value="industrial" className="bg-white text-ink">Industrial / Manufactura</option>
-                    <option value="bienes_raices" className="bg-white text-ink">Bienes Raíces</option>
-                    <option value="despacho" className="bg-white text-ink">Despacho / Servicios Profesionales</option>
-                    <option value="otro" className="bg-white text-ink">Otro</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[0.8125rem] font-semibold text-white/70" htmlFor="reto">
-                  ¿Cómo te podemos ayudar?
-                </label>
-                <textarea
-                  id="reto" name="reto" rows={3}
-                  placeholder="Ej. Tardamos demasiado en responder leads, el equipo de RH está saturado..."
-                  className="text-ink bg-white border border-white/12 rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth focus:bg-white transition-all placeholder:text-ink/45 resize-none leading-relaxed"
-                />
-              </div>
-
-              {/* Honeypot */}
-              <div style={{ display: 'none' }} aria-hidden="true">
-                <input type="text" name="_honeypot" tabIndex={-1} autoComplete="off" />
-              </div>
-
-              <motion.button
-                type="submit"
-                disabled={state === 'loading' || state === 'success'}
-                whileHover={state === 'idle' ? { y: -1 } : {}}
-                whileTap={state === 'idle' ? { y: 0 } : {}}
-                className={`w-full font-bold text-base py-4 rounded-xl transition-all duration-200 ${
-                  state === 'success'
-                    ? 'bg-green text-white cursor-default'
-                    : state === 'error'
-                    ? 'bg-red-600 text-white'
-                    : 'bg-growth text-ink hover:bg-[#2ea865] hover:shadow-[0_8px_28px_rgba(61,187,122,0.35)]'
-                } disabled:opacity-60 disabled:cursor-not-allowed`}
-              >
-                {state === 'loading' && 'Enviando...'}
-                {state === 'success' && '¡Diagnóstico agendado! Te contactamos pronto ✓'}
-                {state === 'error' && (errorMsg || 'Error, intenta de nuevo')}
-                {state === 'idle' && 'Solicitar diagnóstico gratuito →'}
-              </motion.button>
-            </form>
-          </BlurFade>
-
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section id="contacto" className="py-20 px-6 bg-white" aria-labelledby="cta-title">
+        <div className="w-full max-w-[1120px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:items-stretch">
+            <BlurFade className="flex flex-col">
+              <div className="flex flex-col gap-4">
+                <p className="text-xs font-bold tracking-widest uppercase text-growth">Contacto</p>
+                <h2
+                  id="cta-title"
+                  className="text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold tracking-tight leading-tight text-ink"
+                >
+                  ¿Listo para que tu empresa trabaje más{' '}
+                  <span className="text-growth">inteligente</span>?
+                </h2>
+                <p className="text-base text-ink-60 leading-relaxed">
+                  Agenda un diagnóstico gratuito. Analizamos tu operación y te mostramos exactamente qué se puede
+                  automatizar.
+                </p>
+              </div>
+            </BlurFade>
+
+            <BlurFade delay={0.15}>
+              <form
+                id="formulario-contacto"
+                onSubmit={handleSubmit}
+                noValidate
+                className="bg-surface border border-border rounded-3xl p-8 sm:p-10 text-left flex flex-col gap-5"
+                aria-label="Formulario de contacto"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.8125rem] font-semibold text-ink-60" htmlFor="nombre">
+                      Nombre completo <span aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="nombre"
+                      name="nombre"
+                      type="text"
+                      required
+                      autoComplete="name"
+                      placeholder="Tu nombre"
+                      className="text-ink bg-white border border-border rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth transition-all placeholder:text-ink/45"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.8125rem] font-semibold text-ink-60" htmlFor="empresa">
+                      Empresa <span aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="empresa"
+                      name="empresa"
+                      type="text"
+                      required
+                      autoComplete="organization"
+                      placeholder="Nombre de tu empresa"
+                      className="text-ink bg-white border border-border rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth transition-all placeholder:text-ink/45"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.8125rem] font-semibold text-ink-60" htmlFor="email">
+                      Correo electrónico <span aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      placeholder="tu@empresa.com"
+                      className="text-ink bg-white border border-border rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth transition-all placeholder:text-ink/45"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.8125rem] font-semibold text-ink-60" htmlFor="whatsapp">
+                      WhatsApp <span aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="whatsapp"
+                      name="whatsapp"
+                      type="tel"
+                      required
+                      autoComplete="tel"
+                      placeholder="+52 81 1234 5678"
+                      className="text-ink bg-white border border-border rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth transition-all placeholder:text-ink/45"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[0.8125rem] font-semibold text-ink-60" htmlFor="sector">
+                    Sector
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="sector"
+                      name="sector"
+                      value={sector}
+                      onChange={(event) => setSector(event.target.value)}
+                      className={`w-full bg-white border border-border rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth transition-all appearance-none cursor-pointer ${
+                        sector === '' ? 'text-ink/55' : 'text-ink'
+                      }`}
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(30,41,59,0.45)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'right 14px center',
+                        paddingRight: '36px',
+                      }}
+                    >
+                      <option value="">Selecciona tu sector</option>
+                      <option value="industrial" className="bg-white text-ink">
+                        Industrial / Manufactura
+                      </option>
+                      <option value="bienes_raices" className="bg-white text-ink">
+                        Bienes Raíces
+                      </option>
+                      <option value="despacho" className="bg-white text-ink">
+                        Despacho / Servicios Profesionales
+                      </option>
+                      <option value="otro" className="bg-white text-ink">
+                        Otro
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[0.8125rem] font-semibold text-ink-60" htmlFor="reto">
+                    ¿Cómo te podemos ayudar?
+                  </label>
+                  <textarea
+                    id="reto"
+                    name="reto"
+                    rows={3}
+                    placeholder="Ej. Tardamos demasiado en responder leads, el equipo de RH está saturado..."
+                    className="text-ink bg-white border border-border rounded-lg px-4 py-3 text-[0.9375rem] outline-none focus:border-growth transition-all placeholder:text-ink/45 resize-none leading-relaxed"
+                  />
+                </div>
+
+                <div style={{ display: 'none' }} aria-hidden="true">
+                  <input type="text" name="_honeypot" tabIndex={-1} autoComplete="off" />
+                </div>
+
+                <motion.button
+                  type="submit"
+                  disabled={state === 'loading' || state === 'success'}
+                  whileHover={state === 'idle' ? { y: -1 } : {}}
+                  whileTap={state === 'idle' ? { y: 0 } : {}}
+                  className={`w-full font-bold text-base py-4 rounded-xl transition-all duration-200 ${
+                    state === 'success'
+                      ? 'bg-green text-white cursor-default'
+                      : state === 'error'
+                      ? 'bg-red-600 text-white'
+                      : 'bg-growth text-ink hover:bg-[#2ea865] hover:shadow-[0_8px_28px_rgba(61,187,122,0.35)]'
+                  } disabled:opacity-60 disabled:cursor-not-allowed`}
+                >
+                  {state === 'loading' && 'Enviando...'}
+                  {state === 'success' && '¡Diagnóstico agendado! Te contactamos pronto ✓'}
+                  {state === 'error' && (errorMsg || 'Error, intenta de nuevo')}
+                  {state === 'idle' && 'Solicitar diagnóstico gratuito →'}
+                </motion.button>
+              </form>
+            </BlurFade>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

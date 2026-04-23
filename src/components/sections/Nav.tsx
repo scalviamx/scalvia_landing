@@ -74,7 +74,7 @@ export function Nav() {
           </ul>
 
           <a
-            href="/#contacto"
+            href="/contacto"
             className="hidden md:inline-flex items-center text-sm font-bold text-ink bg-growth px-4 py-2 rounded-lg hover:bg-[#2ea865] transition-all duration-200 hover:-translate-y-px"
           >
             Diagnóstico gratuito
@@ -128,7 +128,7 @@ export function Nav() {
               </a>
             ))}
             <a
-              href="/#contacto"
+              href="/contacto"
               onClick={closeMenu}
               className="mt-2 text-center font-bold text-ink bg-growth py-3 rounded-lg hover:bg-[#2ea865] transition-all"
             >

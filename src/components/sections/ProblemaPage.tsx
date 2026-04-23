@@ -126,7 +126,7 @@ export function ProblemaContent() {
             <p className="text-white/60 text-lg leading-relaxed">
               En 30 minutos identificamos exactamente qué automatizar primero y te damos un plan concreto.
             </p>
-            <ShimmerButton as="a" href="/#contacto" className="rounded-xl">
+            <ShimmerButton as="a" href="/contacto" className="rounded-xl">
               Agendar diagnóstico gratuito
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
