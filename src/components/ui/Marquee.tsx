@@ -1,6 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
+import { useReducedMotion } from 'framer-motion'
 import { useMotionProfile } from '@/lib/motion'
 
 interface MarqueeProps {
@@ -12,8 +13,9 @@ interface MarqueeProps {
 
 export function Marquee({ children, className, reverse, pauseOnHover }: MarqueeProps) {
   const isLite = useMotionProfile('auto') === 'lite'
+  const prefersReducedMotion = useReducedMotion()
 
-  if (isLite) {
+  if (prefersReducedMotion) {
     return (
       <div className={clsx('overflow-x-auto [--gap:2rem]', className)}>
         <div className="flex min-w-max gap-[--gap] pr-6">{children}</div>
@@ -21,9 +23,11 @@ export function Marquee({ children, className, reverse, pauseOnHover }: MarqueeP
     )
   }
 
+  const animationDuration = isLite ? '42s' : '30s'
+
   return (
     <div
-      className={clsx('group flex overflow-hidden [--duration:30s] [--gap:2rem]', className)}
+      className={clsx('group flex overflow-hidden [--gap:2rem]', className)}
     >
       <div
         className={clsx(
@@ -31,7 +35,7 @@ export function Marquee({ children, className, reverse, pauseOnHover }: MarqueeP
           reverse && '[animation-direction:reverse]',
           pauseOnHover && 'group-hover:[animation-play-state:paused]'
         )}
-        style={{ animationDuration: 'var(--duration)' }}
+        style={{ animationDuration }}
       >
         {children}
       </div>
@@ -42,7 +46,7 @@ export function Marquee({ children, className, reverse, pauseOnHover }: MarqueeP
           pauseOnHover && 'group-hover:[animation-play-state:paused]'
         )}
         aria-hidden="true"
-        style={{ animationDuration: 'var(--duration)' }}
+        style={{ animationDuration }}
       >
         {children}
       </div>
