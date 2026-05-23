@@ -5,11 +5,7 @@ export interface ClienteMeta {
 }
 
 export const clientesManifest: ClienteMeta[] = [
-  {
-    slug: "lalanuda",
-    nombre: "La Lanuda",
-    descripcion: "Agendamiento de citas veterinarias",
-  },
+  // lalanuda tiene ruta dedicada en /app/lalanuda — no va aquí
 ];
 
 export const slugsValidos = new Set(clientesManifest.map((c) => c.slug));
