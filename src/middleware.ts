@@ -1,14 +1,16 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default clerkMiddleware();
+export default clerkMiddleware((auth, req) => {
+  // Clerk solo activo en rutas /lalanuda
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and static files
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
-    // Clerk proxy
+    // Solo rutas de lalanuda y Clerk proxy
+    "/lalanuda(.*)",
     "/__clerk/(.*)",
   ],
 };
