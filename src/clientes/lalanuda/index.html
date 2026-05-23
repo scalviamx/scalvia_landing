@@ -1,0 +1,1353 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F5EFE6">
+  <title>La Lanuda · Estética Canina & Felina</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='%231C1815'%3E%3Cellipse cx='11' cy='13' rx='3.2' ry='4.2'/%3E%3Cellipse cx='20' cy='9' rx='3.2' ry='4.5'/%3E%3Cellipse cx='29' cy='13' rx='3.2' ry='4.2'/%3E%3Cellipse cx='34' cy='22' rx='3' ry='3.5'/%3E%3Cellipse cx='6' cy='22' rx='3' ry='3.5'/%3E%3Cpath d='M13 28 Q20 18 27 28 Q31 33 27 36 Q23.5 38.5 20 36.5 Q16.5 38.5 13 36 Q9 33 13 28 Z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#F5EFE6',
+            ink: '#1C1815',
+            terracotta: '#C75D3A',
+            warmbrown: '#8B7355',
+            soft: '#FFFEFC',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      background-color: #F5EFE6;
+      color: #1C1815;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+      letter-spacing: -0.01em;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up { animation: fadeUp 0.55s ease-out both; }
+    button { font-family: inherit; }
+    ::selection { background: #C75D3A; color: #F5EFE6; }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(28,24,21,0.18); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(28,24,21,0.32); }
+  </style>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root">
+    <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Fraunces',serif;color:#8B7355;font-size:1.2rem">
+      Cargando La Lanuda...
+    </div>
+  </div>
+
+  <script type="text/babel" data-presets="react">
+    const { useState, useEffect, useMemo } = React;
+
+    /* ============================================================
+       ICONOS (Lucide, inline)
+       ============================================================ */
+    const Svg = ({ children, className = "w-5 h-5", strokeWidth = 2 }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">{children}</svg>
+    );
+    const I = {
+      Menu: (p) => <Svg {...p}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></Svg>,
+      X: (p) => <Svg {...p}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></Svg>,
+      User: (p) => <Svg {...p}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></Svg>,
+      LogOut: (p) => <Svg {...p}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></Svg>,
+      ArrowRight: (p) => <Svg {...p}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Svg>,
+      ArrowLeft: (p) => <Svg {...p}><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></Svg>,
+      Clock: (p) => <Svg {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></Svg>,
+      MapPin: (p) => <Svg {...p}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></Svg>,
+      Phone: (p) => <Svg {...p}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></Svg>,
+      Sparkles: (p) => <Svg {...p}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></Svg>,
+      Star: (p) => <Svg {...p}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></Svg>,
+      ChevronLeft: (p) => <Svg {...p}><path d="m15 18-6-6 6-6"/></Svg>,
+      ChevronRight: (p) => <Svg {...p}><path d="m9 18 6-6-6-6"/></Svg>,
+      ChevronDown: (p) => <Svg {...p}><path d="m6 9 6 6 6-6"/></Svg>,
+      Quote: (p) => <Svg {...p}><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></Svg>,
+      Instagram: (p) => <Svg {...p}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></Svg>,
+      Dog: (p) => <Svg {...p}><path d="M11.25 16.25h1.5L12 17z"/><path d="M16 14v.5"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.702 11.702 0 0 0-.493-3.309"/><path d="M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.344 2.5-1.931.722-3.576-.297-3.656-1-.113-.994 1.177-6.53 4-7 1.923-.321 3.651.845 3.651 2.235A7.497 7.497 0 0 1 14 5.277c0-1.39 1.844-2.598 3.767-2.277 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/></Svg>,
+      Cat: (p) => <Svg {...p}><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></Svg>,
+      Check: (p) => <Svg {...p}><polyline points="20 6 9 17 4 12"/></Svg>,
+      CreditCard: (p) => <Svg {...p}><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></Svg>,
+      MessageCircle: (p) => <Svg {...p}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></Svg>,
+      Mail: (p) => <Svg {...p}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></Svg>,
+      Facebook: (p) => <Svg {...p}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></Svg>,
+      Loader: (p) => <Svg {...p}><path d="M21 12a9 9 0 1 1-6.219-8.56"/></Svg>,
+      Calendar: (p) => <Svg {...p}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></Svg>,
+      Lock: (p) => <Svg {...p}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></Svg>,
+      Banknote: (p) => <Svg {...p}><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01"/><path d="M18 12h.01"/></Svg>,
+      Store: (p) => <Svg {...p}><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/></Svg>,
+    };
+
+    /* ============================================================
+       DATOS DE LA EMPRESA — Edita aquí
+       ============================================================ */
+    const company = {
+      name: 'La Lanuda',
+      tagline: 'Estética canina & felina',
+      description: 'Un estudio boutique donde cada visita es un ritual. Llevamos quince años cuidando el pelaje, la piel y la calma de las mascotas que nos visitan.',
+      founded: 2009,
+      city: 'Monterrey, MX',
+      address: 'Calle Hidalgo 412, Centro · Monterrey',
+      phone: '+52 81 1234 5678',
+      whatsapp: '5218112345678',
+      email: 'hola@lalanuda.mx',
+      // ============================================================
+      //  RUTAS DE NOTIFICACIÓN (separadas por destinatario)
+      //  - platformAdminEmail: TU correo (admin de la plataforma).
+      //    Cada cita genera un email a esta dirección — es el
+      //    registro facturable al cliente final (el salón).
+      //  - salonStaffWhatsapp: WhatsApp de quien atiende el salón
+      //    (info operativa de la cita).
+      // ============================================================
+      platformAdminEmail: 'admin@miempresa.com',
+      salonStaffWhatsapp: '5218112345678',
+      hours: [
+        { day: 'Todos los días', time: '10:00 – 18:00' },
+      ],
+      social: { instagram: '@lalanuda.estudio', facebook: 'La Lanuda Estudio' },
+      // Horario estructurado para el motor de citas (0=Dom, 1=Lun, ..., 6=Sáb; null = cerrado)
+      businessHours: {
+        0: { open: '10:00', close: '18:00' },
+        1: { open: '10:00', close: '18:00' },
+        2: { open: '10:00', close: '18:00' },
+        3: { open: '10:00', close: '18:00' },
+        4: { open: '10:00', close: '18:00' },
+        5: { open: '10:00', close: '18:00' },
+        6: { open: '10:00', close: '18:00' },
+      },
+      gallery: [
+        { url: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=900&q=80', caption: 'Sala de espera' },
+        { url: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=900&q=80', caption: 'Sesión de baño' },
+        { url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&q=80', caption: 'Corte y secado' },
+        { url: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=900&q=80', caption: 'Felinos también' },
+        { url: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=900&q=80', caption: 'Resultado final' },
+        { url: 'https://images.unsplash.com/photo-1561948955-570b270e7c36?w=900&q=80', caption: 'Spa para gatos' },
+      ],
+      heroImage: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1000&q=85',
+    };
+
+    /* ============================================================
+       SERVICIOS Y PRECIOS — Edita aquí
+       ============================================================ */
+    const services = {
+      perro: [
+        { id: 'bath',   name: 'Baño completo',       description: 'Champú premium, acondicionador y secado profesional.', basePrice: 280, duration: 60 },
+        { id: 'cut',    name: 'Corte de pelo',       description: 'Tijera y/o máquina según la raza.',                    basePrice: 380, duration: 75 },
+        { id: 'nails',  name: 'Corte de uñas',       description: 'Recorte y limado seguro.',                             basePrice: 80,  duration: 15 },
+        { id: 'ears',   name: 'Limpieza de oídos',   description: 'Solución antiséptica y secado.',                       basePrice: 60,  duration: 10 },
+        { id: 'teeth',  name: 'Cepillado dental',    description: 'Pasta enzimática apta para mascotas.',                 basePrice: 90,  duration: 15 },
+        { id: 'glands', name: 'Glándulas anales',    description: 'Drenado externo.',                                     basePrice: 70,  duration: 10 },
+        { id: 'spa',    name: 'Spa de aromaterapia', description: 'Mascarilla, masaje y perfume natural.',                basePrice: 180, duration: 30 },
+        { id: 'dye',    name: 'Tinte creativo',      description: 'Tinte temporal hipoalergénico.',                       basePrice: 220, duration: 45 },
+      ],
+      gato: [
+        { id: 'bath',  name: 'Baño completo',      description: 'Champú felino especial, secado a baja temperatura.', basePrice: 320, duration: 60 },
+        { id: 'cut',   name: 'Corte higiénico',    description: 'Corte estilo león o sanitario.',                     basePrice: 420, duration: 60 },
+        { id: 'nails', name: 'Corte de uñas',      description: 'Sin estrés, en duo.',                                basePrice: 90,  duration: 15 },
+        { id: 'ears',  name: 'Limpieza de oídos',  description: 'Suave y rápida.',                                    basePrice: 70,  duration: 10 },
+        { id: 'brush', name: 'Cepillado profundo', description: 'Para razas de pelo largo.',                          basePrice: 140, duration: 25 },
+        { id: 'spa',   name: 'Ritual antiestrés',  description: 'Feromonas, oscuridad y silencio.',                   basePrice: 160, duration: 30 },
+      ],
+    };
+    const sizeOptions = {
+      perro: [
+        { id: 'toy',    label: 'Toy',     range: 'menos de 5 kg', multiplier: 1.0 },
+        { id: 'small',  label: 'Pequeño', range: '5 – 10 kg',     multiplier: 1.2 },
+        { id: 'medium', label: 'Mediano', range: '10 – 20 kg',    multiplier: 1.5 },
+        { id: 'large',  label: 'Grande',  range: '20 – 35 kg',    multiplier: 1.9 },
+        { id: 'giant',  label: 'Gigante', range: 'más de 35 kg',  multiplier: 2.3 },
+      ],
+      gato: [
+        { id: 'small',  label: 'Pequeño', range: 'menos de 4 kg', multiplier: 1.0 },
+        { id: 'medium', label: 'Mediano', range: '4 – 6 kg',      multiplier: 1.15 },
+        { id: 'large',  label: 'Grande',  range: 'más de 6 kg',   multiplier: 1.3 },
+      ],
+    };
+
+    /* ============================================================
+       MÉTODOS DE PAGO disponibles para el cliente
+       ============================================================ */
+    const PAYMENT_METHODS = [
+      { id: 'online',       title: 'Tarjeta en línea',     desc: 'Paga ahora con tarjeta de crédito o débito.',  status: 'pagado',    Icon: 'CreditCard' },
+      { id: 'card_on_site', title: 'Tarjeta en el lugar',  desc: 'Pagas con tarjeta cuando llegues al estudio.', status: 'pendiente', Icon: 'Store' },
+      { id: 'cash_on_site', title: 'Efectivo en el lugar', desc: 'Pagas en efectivo cuando llegues al estudio.', status: 'pendiente', Icon: 'Banknote' },
+    ];
+    const breeds = {
+      perro: ['Chihuahua', 'Pomerania', 'Yorkshire Terrier', 'Maltés', 'Poodle Toy', 'Bichón Frisé', 'Shih Tzu', 'Schnauzer Mini', 'Beagle', 'Cocker Spaniel', 'French Bulldog', 'Pug', 'Poodle Standard', 'Border Collie', 'Husky Siberiano', 'Labrador', 'Golden Retriever', 'Pastor Alemán', 'Bóxer', 'Rottweiler', 'Doberman', 'Gran Danés', 'San Bernardo', 'Mestizo', 'Otra'],
+      gato: ['Persa', 'Maine Coon', 'Siamés', 'Bengalí', 'Ragdoll', 'Británico de Pelo Corto', 'Sphynx', 'Angora', 'Scottish Fold', 'Doméstico Pelo Corto', 'Doméstico Pelo Largo', 'Mestizo', 'Otra'],
+    };
+
+    /* ============================================================
+       RESEÑAS — Solo se muestran las de 5 estrellas en el muro
+       ============================================================ */
+    const reviews = [
+      { id: 'r1', author: 'María Fernanda', rating: 5, pet: 'Lupita, Schnauzer Mini',  text: 'Llevo a Lupita cada mes y siempre sale impecable. El trato es excepcional, se nota que aman lo que hacen.' },
+      { id: 'r2', author: 'Carlos Eduardo', rating: 5, pet: 'Coco, Golden Retriever',  text: 'El mejor lugar al que hemos llevado a Coco. Salió oliendo increíble y feliz. Súper recomendado.' },
+      { id: 'r3', author: 'Laura Beltrán',  rating: 4, pet: 'Toby, Beagle',            text: 'Buen servicio aunque la espera fue un poco larga.' },
+      { id: 'r4', author: 'Renata Ortiz',   rating: 5, pet: 'Mochi, Persa',            text: 'Mochi es muy nerviosa con extraños y aquí la tratan con tanta calma que sale relajada. Mil gracias.' },
+      { id: 'r5', author: 'Daniel Pérez',   rating: 3, pet: 'Rex, Husky',              text: 'Estuvo bien pero esperaba algo más.' },
+      { id: 'r6', author: 'Andrea Solís',   rating: 5, pet: 'Pelusa, Maltés',          text: 'Pelusa quedó como muñequita. El corte estilo cachorrito es perfecto. Definitivamente regresamos.' },
+      { id: 'r7', author: 'Iván Castillo',  rating: 5, pet: 'Bruno, Bulldog Francés',  text: 'Excelente atención y precios justos. Bruno entra contento, eso lo dice todo.' },
+      { id: 'r8', author: 'Paulina Vega',   rating: 5, pet: 'Nala, Bengalí',           text: 'La forma en que manejan a los gatos es admirable. Cero estrés para Nala, y eso no tiene precio.' },
+      { id: 'r9', author: 'Roberto Aguilar',rating: 5, pet: 'Simón, Poodle',           text: 'Tres años yendo a La Lanuda. Nunca hemos tenido una mala experiencia. Cuidan los detalles.' },
+    ];
+
+    /* ============================================================
+       UTILS
+       ============================================================ */
+    function priceForService(petType, sizeId, serviceId) {
+      const size = sizeOptions[petType]?.find(s => s.id === sizeId);
+      const svc = services[petType]?.find(s => s.id === serviceId);
+      if (!size || !svc) return svc?.basePrice || 0;
+      return Math.round(svc.basePrice * size.multiplier);
+    }
+    function calculateTotal(petType, sizeId, ids) {
+      if (!petType || !sizeId) return 0;
+      return ids.reduce((t, id) => t + priceForService(petType, sizeId, id), 0);
+    }
+    function formatMXN(n) {
+      return new Intl.NumberFormat('es-MX', { style:'currency', currency:'MXN', maximumFractionDigits:0 }).format(n);
+    }
+    /* ============================================================
+       NOTIFICACIONES
+       ============================================================
+       Genera DOS mensajes para dos destinatarios distintos:
+
+       - WhatsApp → al equipo del salón. Info operativa para preparar
+         la cita: cliente, mascota, servicios, hora, notas.
+
+       - Email    → al admin de la plataforma (tú, el revendedor).
+         Cada email es el registro facturable de la cita al cliente
+         final (el salón). Incluye un ID único y timestamp.
+
+       En producción, ambos canales los dispara el backend usando
+       APIs de WhatsApp Business (Twilio/360dialog) y un servicio
+       de correo transaccional (Resend/SendGrid). Acá usamos wa.me/
+       y mailto: como simulación.
+       ============================================================ */
+    function buildNotifications(booking, user) {
+      const payment = PAYMENT_METHODS.find(p => p.id === booking.paymentMethod);
+      const paymentLine = payment ? `${payment.title} (${payment.status})` : 'No especificado';
+
+      const fields = [
+        ['Cliente',        `${user?.name || 'Invitado'}${user?.email ? ' (' + user.email + ')' : ''}`],
+        ['Mascota',        `${booking.petName || '—'} · ${booking.petType === 'perro' ? 'Perro' : 'Gato'} · ${booking.breed}`],
+        ['Tamaño',         `${booking.sizeLabel} (${booking.sizeRange})`],
+        ['Fecha',          booking.date || 'Por confirmar'],
+        ['Método de pago', paymentLine],
+        ['Notas',          booking.notes || '—'],
+      ];
+
+      // ----- Mensaje para WhatsApp (al salón) -----
+      const waLines = [
+        `*Nueva cita — ${company.name}*`,
+        ``,
+        ...fields.map(([k, v]) => `*${k}:* ${v}`),
+        ``,
+        `*Servicios:*`,
+        ...booking.items.map(it => `• ${it.name} — $${it.price}`),
+        ``,
+        `*Total: $${booking.total} MXN*`,
+      ];
+      const waText = waLines.join('\n');
+      const waUrl = `https://wa.me/${company.salonStaffWhatsapp}?text=${encodeURIComponent(waText)}`;
+
+      // ----- Mensaje para email (al admin de la plataforma — registro facturable) -----
+      const emailLines = [
+        `Nueva cita agendada en ${company.name}.`,
+        ``,
+        `Este registro corresponde a un servicio facturable al cliente final.`,
+        ``,
+        '— DETALLES DE LA CITA —',
+        ``,
+        ...fields.map(([k, v]) => `${k}: ${v}`),
+        ``,
+        'Servicios:',
+        ...booking.items.map(it => `  • ${it.name} — $${it.price} (${it.duration} min)`),
+        ``,
+        `Total: $${booking.total} MXN`,
+        ``,
+        `— REGISTRO —`,
+        `ID de cita: ${booking.bookingId || 'N/A'}`,
+        `Generado:   ${new Date().toLocaleString('es-MX')}`,
+      ];
+      const emailText = emailLines.join('\n');
+      const subject = `[Facturable] Cita ${booking.bookingId || ''} · ${company.name} — ${booking.petName || 'Mascota'}`;
+      const mailtoUrl = `mailto:${company.platformAdminEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailText)}`;
+
+      return { waText, emailText, waUrl, mailtoUrl };
+    }
+
+    /* ============================================================
+       MOTOR DE CITAS — fechas, horarios, conflictos
+       ============================================================ */
+    const SLOT_INTERVAL_MIN = 30;       // granularidad de horarios disponibles
+    const MIN_ADVANCE_MIN = 24 * 60;    // anticipación mínima: 24 horas
+    const BOOKINGS_KEY = 'll_bookings_v1';
+    const DAY_NAMES = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    const MONTH_NAMES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+    function pad2(n) { return n.toString().padStart(2, '0'); }
+    function toISODate(d) { return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
+    function fromISODate(s) { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); }
+    function sameDay(a, b) { return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+    function minToHHMM(m) { return pad2(Math.floor(m/60)) + ':' + pad2(m%60); }
+    function parseHHMM(s) { const [h, m] = s.split(':').map(Number); return h*60 + (m||0); }
+
+    function formatDayLabel(d) {
+      const today = new Date(); today.setHours(0,0,0,0);
+      if (sameDay(d, today)) return 'Hoy';
+      const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+      if (sameDay(d, tomorrow)) return 'Mañana';
+      return DAY_NAMES[d.getDay()];
+    }
+
+    function formatLongDate(isoStr) {
+      const d = fromISODate(isoStr);
+      return `${DAY_NAMES[d.getDay()]} ${d.getDate()} de ${MONTH_NAMES[d.getMonth()]}`;
+    }
+
+    // Suma la duración (en min) de todos los servicios seleccionados.
+    function totalDuration(petType, ids) {
+      if (!petType) return 0;
+      return ids.reduce((t, id) => {
+        const svc = services[petType].find(s => s.id === id);
+        return t + (svc?.duration || 0);
+      }, 0);
+    }
+
+    // Genera todos los horarios disponibles en un día (en minutos desde medianoche)
+    // donde un servicio con la duración dada cabría dentro del horario de operación.
+    // Respeta también la anticipación mínima MIN_ADVANCE_MIN (24h por defecto).
+    function generateSlots(date, durationMin) {
+      if (!durationMin) return [];
+      const hours = company.businessHours[date.getDay()];
+      if (!hours) return [];
+      const openMin = parseHHMM(hours.open);
+      const closeMin = parseHHMM(hours.close);
+      const lastStart = closeMin - durationMin;
+      if (lastStart < openMin) return [];
+
+      const now = new Date();
+
+      const slots = [];
+      for (let m = openMin; m <= lastStart; m += SLOT_INTERVAL_MIN) {
+        // Construye el Date completo del slot y compara contra "ahora"
+        const slotDate = new Date(date);
+        slotDate.setHours(Math.floor(m / 60), m % 60, 0, 0);
+        const diffMin = (slotDate - now) / 60000;
+        if (diffMin < MIN_ADVANCE_MIN) continue;
+        slots.push(m);
+      }
+      return slots;
+    }
+
+    // ¿Está disponible este slot? (no se traslapa con citas existentes)
+    function isSlotAvailable(dateStr, startMin, durationMin, bookings) {
+      const endMin = startMin + durationMin;
+      return !bookings.some(b => {
+        if (b.date !== dateStr) return false;
+        const bEnd = b.startMin + b.durationMin;
+        // hay traslape si startMin < bEnd && endMin > b.startMin
+        return startMin < bEnd && endMin > b.startMin;
+      });
+    }
+
+    function loadBookings() {
+      try { return JSON.parse(localStorage.getItem(BOOKINGS_KEY) || '[]'); } catch { return []; }
+    }
+    function saveBookingToStorage(booking) {
+      const all = loadBookings();
+      all.push(booking);
+      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(all));
+    }
+
+    // Pre-carga algunas citas demo para que el usuario vea el bloqueo en acción.
+    // Si todas las citas guardadas son del pasado, limpia y vuelve a sembrar.
+    function seedDemoBookings() {
+      const today = toISODate(new Date());
+      const existing = loadBookings();
+      const future = existing.filter(b => b.date >= today);
+      if (future.length > 0) {
+        // hay citas futuras válidas; solo limpiamos las del pasado
+        if (future.length !== existing.length) localStorage.setItem(BOOKINGS_KEY, JSON.stringify(future));
+        return;
+      }
+      // sembrar citas demo en los próximos días hábiles
+      const businessDays = [];
+      const d = new Date(); d.setHours(0,0,0,0);
+      for (let i = 1; businessDays.length < 5 && i < 21; i++) {
+        const nd = new Date(d); nd.setDate(d.getDate() + i);
+        if (company.businessHours[nd.getDay()]) businessDays.push(nd);
+      }
+      const demoSlots = [
+        { startMin: 10*60,     durationMin: 90 },
+        { startMin: 15*60+30,  durationMin: 60 },
+        { startMin: 11*60+30,  durationMin: 75 },
+        { startMin: 9*60,      durationMin: 120 },
+        { startMin: 13*60,     durationMin: 45 },
+      ];
+      const seeds = businessDays.map((bd, i) => ({
+        id: 'demo_' + i,
+        date: toISODate(bd),
+        ...demoSlots[i],
+        demo: true,
+      }));
+      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(seeds));
+    }
+
+    /* ============================================================
+       COMPONENTES
+       ============================================================ */
+    function PawLogo() {
+      return (
+        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" className="text-ink group-hover:text-terracotta transition-colors">
+          <ellipse cx="11" cy="13" rx="3.2" ry="4.2" fill="currentColor"/>
+          <ellipse cx="20" cy="9" rx="3.2" ry="4.5" fill="currentColor"/>
+          <ellipse cx="29" cy="13" rx="3.2" ry="4.2" fill="currentColor"/>
+          <ellipse cx="34" cy="22" rx="3" ry="3.5" fill="currentColor"/>
+          <ellipse cx="6" cy="22" rx="3" ry="3.5" fill="currentColor"/>
+          <path d="M13 28 Q20 18 27 28 Q31 33 27 36 Q23.5 38.5 20 36.5 Q16.5 38.5 13 36 Q9 33 13 28 Z" fill="currentColor"/>
+        </svg>
+      );
+    }
+
+    function GoogleIcon() {
+      return (
+        <svg width="16" height="16" viewBox="0 0 48 48">
+          <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.5 5.9 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/>
+          <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16.1 19 13 24 13c3 0 5.8 1.1 7.9 3l5.7-5.7C34.5 7 29.5 5 24 5c-7.7 0-14.4 4.4-17.7 10.7z"/>
+          <path fill="#4CAF50" d="M24 44c5.3 0 10.2-2 13.8-5.4l-6.4-5.4c-2 1.5-4.6 2.3-7.4 2.3-5.2 0-9.6-3.3-11.2-8l-6.5 5C9.3 39.5 16 44 24 44z"/>
+          <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.4 5.4C41.3 36.1 44 30.5 44 24c0-1.3-.1-2.3-.4-3.5z"/>
+        </svg>
+      );
+    }
+
+    function Header({ user, onLogin, onLogout, onHome, onBook }) {
+      const [open, setOpen] = useState(false);
+      return (
+        <header className="sticky top-0 z-30 bg-cream/85 backdrop-blur-md border-b border-ink/10">
+          <div className="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+            <button onClick={onHome} className="flex items-center gap-2.5 group">
+              <PawLogo/>
+              <div className="text-left leading-none">
+                <div className="font-display text-xl tracking-tight">{company.name}</div>
+                <div className="text-[10px] uppercase tracking-[0.18em] text-ink/55 mt-0.5">{company.tagline}</div>
+              </div>
+            </button>
+            <nav className="hidden md:flex items-center gap-7 text-sm">
+              <button onClick={onHome} className="hover:text-terracotta transition-colors">Inicio</button>
+              <a href="#galeria" className="hover:text-terracotta transition-colors">Galería</a>
+              <a href="#resenias" className="hover:text-terracotta transition-colors">Reseñas</a>
+              <a href="#contacto" className="hover:text-terracotta transition-colors">Contacto</a>
+              <button onClick={onBook} className="bg-ink text-cream px-5 py-2 rounded-full text-sm hover:bg-terracotta transition-colors">Agendar cita</button>
+              {user ? (
+                <button onClick={onLogout} className="flex items-center gap-1.5 text-ink/70 hover:text-ink">
+                  <span className="text-sm">{user.name?.split(' ')[0]}</span>
+                  <I.LogOut className="w-4 h-4"/>
+                </button>
+              ) : (
+                <button onClick={onLogin} className="flex items-center gap-1.5 text-ink/70 hover:text-ink">
+                  <I.User className="w-4 h-4"/>
+                  <span className="text-sm">Ingresar</span>
+                </button>
+              )}
+            </nav>
+            <button onClick={() => setOpen(!open)} className="md:hidden p-2 -mr-2">
+              {open ? <I.X className="w-6 h-6"/> : <I.Menu className="w-6 h-6"/>}
+            </button>
+          </div>
+          {open && (
+            <div className="md:hidden border-t border-ink/10 bg-cream px-5 py-4 flex flex-col gap-1 animate-fade-up">
+              <button onClick={() => { onHome(); setOpen(false); }} className="text-left py-2">Inicio</button>
+              <a href="#galeria"  onClick={() => setOpen(false)} className="py-2">Galería</a>
+              <a href="#resenias" onClick={() => setOpen(false)} className="py-2">Reseñas</a>
+              <a href="#contacto" onClick={() => setOpen(false)} className="py-2">Contacto</a>
+              <button onClick={() => { onBook(); setOpen(false); }} className="bg-ink text-cream px-5 py-3 rounded-full text-sm mt-2">Agendar cita</button>
+              {user ? (
+                <button onClick={() => { onLogout(); setOpen(false); }} className="text-left text-ink/70 py-2 flex items-center gap-1.5 mt-2">
+                  <I.LogOut className="w-4 h-4"/> Cerrar sesión ({user.name})
+                </button>
+              ) : (
+                <button onClick={() => { onLogin(); setOpen(false); }} className="text-left text-ink/70 py-2 flex items-center gap-1.5 mt-2">
+                  <I.User className="w-4 h-4"/> Ingresar
+                </button>
+              )}
+            </div>
+          )}
+        </header>
+      );
+    }
+
+    function InfoChip({ icon, label }) {
+      return <div className="flex items-center gap-3 text-ink/75"><span className="text-terracotta">{icon}</span><span>{label}</span></div>;
+    }
+
+    function ReviewsSection({ onLeaveReview }) {
+      const fiveStarReviews = useMemo(() => reviews.filter(r => r.rating === 5), []);
+      const [page, setPage] = useState(0);
+      const VISIBLE = 5;
+      const totalPages = Math.max(1, Math.ceil(fiveStarReviews.length / VISIBLE));
+      const visible = fiveStarReviews.slice(page * VISIBLE, page * VISIBLE + VISIBLE);
+      return (
+        <section id="resenias" className="bg-soft border-y border-ink/10">
+          <div className="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
+            <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
+              <div>
+                <div className="text-xs uppercase tracking-[0.25em] text-warmbrown mb-3">Lo que dicen</div>
+                <h2 className="font-display text-4xl md:text-6xl tracking-tight max-w-2xl">Voces de la manada.</h2>
+              </div>
+              {totalPages > 1 && (
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setPage(p => (p - 1 + totalPages) % totalPages)} className="w-10 h-10 rounded-full border border-ink/20 flex items-center justify-center hover:border-ink hover:bg-ink hover:text-cream transition-colors"><I.ChevronLeft className="w-4 h-4"/></button>
+                  <span className="text-sm text-ink/60 tabular-nums px-2">{page+1} / {totalPages}</span>
+                  <button onClick={() => setPage(p => (p + 1) % totalPages)} className="w-10 h-10 rounded-full border border-ink/20 flex items-center justify-center hover:border-ink hover:bg-ink hover:text-cream transition-colors"><I.ChevronRight className="w-4 h-4"/></button>
+                </div>
+              )}
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {visible.map((r, i) => (
+                <article key={r.id} className={`bg-cream rounded-2xl p-7 border border-ink/5 ${i===0 ? 'lg:col-span-2 lg:row-span-2 lg:p-10' : ''}`}>
+                  <I.Quote className={`text-terracotta mb-4 ${i===0 ? 'w-10 h-10' : 'w-6 h-6'}`}/>
+                  <p className={`font-display leading-tight mb-6 ${i===0 ? 'text-3xl md:text-4xl' : 'text-xl'}`}>“{r.text}”</p>
+                  <div className="flex items-center justify-between mt-8 pt-5 border-t border-ink/10">
+                    <div>
+                      <div className="font-medium">{r.author}</div>
+                      <div className="text-xs text-ink/55 mt-0.5">{r.pet}</div>
+                    </div>
+                    <div className="flex gap-0.5">{Array.from({length:5}).map((_, idx) => <I.Star key={idx} className="w-3.5 h-3.5 fill-terracotta text-terracotta"/>)}</div>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="mt-12 flex flex-wrap items-center justify-between gap-6">
+              <div className="text-sm text-ink/60 max-w-md">Mostramos únicamente las reseñas de 5 estrellas verificadas tras un servicio completado.</div>
+              <button onClick={onLeaveReview} className="text-sm underline underline-offset-4 hover:text-terracotta transition-colors">¿Tuviste un servicio reciente? Déjanos tu reseña →</button>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function HomePage({ onBook, onLeaveReview }) {
+      return (
+        <main>
+          {/* HERO */}
+          <section className="relative overflow-hidden">
+            <div className="max-w-6xl mx-auto px-5 md:px-8 pt-12 md:pt-24 pb-16 md:pb-28">
+              <div className="grid md:grid-cols-12 gap-10 md:gap-12 items-end">
+                <div className="md:col-span-7 animate-fade-up">
+                  <div className="text-xs uppercase tracking-[0.25em] text-warmbrown mb-6">Desde {company.founded} · {company.city}</div>
+                  <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
+                    Cuidado <em className="not-italic text-terracotta font-light">tranquilo</em><br className="hidden sm:block"/> para mascotas <span className="italic font-light">queridas</span>.
+                  </h1>
+                  <p className="mt-8 text-lg md:text-xl text-ink/70 max-w-xl leading-relaxed">{company.description}</p>
+                  <div className="mt-10 flex flex-wrap gap-3">
+                    <button onClick={onBook} className="group bg-ink text-cream px-7 py-4 rounded-full inline-flex items-center gap-2 hover:bg-terracotta transition-colors">
+                      Agendar cita
+                      <I.ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"/>
+                    </button>
+                    <a href="#galeria" className="px-7 py-4 rounded-full border border-ink/20 hover:border-ink transition-colors">Ver el estudio</a>
+                  </div>
+                </div>
+                <div className="md:col-span-5 relative animate-fade-up" style={{animationDelay:'0.15s'}}>
+                  <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-warmbrown/10">
+                    <img src={company.heroImage} alt="Mascota recibiendo cuidado" className="w-full h-full object-cover"/>
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent"/>
+                  </div>
+                  <div className="absolute -bottom-6 -left-6 md:-left-10 bg-cream rounded-full w-28 h-28 md:w-36 md:h-36 flex items-center justify-center border border-ink/10 shadow-sm">
+                    <div className="text-center font-display leading-tight">
+                      <div className="text-2xl md:text-3xl">{new Date().getFullYear() - company.founded}</div>
+                      <div className="text-[10px] uppercase tracking-widest text-ink/60">años</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* INFO RÁPIDA */}
+          <section className="border-y border-ink/10 bg-soft">
+            <div className="max-w-6xl mx-auto px-5 md:px-8 py-6 grid sm:grid-cols-3 gap-4 text-sm">
+              <InfoChip icon={<I.MapPin className="w-4 h-4"/>} label={company.address}/>
+              <InfoChip icon={<I.Clock className="w-4 h-4"/>} label="Todos los días · 10 a 18h"/>
+              <InfoChip icon={<I.Phone className="w-4 h-4"/>} label={company.phone}/>
+            </div>
+          </section>
+          {/* GALERÍA */}
+          <section id="galeria" className="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
+            <div className="flex items-end justify-between mb-12 gap-6 flex-wrap">
+              <div>
+                <div className="text-xs uppercase tracking-[0.25em] text-warmbrown mb-3">El estudio</div>
+                <h2 className="font-display text-4xl md:text-6xl tracking-tight max-w-2xl">Un ritual hecho para tu mascota.</h2>
+              </div>
+              <div className="text-sm text-ink/60 max-w-xs">Productos veterinarios premium y técnicas que respetan el bienestar animal.</div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
+              {company.gallery.map((img, i) => (
+                <figure key={i} className={`group relative overflow-hidden rounded-2xl bg-warmbrown/5 ${i % 5 === 0 ? 'aspect-[3/4] md:row-span-2 md:aspect-auto' : 'aspect-square'}`}>
+                  <img src={img.url} alt={img.caption} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent opacity-0 group-hover:opacity-100 transition-opacity"/>
+                  <figcaption className="absolute bottom-3 left-3 right-3 text-cream text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">{img.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+          <ReviewsSection onLeaveReview={onLeaveReview}/>
+          {/* CTA */}
+          <section id="contacto" className="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
+            <div className="bg-ink text-cream rounded-3xl p-10 md:p-16 relative overflow-hidden">
+              <div className="absolute top-6 right-6 opacity-15"><I.Sparkles className="w-32 h-32"/></div>
+              <div className="relative max-w-2xl">
+                <div className="text-xs uppercase tracking-[0.25em] text-cream/60 mb-4">Reservas</div>
+                <h2 className="font-display text-4xl md:text-6xl leading-tight tracking-tight">Reserva en menos de un minuto.</h2>
+                <p className="mt-6 text-cream/80 text-lg leading-relaxed">Selecciona el tipo de mascota, los servicios y paga en línea. Recibimos la confirmación de inmediato.</p>
+                <button onClick={onBook} className="mt-10 bg-cream text-ink px-7 py-4 rounded-full inline-flex items-center gap-2 hover:bg-terracotta hover:text-cream transition-colors group">
+                  Comenzar <I.ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"/>
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+      );
+    }
+
+    function LoginModal({ onClose, onLogin }) {
+      const [guestName, setGuestName] = useState('');
+      const [mode, setMode] = useState('choose');
+      function loginWith(p) {
+        const mock = {
+          google:    { name: 'Usuario Google',    email: 'demo@gmail.com', provider: 'google' },
+          instagram: { name: 'Usuario Instagram', email: 'demo@instagram', provider: 'instagram' },
+        };
+        onLogin(mock[p]);
+      }
+      return (
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-ink/40 backdrop-blur-sm px-4 animate-fade-up" onClick={onClose}>
+          <div className="bg-cream rounded-t-3xl md:rounded-3xl w-full max-w-md p-8 md:p-10 relative" onClick={e => e.stopPropagation()}>
+            <button onClick={onClose} className="absolute top-4 right-4 p-2 hover:bg-ink/5 rounded-full"><I.X className="w-5 h-5"/></button>
+            {mode === 'choose' ? (
+              <>
+                <div className="text-xs uppercase tracking-[0.25em] text-warmbrown mb-3">Bienvenida</div>
+                <h2 className="font-display text-3xl md:text-4xl tracking-tight mb-2">Ingresa o continúa.</h2>
+                <p className="text-ink/65 mb-8 text-sm leading-relaxed">Te ayudamos a guardar tu historial de servicios y reseñas.</p>
+                <div className="space-y-3">
+                  <button onClick={() => loginWith('google')} className="w-full flex items-center justify-center gap-3 bg-ink text-cream py-3.5 rounded-full hover:bg-terracotta transition-colors">
+                    <GoogleIcon/> Continuar con Google
+                  </button>
+                  <button onClick={() => loginWith('instagram')} className="w-full flex items-center justify-center gap-3 bg-white text-ink border border-ink/15 py-3.5 rounded-full hover:border-ink transition-colors">
+                    <I.Instagram className="w-4 h-4"/> Continuar con Instagram
+                  </button>
+                  <div className="flex items-center gap-3 py-2">
+                    <div className="flex-1 h-px bg-ink/10"/>
+                    <span className="text-[10px] uppercase tracking-widest text-ink/40">o</span>
+                    <div className="flex-1 h-px bg-ink/10"/>
+                  </div>
+                  <button onClick={() => setMode('guest')} className="w-full flex items-center justify-center gap-3 py-3.5 rounded-full hover:bg-ink/5 transition-colors text-ink/70 border border-transparent hover:border-ink/15">
+                    <I.User className="w-4 h-4"/> Continuar como invitado
+                  </button>
+                </div>
+                <p className="text-[11px] text-ink/45 mt-6 leading-relaxed">Demo: los botones de Google e Instagram simulan el login.</p>
+              </>
+            ) : (
+              <>
+                <button onClick={() => setMode('choose')} className="text-sm text-ink/60 mb-6 hover:text-ink">← Volver</button>
+                <h2 className="font-display text-3xl tracking-tight mb-2">Como invitado</h2>
+                <p className="text-ink/65 mb-6 text-sm">Solo dinos cómo te llamas para personalizar tu cita.</p>
+                <input autoFocus value={guestName} onChange={e => setGuestName(e.target.value)} onKeyDown={e => e.key === 'Enter' && onLogin({ name: guestName.trim() || 'Invitado', provider: 'guest' })} placeholder="Tu nombre" className="w-full bg-soft border border-ink/10 rounded-2xl px-5 py-4 mb-4 focus:outline-none focus:border-ink"/>
+                <button onClick={() => onLogin({ name: guestName.trim() || 'Invitado', provider: 'guest' })} className="w-full bg-ink text-cream py-3.5 rounded-full hover:bg-terracotta transition-colors">Continuar</button>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function PetTypeStep({ booking, patch }) {
+      return (
+        <div>
+          <h2 className="font-display text-4xl md:text-5xl tracking-tight mb-3">¿A quién atenderemos hoy?</h2>
+          <p className="text-ink/65 mb-10">Cuéntanos del invitado especial.</p>
+          <div className="grid grid-cols-2 gap-4 mb-10">
+            {[
+              { id: 'perro', Icon: I.Dog, label: 'Perro' },
+              { id: 'gato', Icon: I.Cat, label: 'Gato' },
+            ].map(({id, Icon, label}) => (
+              <button key={id} onClick={() => patch({ petType: id, breed: '', sizeId: null, selectedServiceIds: [] })}
+                className={`aspect-square rounded-3xl border-2 flex flex-col items-center justify-center gap-3 transition-all ${booking.petType === id ? 'border-ink bg-ink text-cream scale-[0.98]' : 'border-ink/15 hover:border-ink/40 bg-soft'}`}>
+                <Icon className="w-14 h-14" strokeWidth={1.4}/>
+                <span className="font-display text-2xl">{label}</span>
+              </button>
+            ))}
+          </div>
+          {booking.petType && (
+            <div className="animate-fade-up">
+              <label className="block text-xs uppercase tracking-[0.18em] text-warmbrown mb-2">Nombre de tu mascota</label>
+              <input value={booking.petName} onChange={e => patch({ petName: e.target.value })} placeholder="Ej. Lupita" className="w-full bg-soft border border-ink/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-ink"/>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function BreedSizeStep({ booking, patch }) {
+      const petBreeds = breeds[booking.petType] || [];
+      const sizes = sizeOptions[booking.petType] || [];
+      return (
+        <div>
+          <h2 className="font-display text-4xl md:text-5xl tracking-tight mb-3">Cuéntanos de {booking.petName || 'tu mascota'}.</h2>
+          <p className="text-ink/65 mb-10">La raza y el tamaño nos ayudan a estimar tiempo y precio.</p>
+          <div className="mb-10">
+            <label className="block text-xs uppercase tracking-[0.18em] text-warmbrown mb-2">Raza</label>
+            <div className="relative">
+              <select value={booking.breed} onChange={e => patch({ breed: e.target.value })} className="w-full bg-soft border border-ink/10 rounded-2xl px-5 py-4 pr-12 focus:outline-none focus:border-ink appearance-none cursor-pointer">
+                <option value="">Selecciona una raza</option>
+                {petBreeds.map(b => <option key={b} value={b}>{b}</option>)}
+              </select>
+              <I.ChevronDown className="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ink/40"/>
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs uppercase tracking-[0.18em] text-warmbrown mb-3">Tamaño / peso</label>
+            <div className="space-y-2">
+              {sizes.map(s => (
+                <button key={s.id} onClick={() => patch({ sizeId: s.id })} className={`w-full flex items-center justify-between px-5 py-4 rounded-2xl border transition-all text-left ${booking.sizeId === s.id ? 'border-ink bg-ink text-cream' : 'border-ink/15 hover:border-ink/40 bg-soft'}`}>
+                  <div>
+                    <div className="font-medium">{s.label}</div>
+                    <div className={`text-xs mt-0.5 ${booking.sizeId === s.id ? 'text-cream/70' : 'text-ink/55'}`}>{s.range}</div>
+                  </div>
+                  <div className={`text-xs tabular-nums ${booking.sizeId === s.id ? 'text-cream/70' : 'text-ink/45'}`}>×{s.multiplier.toFixed(2)}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function ServicesStep({ booking, patch }) {
+      const available = services[booking.petType] || [];
+      const selected = new Set(booking.selectedServiceIds);
+      function toggle(id) {
+        if (selected.has(id)) patch({ selectedServiceIds: booking.selectedServiceIds.filter(x => x !== id) });
+        else patch({ selectedServiceIds: [...booking.selectedServiceIds, id] });
+      }
+      return (
+        <div>
+          <h2 className="font-display text-4xl md:text-5xl tracking-tight mb-3">Elige los servicios.</h2>
+          <p className="text-ink/65 mb-10">Puedes seleccionar más de uno. Los precios se ajustan al tamaño.</p>
+          <div className="space-y-3">
+            {available.map(svc => {
+              const price = priceForService(booking.petType, booking.sizeId, svc.id);
+              const isSel = selected.has(svc.id);
+              return (
+                <button key={svc.id} onClick={() => toggle(svc.id)} className={`w-full text-left px-5 py-4 md:p-5 rounded-2xl border transition-all flex items-start gap-4 ${isSel ? 'border-ink bg-ink text-cream' : 'border-ink/15 hover:border-ink/40 bg-soft'}`}>
+                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 shrink-0 transition-colors ${isSel ? 'border-cream bg-cream text-ink' : 'border-ink/30'}`}>
+                    {isSel && <I.Check className="w-3.5 h-3.5" strokeWidth={3}/>}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="font-medium">{svc.name}</div>
+                      <div className="font-display text-lg shrink-0 tabular-nums">{formatMXN(price)}</div>
+                    </div>
+                    <div className={`text-sm mt-1 ${isSel ? 'text-cream/70' : 'text-ink/60'}`}>{svc.description}</div>
+                    <div className={`text-xs mt-1 ${isSel ? 'text-cream/55' : 'text-ink/45'}`}>≈ {svc.duration} min</div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    function DateTimePicker({ durationMin, value, onChange, bookings }) {
+      const [selectedDate, setSelectedDate] = useState(value ? fromISODate(value.date) : null);
+
+      // Próximos 30 días
+      const days = useMemo(() => {
+        const arr = [];
+        const today = new Date(); today.setHours(0,0,0,0);
+        for (let i = 0; i < 30; i++) {
+          const d = new Date(today); d.setDate(today.getDate() + i);
+          arr.push(d);
+        }
+        return arr;
+      }, []);
+
+      const slots = useMemo(() => {
+        if (!selectedDate || !durationMin) return [];
+        return generateSlots(selectedDate, durationMin);
+      }, [selectedDate, durationMin]);
+
+      // Si la duración cambia y el slot guardado ya no es válido, lo limpiamos.
+      useEffect(() => {
+        if (!value || !durationMin) return;
+        const d = fromISODate(value.date);
+        const validSlots = generateSlots(d, durationMin);
+        const ok = validSlots.includes(value.startMin) && isSlotAvailable(value.date, value.startMin, durationMin, bookings);
+        if (!ok) onChange(null);
+      }, [durationMin]);
+
+      if (!durationMin) {
+        return (
+          <div className="bg-soft border border-ink/10 rounded-2xl p-5 text-sm text-ink/55 italic text-center">
+            Selecciona al menos un servicio para ver los horarios disponibles.
+          </div>
+        );
+      }
+
+      const todayStr = toISODate(new Date());
+
+      return (
+        <div>
+          {/* Carrusel de fechas */}
+          <div className="text-[10px] uppercase tracking-[0.18em] text-warmbrown mb-3">Fecha</div>
+          <div className="flex gap-2 overflow-x-auto pb-3 -mx-5 px-5 md:mx-0 md:px-0 snap-x">
+            {days.map(d => {
+              const dateStr = toISODate(d);
+              const isOpen = !!company.businessHours[d.getDay()];
+              const isSelected = selectedDate && sameDay(d, selectedDate);
+              // ¿el día tiene al menos un slot disponible?
+              const daySlots = isOpen ? generateSlots(d, durationMin) : [];
+              const hasAvailability = daySlots.some(s => isSlotAvailable(dateStr, s, durationMin, bookings));
+              const disabled = !isOpen || !hasAvailability;
+              const isClosed = !isOpen;
+              return (
+                <button
+                  key={dateStr}
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => setSelectedDate(d)}
+                  className={`shrink-0 snap-start w-[72px] py-3 rounded-2xl border-2 text-center transition-all ${
+                    isSelected
+                      ? 'bg-ink text-cream border-ink'
+                      : disabled
+                        ? 'opacity-30 cursor-not-allowed border-ink/10 bg-soft'
+                        : 'border-ink/10 hover:border-ink/40 bg-soft'
+                  }`}
+                  title={isClosed ? 'Cerrado' : !hasAvailability ? 'Sin disponibilidad' : ''}
+                >
+                  <div className={`text-[10px] uppercase tracking-widest mb-1 ${isSelected ? 'text-cream/70' : 'text-ink/55'}`}>
+                    {formatDayLabel(d)}
+                  </div>
+                  <div className="font-display text-2xl leading-none">{d.getDate()}</div>
+                  <div className={`text-[10px] uppercase tracking-widest mt-1 ${isSelected ? 'text-cream/70' : 'text-ink/45'}`}>
+                    {MONTH_NAMES[d.getMonth()]}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Grid de horarios */}
+          {selectedDate && (
+            <div className="mt-8 animate-fade-up">
+              <div className="flex items-baseline justify-between mb-3">
+                <div className="text-[10px] uppercase tracking-[0.18em] text-warmbrown">Hora</div>
+                <div className="text-[10px] uppercase tracking-widest text-ink/45">~{durationMin} min de servicio</div>
+              </div>
+              {slots.length === 0 ? (
+                <div className="bg-soft border border-ink/10 rounded-2xl p-5 text-sm text-ink/55 italic text-center">
+                  No hay horarios disponibles ese día.
+                </div>
+              ) : (
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                  {slots.map(startMin => {
+                    const dateStr = toISODate(selectedDate);
+                    const available = isSlotAvailable(dateStr, startMin, durationMin, bookings);
+                    const isSel = value && value.date === dateStr && value.startMin === startMin;
+                    return (
+                      <button
+                        key={startMin}
+                        type="button"
+                        disabled={!available}
+                        onClick={() => onChange({ date: dateStr, startMin })}
+                        className={`py-3 rounded-xl border-2 text-sm font-medium tabular-nums transition-all flex items-center justify-center gap-1.5 ${
+                          isSel
+                            ? 'bg-ink text-cream border-ink'
+                            : !available
+                              ? 'border-ink/5 bg-ink/5 text-ink/30 cursor-not-allowed'
+                              : 'border-ink/10 hover:border-ink hover:bg-soft bg-soft'
+                        }`}
+                      >
+                        {!available && <I.Lock className="w-3 h-3"/>}
+                        {minToHHMM(startMin)}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+              {slots.length > 0 && (
+                <div className="text-[11px] text-ink/45 mt-3 flex items-center gap-1.5">
+                  <I.Lock className="w-3 h-3"/> Las horas con candado ya están reservadas.
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Confirmación de slot seleccionado */}
+          {value && (
+            <div className="mt-6 bg-ink text-cream rounded-2xl p-4 text-sm flex items-start gap-3 animate-fade-up">
+              <I.Check className="w-4 h-4 shrink-0 mt-0.5 text-terracotta"/>
+              <div>
+                <div className="font-medium">{formatLongDate(value.date)} a las {minToHHMM(value.startMin)}</div>
+                <div className="text-cream/65 text-xs mt-0.5">Termina aprox. {minToHHMM(value.startMin + durationMin)} · {durationMin} min</div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function SummaryStep({ booking, patch, user, onConfirmed }) {
+      const [stage, setStage] = useState('review');
+      const [existingBookings, setExistingBookings] = useState(loadBookings());
+
+      const size = sizeOptions[booking.petType]?.find(s => s.id === booking.sizeId);
+      const items = booking.selectedServiceIds.map(id => {
+        const svc = services[booking.petType].find(s => s.id === id);
+        return { id, name: svc.name, price: priceForService(booking.petType, booking.sizeId, id), duration: svc.duration };
+      });
+      const total = items.reduce((t, it) => t + it.price, 0);
+      const durationMin = totalDuration(booking.petType, booking.selectedServiceIds);
+
+      const dateLabel = booking.slot
+        ? `${formatLongDate(booking.slot.date)} · ${minToHHMM(booking.slot.startMin)} – ${minToHHMM(booking.slot.startMin + durationMin)}`
+        : '';
+
+      const selectedPayment = PAYMENT_METHODS.find(p => p.id === booking.paymentMethod);
+
+      function handlePay() {
+        setStage('paying');
+        setTimeout(() => setStage('paid'), 1200);
+      }
+
+      function handleConfirm() {
+        // 1. ID único para la cita — lo usamos como referencia de facturación
+        const bookingId = 'b_' + Date.now();
+
+        // 2. Persistir la cita ANTES de abrir links — el slot queda bloqueado
+        const newBooking = {
+          id: bookingId,
+          date: booking.slot.date,
+          startMin: booking.slot.startMin,
+          durationMin,
+          petName: booking.petName,
+          petType: booking.petType,
+          breed: booking.breed,
+          total,
+          services: items.map(it => it.name),
+          paymentMethod: booking.paymentMethod,
+          user: user?.name || 'Invitado',
+          createdAt: new Date().toISOString(),
+        };
+        saveBookingToStorage(newBooking);
+        setExistingBookings(loadBookings());
+
+        // 3. Generar mensajes (uno para salón, uno para admin)
+        const notif = buildNotifications({
+          ...booking,
+          bookingId,
+          date: dateLabel,
+          sizeLabel: size?.label || '',
+          sizeRange: size?.range || '',
+          items, total,
+        }, user);
+
+        // 4. WhatsApp → equipo del salón (info operativa)
+        window.open(notif.waUrl, '_blank');
+        // 5. Email → admin de la plataforma (registro facturable)
+        setTimeout(() => { window.location.href = notif.mailtoUrl; setStage('confirmed'); }, 500);
+      }
+
+      if (stage === 'confirmed') return (
+        <div className="text-center py-12 animate-fade-up">
+          <div className="w-20 h-20 rounded-full bg-ink text-cream flex items-center justify-center mx-auto mb-6">
+            <I.Check className="w-10 h-10" strokeWidth={2.4}/>
+          </div>
+          <h2 className="font-display text-4xl md:text-5xl tracking-tight mb-4">¡Cita agendada!</h2>
+          <div className="bg-soft border border-ink/10 rounded-2xl p-5 max-w-md mx-auto mb-8 text-left">
+            <div className="text-[10px] uppercase tracking-widest text-ink/55 mb-2">Tu cita</div>
+            <div className="font-display text-xl leading-tight">{dateLabel}</div>
+            <div className="text-sm text-ink/60 mt-1">{booking.petName} · {items.length} {items.length === 1 ? 'servicio' : 'servicios'} · {formatMXN(total)}</div>
+            {selectedPayment && (
+              <div className="text-xs text-ink/55 mt-3 pt-3 border-t border-ink/10 flex items-center gap-1.5">
+                <I.CreditCard className="w-3.5 h-3.5"/>
+                {selectedPayment.title}
+                <span className={`ml-auto px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider ${
+                  selectedPayment.status === 'pagado' ? 'bg-ink text-cream' : 'bg-terracotta/15 text-terracotta'
+                }`}>
+                  {selectedPayment.status}
+                </span>
+              </div>
+            )}
+          </div>
+          <p className="text-ink/65 max-w-md mx-auto mb-10">
+            {booking.paymentMethod === 'online'
+              ? 'Recibirás un mensaje de confirmación. El horario quedó bloqueado para otras citas.'
+              : 'Recibirás un mensaje de confirmación. Recuerda llevar tu forma de pago al llegar.'}
+          </p>
+          <button onClick={onConfirmed} className="bg-ink text-cream px-7 py-3.5 rounded-full hover:bg-terracotta transition-colors">Volver al inicio</button>
+        </div>
+      );
+
+      return (
+        <div>
+          <h2 className="font-display text-4xl md:text-5xl tracking-tight mb-3">Revisa tu cita.</h2>
+          <p className="text-ink/65 mb-10">Elige cuándo quieres venir, cómo pagas, y confirmamos.</p>
+
+          {/* Resumen */}
+          <div className="bg-soft rounded-3xl p-6 md:p-8 border border-ink/10 space-y-5">
+            <div className="flex justify-between gap-4 items-baseline">
+              <span className="text-[10px] uppercase tracking-widest text-ink/55 shrink-0 pt-1">Mascota</span>
+              <span className="text-right">{booking.petName} · {booking.petType === 'perro' ? 'Perro' : 'Gato'} · {booking.breed}</span>
+            </div>
+            <div className="flex justify-between gap-4 items-baseline">
+              <span className="text-[10px] uppercase tracking-widest text-ink/55 shrink-0 pt-1">Tamaño</span>
+              <span className="text-right">{size?.label} ({size?.range})</span>
+            </div>
+            <div>
+              <div className="flex justify-between items-baseline mb-3">
+                <span className="text-[10px] uppercase tracking-widest text-ink/55">Servicios</span>
+                <span className="text-[10px] uppercase tracking-widest text-ink/55 tabular-nums">~{durationMin} min</span>
+              </div>
+              <div className="space-y-2">
+                {items.map(it => (
+                  <div key={it.id} className="flex justify-between gap-3 border-b border-ink/10 pb-2 last:border-0 last:pb-0">
+                    <span>{it.name} <span className="text-ink/45 text-xs ml-1 tabular-nums">{it.duration} min</span></span>
+                    <span className="tabular-nums shrink-0">{formatMXN(it.price)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-between items-baseline pt-4 border-t border-ink/15">
+              <span className="text-xs uppercase tracking-widest text-ink/55">Total</span>
+              <span className="font-display text-4xl tabular-nums">{formatMXN(total)}</span>
+            </div>
+          </div>
+
+          {/* Fecha y hora */}
+          <div className="mt-10">
+            <div className="flex items-baseline justify-between mb-5 flex-wrap gap-2">
+              <h3 className="font-display text-2xl tracking-tight flex items-center gap-2">
+                <I.Calendar className="w-5 h-5 text-terracotta"/>
+                Fecha y hora
+              </h3>
+              <span className="text-xs text-ink/55">Reservas con 24h de anticipación</span>
+            </div>
+            <DateTimePicker
+              durationMin={durationMin}
+              value={booking.slot}
+              onChange={slot => patch({ slot })}
+              bookings={existingBookings}
+            />
+          </div>
+
+          {/* Notas */}
+          <div className="mt-8">
+            <label className="block text-xs uppercase tracking-[0.18em] text-warmbrown mb-2">Notas para el estilista (opcional)</label>
+            <textarea rows={3} value={booking.notes} onChange={e => patch({ notes: e.target.value })} placeholder="Ej. Es nervioso con la secadora, prefiere música tranquila..." className="w-full bg-soft border border-ink/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-ink resize-none"/>
+          </div>
+
+          {/* Método de pago */}
+          <div className="mt-10">
+            <h3 className="font-display text-2xl tracking-tight flex items-center gap-2 mb-5">
+              <I.CreditCard className="w-5 h-5 text-terracotta"/>
+              Método de pago
+            </h3>
+            <div className="space-y-2">
+              {PAYMENT_METHODS.map(pm => {
+                const PmIcon = I[pm.Icon] || I.CreditCard;
+                const isSel = booking.paymentMethod === pm.id;
+                const locked = stage !== 'review';
+                return (
+                  <button
+                    key={pm.id}
+                    type="button"
+                    disabled={locked}
+                    onClick={() => patch({ paymentMethod: pm.id })}
+                    className={`w-full text-left px-5 py-4 rounded-2xl border-2 transition-all flex items-start gap-4 ${
+                      isSel ? 'border-ink bg-ink text-cream' : 'border-ink/10 hover:border-ink/40 bg-soft'
+                    } ${locked ? 'opacity-60 cursor-not-allowed' : ''}`}
+                  >
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 shrink-0 transition-colors ${
+                      isSel ? 'border-cream bg-cream text-ink' : 'border-ink/30'
+                    }`}>
+                      {isSel && <I.Check className="w-3.5 h-3.5" strokeWidth={3}/>}
+                    </div>
+                    <PmIcon className={`w-5 h-5 mt-0.5 shrink-0 ${isSel ? 'text-cream' : 'text-terracotta'}`}/>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium">{pm.title}</div>
+                      <div className={`text-sm mt-0.5 ${isSel ? 'text-cream/70' : 'text-ink/60'}`}>
+                        {pm.desc}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Acción principal — depende del método de pago seleccionado */}
+          {stage === 'review' && (() => {
+            const noSlot = !booking.slot;
+            const noPayment = !booking.paymentMethod;
+            if (noSlot || noPayment) {
+              return (
+                <button disabled className="mt-10 w-full bg-ink text-cream py-4 rounded-full inline-flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed">
+                  {noSlot ? 'Selecciona fecha y hora' : 'Selecciona método de pago'}
+                </button>
+              );
+            }
+            if (booking.paymentMethod === 'online') {
+              return (
+                <button onClick={handlePay} className="mt-10 w-full bg-ink text-cream py-4 rounded-full inline-flex items-center justify-center gap-2 hover:bg-terracotta transition-colors">
+                  <I.CreditCard className="w-4 h-4"/>
+                  Pagar {formatMXN(total)} en línea
+                </button>
+              );
+            }
+            const tail = booking.paymentMethod === 'cash_on_site' ? 'Pagar en efectivo al llegar' : 'Pagar con tarjeta al llegar';
+            return (
+              <button onClick={handleConfirm} className="mt-10 w-full bg-ink text-cream py-4 rounded-full inline-flex items-center justify-center gap-2 hover:bg-terracotta transition-colors">
+                <I.Check className="w-4 h-4"/>
+                Confirmar cita · {tail}
+              </button>
+            );
+          })()}
+          {stage === 'paying' && (
+            <button disabled className="mt-10 w-full bg-ink/60 text-cream py-4 rounded-full inline-flex items-center justify-center gap-2 cursor-wait">
+              <span className="inline-block animate-spin"><I.Loader className="w-4 h-4"/></span> Procesando pago...
+            </button>
+          )}
+          {stage === 'paid' && (
+            <div className="mt-10 space-y-4 animate-fade-up">
+              <div className="bg-ink/5 rounded-2xl p-5 flex items-start gap-3">
+                <I.Check className="w-5 h-5 text-terracotta shrink-0 mt-0.5"/>
+                <div className="text-sm">
+                  <div className="font-medium">Pago recibido (simulado)</div>
+                  <div className="text-ink/60 text-xs mt-0.5">En producción esto se valida con el webhook de MercadoPago / Stripe.</div>
+                </div>
+              </div>
+              <button onClick={handleConfirm} className="w-full bg-ink text-cream py-4 rounded-full inline-flex items-center justify-center gap-2 hover:bg-terracotta transition-colors">
+                <I.MessageCircle className="w-4 h-4"/> Confirmar y notificar al equipo
+              </button>
+              <p className="text-xs text-ink/50 text-center max-w-sm mx-auto">Se abrirá WhatsApp (para el salón) y tu cliente de correo (para el administrador) con los mensajes pre-rellenados.</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function BookingFlow({ user, onDone, onCancel }) {
+      const STEPS = [
+        { id: 'pet', label: 'Mascota' },
+        { id: 'breed', label: 'Raza y tamaño' },
+        { id: 'services', label: 'Servicios' },
+        { id: 'summary', label: 'Resumen' },
+      ];
+      const [stepIdx, setStepIdx] = useState(0);
+      const [booking, setBooking] = useState({ petType: null, petName: '', breed: '', sizeId: null, selectedServiceIds: [], slot: null, notes: '', paymentMethod: null });
+      const total = calculateTotal(booking.petType, booking.sizeId, booking.selectedServiceIds);
+      const duration = totalDuration(booking.petType, booking.selectedServiceIds);
+      function patch(u) { setBooking(b => ({ ...b, ...u })); }
+      function back() { if (stepIdx === 0) onCancel(); else setStepIdx(i => i - 1); }
+      const canAdvance = (() => {
+        if (stepIdx === 0) return !!booking.petType && !!booking.petName.trim();
+        if (stepIdx === 1) return !!booking.breed && !!booking.sizeId;
+        if (stepIdx === 2) return booking.selectedServiceIds.length > 0;
+        return true;
+      })();
+      const isLast = stepIdx === STEPS.length - 1;
+      return (
+        <main className="max-w-3xl mx-auto px-5 md:px-8 py-8 md:py-12 pb-32">
+          <div className="flex items-center gap-2 mb-8">
+            <button onClick={back} className="p-2 -ml-2 rounded-full hover:bg-ink/5"><I.ArrowLeft className="w-5 h-5"/></button>
+            <button onClick={onCancel} className="ml-auto p-2 -mr-2 rounded-full hover:bg-ink/5"><I.X className="w-5 h-5"/></button>
+          </div>
+          <div className="flex items-center gap-1.5 mb-3">
+            {STEPS.map((s, i) => <div key={s.id} className={`h-1 flex-1 rounded-full transition-colors duration-500 ${i <= stepIdx ? 'bg-ink' : 'bg-ink/15'}`}/>)}
+          </div>
+          <div className="text-xs uppercase tracking-[0.25em] text-warmbrown mb-10">Paso {stepIdx + 1} de {STEPS.length} · {STEPS[stepIdx].label}</div>
+          <div className="animate-fade-up" key={stepIdx}>
+            {stepIdx === 0 && <PetTypeStep booking={booking} patch={patch}/>}
+            {stepIdx === 1 && <BreedSizeStep booking={booking} patch={patch}/>}
+            {stepIdx === 2 && <ServicesStep booking={booking} patch={patch}/>}
+            {stepIdx === 3 && <SummaryStep booking={booking} patch={patch} user={user} onConfirmed={onDone}/>}
+          </div>
+          {!isLast && (
+            <div className="fixed bottom-0 left-0 right-0 bg-cream/95 backdrop-blur-md border-t border-ink/10 z-20">
+              <div className="max-w-3xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] uppercase tracking-widest text-ink/55">
+                    Total estimado{duration > 0 ? ` · ~${duration} min` : ''}
+                  </div>
+                  <div className="font-display text-2xl">{formatMXN(total)}</div>
+                </div>
+                <button disabled={!canAdvance} onClick={() => setStepIdx(i => i + 1)} className="bg-ink text-cream px-6 py-3.5 rounded-full inline-flex items-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-terracotta transition-colors">
+                  Siguiente <I.ArrowRight className="w-4 h-4"/>
+                </button>
+              </div>
+            </div>
+          )}
+        </main>
+      );
+    }
+
+    function ReviewSubmit({ user, onDone }) {
+      const [rating, setRating] = useState(0);
+      const [hover, setHover] = useState(0);
+      const [text, setText] = useState('');
+      const [petName, setPetName] = useState('');
+      const [submitted, setSubmitted] = useState(false);
+      if (submitted) {
+        const isFive = rating === 5;
+        return (
+          <main className="max-w-2xl mx-auto px-5 md:px-8 py-20 text-center animate-fade-up">
+            <div className="w-20 h-20 rounded-full bg-ink text-cream flex items-center justify-center mx-auto mb-6"><I.Check className="w-10 h-10" strokeWidth={2.4}/></div>
+            <h2 className="font-display text-4xl tracking-tight mb-4">¡Gracias por tu opinión!</h2>
+            <p className="text-ink/65 mb-10 max-w-md mx-auto leading-relaxed">
+              {isFive ? 'Tu reseña aparecerá pronto en nuestro muro público una vez verificada.' : 'Tus comentarios llegan directamente al equipo para mejorar. Lo apreciamos enormemente.'}
+            </p>
+            <button onClick={onDone} className="bg-ink text-cream px-7 py-3.5 rounded-full hover:bg-terracotta transition-colors">Volver al inicio</button>
+          </main>
+        );
+      }
+      return (
+        <main className="max-w-2xl mx-auto px-5 md:px-8 py-16 md:py-24">
+          <div className="text-xs uppercase tracking-[0.25em] text-warmbrown mb-3">Tu opinión</div>
+          <h2 className="font-display text-4xl md:text-5xl tracking-tight mb-4">¿Cómo estuvo tu visita?</h2>
+          <p className="text-ink/65 mb-12 leading-relaxed">Las reseñas de 5 estrellas se muestran en nuestro muro público. Las demás llegan privadas al equipo para mejorar.</p>
+          <div className="mb-10">
+            <label className="block text-xs uppercase tracking-[0.18em] text-warmbrown mb-4">Calificación</label>
+            <div className="flex gap-2">
+              {[1,2,3,4,5].map(n => (
+                <button key={n} onMouseEnter={() => setHover(n)} onMouseLeave={() => setHover(0)} onClick={() => setRating(n)} className="p-1">
+                  <I.Star className={`w-10 h-10 transition-all ${n <= (hover || rating) ? 'fill-terracotta text-terracotta scale-110' : 'text-ink/20'}`}/>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="mb-6">
+            <label className="block text-xs uppercase tracking-[0.18em] text-warmbrown mb-2">Nombre de tu mascota</label>
+            <input value={petName} onChange={e => setPetName(e.target.value)} placeholder="Ej. Bruno, French Bulldog" className="w-full bg-soft border border-ink/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-ink"/>
+          </div>
+          <div className="mb-10">
+            <label className="block text-xs uppercase tracking-[0.18em] text-warmbrown mb-2">Comentario</label>
+            <textarea rows={5} value={text} onChange={e => setText(e.target.value)} placeholder="Cuéntanos cómo fue la experiencia..." className="w-full bg-soft border border-ink/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-ink resize-none"/>
+          </div>
+          <button onClick={() => setSubmitted(true)} disabled={!rating || !text.trim()} className="bg-ink text-cream px-7 py-4 rounded-full inline-flex items-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-terracotta transition-colors">Enviar reseña</button>
+        </main>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="bg-ink text-cream">
+          <div className="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-20 grid md:grid-cols-12 gap-10">
+            <div className="md:col-span-5">
+              <div className="font-display text-4xl tracking-tight mb-3">{company.name}</div>
+              <div className="text-cream/60 text-sm mb-6">{company.tagline}</div>
+              <p className="text-cream/70 text-sm leading-relaxed max-w-sm">{company.description}</p>
+            </div>
+            <div className="md:col-span-3 md:col-start-7">
+              <div className="text-xs uppercase tracking-widest text-cream/50 mb-4">Visítanos</div>
+              <ul className="space-y-3 text-sm text-cream/85">
+                <li className="flex items-start gap-2"><I.MapPin className="w-4 h-4 mt-0.5 text-terracotta shrink-0"/><span>{company.address}</span></li>
+                {company.hours.map(h => <li key={h.day} className="flex justify-between gap-2"><span>{h.day}</span><span className="text-cream/55">{h.time}</span></li>)}
+              </ul>
+            </div>
+            <div className="md:col-span-3">
+              <div className="text-xs uppercase tracking-widest text-cream/50 mb-4">Contacto</div>
+              <ul className="space-y-3 text-sm text-cream/85">
+                <li className="flex items-center gap-2"><I.Phone className="w-4 h-4 text-terracotta shrink-0"/><span>{company.phone}</span></li>
+                <li className="flex items-center gap-2"><I.Mail className="w-4 h-4 text-terracotta shrink-0"/><span>{company.email}</span></li>
+                <li className="flex items-center gap-2"><I.Instagram className="w-4 h-4 text-terracotta shrink-0"/><span>{company.social.instagram}</span></li>
+                <li className="flex items-center gap-2"><I.Facebook className="w-4 h-4 text-terracotta shrink-0"/><span>{company.social.facebook}</span></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-cream/10">
+            <div className="max-w-6xl mx-auto px-5 md:px-8 py-5 flex flex-wrap justify-between gap-3 text-xs text-cream/50">
+              <span>© {new Date().getFullYear()} {company.name}. Hecho con cariño.</span>
+              <span>Estética & cuidado profesional</span>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+    function App() {
+      const [view, setView] = useState('home');
+      const [user, setUser] = useState(null);
+      const [showLogin, setShowLogin] = useState(false);
+
+      useEffect(() => {
+        const saved = localStorage.getItem('ll_user');
+        if (saved) { try { setUser(JSON.parse(saved)); } catch {} }
+      }, []);
+
+      function handleLogin(u) {
+        setUser(u);
+        if (u) localStorage.setItem('ll_user', JSON.stringify(u));
+        else localStorage.removeItem('ll_user');
+        setShowLogin(false);
+      }
+
+      function startBooking() {
+        if (!user) { setShowLogin(true); return; }
+        setView('booking');
+      }
+      function goReview() {
+        if (!user) { setShowLogin(true); return; }
+        setView('review');
+      }
+
+      return (
+        <div className="min-h-screen bg-cream text-ink flex flex-col">
+          <Header user={user} onLogin={() => setShowLogin(true)} onLogout={() => handleLogin(null)} onHome={() => setView('home')} onBook={startBooking}/>
+          <div className="flex-1">
+            {view === 'home' && <HomePage onBook={startBooking} onLeaveReview={goReview}/>}
+            {view === 'booking' && <BookingFlow user={user} onDone={() => setView('home')} onCancel={() => setView('home')}/>}
+            {view === 'review' && <ReviewSubmit user={user} onDone={() => setView('home')}/>}
+          </div>
+          <Footer/>
+          {showLogin && <LoginModal onClose={() => setShowLogin(false)} onLogin={handleLogin}/>}
+        </div>
+      );
+    }
+
+    seedDemoBookings();
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>
