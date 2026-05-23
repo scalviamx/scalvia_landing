@@ -4,15 +4,15 @@ import { join } from "path";
 import { slugsValidos, clientesManifest } from "@/clientes/manifest";
 
 interface Props {
-  params: { cliente: string };
+  params: Promise<{ cliente: string }>;
 }
 
 export function generateStaticParams() {
   return clientesManifest.map((c) => ({ cliente: c.slug }));
 }
 
-export default function ClientePage({ params }: Props) {
-  const { cliente } = params;
+export default async function ClientePage({ params }: Props) {
+  const { cliente } = await params;
 
   if (!slugsValidos.has(cliente)) {
     notFound();
