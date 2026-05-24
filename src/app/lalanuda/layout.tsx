@@ -6,5 +6,9 @@ export default function LalanudaLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ClerkProvider localization={esES}>{children}</ClerkProvider>;
+  return (
+    <ClerkProvider localization={esES} signInFallbackRedirectUrl="/lalanuda" signUpFallbackRedirectUrl="/lalanuda">
+      {children}
+    </ClerkProvider>
+  );
 }
