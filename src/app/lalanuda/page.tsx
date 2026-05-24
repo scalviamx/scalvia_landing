@@ -2,10 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useUser, useClerk } from "@clerk/nextjs";
-import Image from "next/image";
 import Header from "./_components/Header";
-import LoginModal from "./_components/LoginModal";
-import type { LalanudaUser } from "./_components/types";
 import {
   ArrowRightIcon, ArrowLeftIcon, ClockIcon, MapPinIcon, PhoneIcon,
   SparklesIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon,
@@ -953,24 +950,21 @@ function Footer() {
 
 export default function LalanudaPage() {
   const { user: clerkUser, isSignedIn, isLoaded } = useUser();
-  const [guestUser, setGuestUser] = useState<LalanudaUser | null>(null);
-  const [showLogin, setShowLogin] = useState(false);
+  const { openSignIn } = useClerk();
   const [view, setView] = useState<"home"|"booking"|"review">("home");
 
   useEffect(() => { seedDemoBookings(); }, []);
-  useEffect(() => { if (isSignedIn) setGuestUser(null); }, [isSignedIn]);
 
-  const isLoggedIn = isSignedIn || !!guestUser;
   const currentUser = isSignedIn && clerkUser
     ? { name: clerkUser.firstName || clerkUser.emailAddresses[0]?.emailAddress?.split("@")[0] || "Usuario", email: clerkUser.emailAddresses[0]?.emailAddress }
-    : guestUser ? { name: guestUser.name } : null;
+    : null;
 
   function startBooking() {
-    if (!isLoggedIn) { setShowLogin(true); return; }
+    if (!isSignedIn) { openSignIn(); return; }
     setView("booking");
   }
   function goReview() {
-    if (!isLoggedIn) { setShowLogin(true); return; }
+    if (!isSignedIn) { openSignIn(); return; }
     setView("review");
   }
 
@@ -997,13 +991,7 @@ export default function LalanudaPage() {
       `}</style>
 
       <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F5EFE6", color: "#1C1815", fontFamily: "'Manrope', system-ui, sans-serif", WebkitFontSmoothing: "antialiased" }}>
-        <Header
-          guestUser={guestUser}
-          onLoginClick={() => setShowLogin(true)}
-          onBook={startBooking}
-          onGuestLogout={() => setGuestUser(null)}
-          onHome={() => setView("home")}
-        />
+        <Header onBook={startBooking} onHome={() => setView("home")} />
         <div className="flex-1">
           {view === "home"    && <HomePage onBook={startBooking} onLeaveReview={goReview}/>}
           {view === "booking" && <BookingFlow user={currentUser} onDone={() => setView("home")} onCancel={() => setView("home")}/>}
@@ -1011,13 +999,6 @@ export default function LalanudaPage() {
         </div>
         <Footer/>
       </div>
-
-      {showLogin && (
-        <LoginModal
-          onClose={() => setShowLogin(false)}
-          onGuestLogin={(name) => { setGuestUser({ name, provider: "guest" }); setShowLogin(false); }}
-        />
-      )}
     </>
   );
 }
