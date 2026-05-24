@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useUser, useClerk } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { MenuIcon, XIcon, UserIcon, LogOutIcon } from "./icons";
 
@@ -26,6 +27,7 @@ function PawLogo() {
 export default function Header({ onBook, onHome }: Props) {
   const { user, isSignedIn } = useUser();
   const { signOut, openSignIn } = useClerk();
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const displayName = isSignedIn
@@ -72,7 +74,7 @@ export default function Header({ onBook, onHome }: Props) {
                 </div>
               )}
               <span className="text-sm" style={{ color: "rgba(28,24,21,0.7)" }}>{displayName}</span>
-              <button onClick={() => signOut()} style={{ color: "rgba(28,24,21,0.5)" }}
+              <button onClick={() => signOut({ redirectUrl: pathname })} style={{ color: "rgba(28,24,21,0.5)" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#1C1815")}
                 onMouseLeave={e => (e.currentTarget.style.color = "rgba(28,24,21,0.5)")}>
                 <LogOutIcon className="w-4 h-4" />
@@ -108,7 +110,7 @@ export default function Header({ onBook, onHome }: Props) {
           {isSignedIn ? (
             <>
               <span className="text-sm mt-2 py-1" style={{ color: "rgba(28,24,21,0.6)" }}>{displayName}</span>
-              <button onClick={() => { signOut(); setMenuOpen(false); }}
+              <button onClick={() => { signOut({ redirectUrl: pathname }); setMenuOpen(false); }}
                 className="text-left text-sm flex items-center gap-1.5 py-1"
                 style={{ color: "rgba(28,24,21,0.5)" }}>
                 <LogOutIcon className="w-4 h-4" /> Cerrar sesión
