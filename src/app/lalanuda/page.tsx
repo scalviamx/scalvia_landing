@@ -997,7 +997,7 @@ export default function LalanudaPage() {
           {view === "booking" && <BookingFlow user={currentUser} onDone={() => setView("home")} onCancel={() => setView("home")}/>}
           {view === "review"  && <ReviewSubmit user={currentUser} onDone={() => setView("home")}/>}
         </div>
-        <Footer/>
+        {view === "home" && <Footer/>}
       </div>
     </>
   );
