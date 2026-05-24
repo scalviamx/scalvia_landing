@@ -651,13 +651,65 @@ function SummaryStep({ booking, patch, user, onConfirmed }: {
   const selectedPayment = PAYMENT_METHODS.find(p => p.id === booking.paymentMethod);
 
   function handlePay() { setStage("paying"); setTimeout(() => setStage("paid"), 1200); }
-  function handleConfirm() {
+  async function handleConfirm() {
     const bookingId = "b_" + Date.now();
-    saveBookingToStorage({ id: bookingId, date: booking.slot!.date, startMin: booking.slot!.startMin, durationMin });
+    saveBookingToStorage({
+      id: bookingId,
+      date: booking.slot!.date,
+      startMin: booking.slot!.startMin,
+      durationMin,
+    });
     setExistingBookings(loadBookings());
-    const notif = buildNotifications({ petName: booking.petName, petType: booking.petType ?? undefined, breed: booking.breed, notes: booking.notes, paymentMethod: booking.paymentMethod ?? undefined, bookingId, date: dateLabel, sizeLabel: size?.label, sizeRange: size?.range, items, total }, user);
+
+    const selectedPayment = PAYMENT_METHODS.find(p => p.id === booking.paymentMethod);
+    const paymentLabel = selectedPayment
+      ? `${selectedPayment.title} (${selectedPayment.status})`
+      : "No especificado";
+
+    // Email vía API — no bloquea, no redirige
+    fetch("/api/lalanuda/notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        bookingId,
+        clientName: user?.name || "Invitado",
+        clientEmail: user?.email || "",
+        petName: booking.petName,
+        petType: booking.petType === "perro" ? "Perro" : "Gato",
+        breed: booking.breed,
+        sizeLabel: size?.label ?? "",
+        sizeRange: size?.range ?? "",
+        items,
+        total,
+        dateLabel,
+        slotDate: booking.slot!.date,
+        slotStartMin: booking.slot!.startMin,
+        durationMin,
+        paymentMethod: paymentLabel,
+        notes: booking.notes,
+      }),
+    }).catch(err => console.error("[lalanuda] notify error:", err));
+
+    // WhatsApp al salón — nueva pestaña, no redirige
+    const notif = buildNotifications(
+      {
+        petName: booking.petName,
+        petType: booking.petType ?? undefined,
+        breed: booking.breed,
+        notes: booking.notes,
+        paymentMethod: booking.paymentMethod ?? undefined,
+        bookingId,
+        date: dateLabel,
+        sizeLabel: size?.label,
+        sizeRange: size?.range,
+        items,
+        total,
+      },
+      user
+    );
     window.open(notif.waUrl, "_blank");
-    setTimeout(() => { window.location.href = notif.mailtoUrl; setStage("confirmed"); }, 500);
+
+    setStage("confirmed");
   }
 
   if (stage === "confirmed") return (
