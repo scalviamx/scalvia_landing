@@ -1,14 +1,9 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import { esES } from "@clerk/localizations";
+import ClerkProviderClient from "@/components/ClerkProviderClient";
 
 export default function LalanudaLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <ClerkProvider localization={esES} signInFallbackRedirectUrl="/lalanuda" signUpFallbackRedirectUrl="/lalanuda">
-      {children}
-    </ClerkProvider>
-  );
+  return <ClerkProviderClient>{children}</ClerkProviderClient>;
 }
