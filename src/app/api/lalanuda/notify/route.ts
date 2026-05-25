@@ -228,6 +228,26 @@ export async function POST(req: NextRequest) {
   const recipients = ['hola@lalanuda.mx']
   if (clientEmail) recipients.unshift(clientEmail)
 
+  // Notion + Calendar run first — independent of email
+  logToNotion(body).catch(err => console.error('[lalanuda/notify] Notion log error:', err))
+  createCalendarEvent({
+    date: slotDate,
+    startMin: slotStartMin,
+    durationMin,
+    summary: `🐾 ${petName} · ${items.map((i: BookingItem) => i.name).join(' + ')}`,
+    description: [
+      `Cliente: ${clientName}`,
+      `Email: ${clientEmail}`,
+      `Mascota: ${petName} (${petType})`,
+      `Raza: ${body.breed ?? '—'}`,
+      `Tamaño: ${body.sizeLabel}`,
+      `Pago: ${paymentMethod}`,
+      `Notas: ${notes || '—'}`,
+      `ID Cita: ${bookingId}`,
+    ].join('\n'),
+  }).catch(err => console.error('[lalanuda/notify] Google Calendar error:', err))
+
+  // Email is best-effort — never fails the booking
   try {
     await resend.emails.send({
       from: 'La Lanuda <noreply@info.scalvia.mx>',
@@ -236,26 +256,9 @@ export async function POST(req: NextRequest) {
       subject: `🐾 Cita confirmada — ${petName} · ${dateLabel.split('·')[0].trim()}`,
       html,
     })
-    logToNotion(body).catch(err => console.error('[lalanuda/notify] Notion log error:', err))
-    createCalendarEvent({
-      date: slotDate,
-      startMin: slotStartMin,
-      durationMin,
-      summary: `🐾 ${petName} · ${items.map((i: BookingItem) => i.name).join(' + ')}`,
-      description: [
-        `Cliente: ${clientName}`,
-        `Email: ${clientEmail}`,
-        `Mascota: ${petName} (${petType})`,
-        `Raza: ${body.breed ?? '—'}`,
-        `Tamaño: ${body.sizeLabel}`,
-        `Pago: ${paymentMethod}`,
-        `Notas: ${notes || '—'}`,
-        `ID Cita: ${bookingId}`,
-      ].join('\n'),
-    }).catch(err => console.error('[lalanuda/notify] Google Calendar error:', err))
-    return NextResponse.json({ success: true })
   } catch (err) {
-    console.error('[lalanuda/notify] Resend error:', err)
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
+    console.error('[lalanuda/notify] Resend error (non-fatal):', err)
   }
+
+  return NextResponse.json({ success: true })
 }
