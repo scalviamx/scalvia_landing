@@ -190,7 +190,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await resend.emails.send({
-      from: 'La Lanuda <noreply@info.scalvia.mx>',
+      from: 'La Lanuda <onboarding@resend.dev>',
       to: recipients,
       replyTo: 'hola@lalanuda.mx',
       subject: `🐾 Cita confirmada — ${petName} · ${dateLabel.split('·')[0].trim()}`,
