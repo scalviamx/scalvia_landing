@@ -43,6 +43,8 @@ async function logToNotion(payload: NotifyPayload): Promise<void> {
   const hh = String(Math.floor(payload.slotStartMin / 60)).padStart(2, '0')
   const mm = String(payload.slotStartMin % 60).padStart(2, '0')
   const horaInicio = `${hh}:${mm}`
+  // Strip status suffix e.g. "Tarjeta en el lugar (pendiente)" → "Tarjeta en el lugar"
+  const paymentForNotion = payload.paymentMethod.split(' (')[0].trim()
 
   await notion.pages.create({
     parent: { database_id: dbId },
@@ -57,7 +59,7 @@ async function logToNotion(payload: NotifyPayload): Promise<void> {
       'Servicios':       { rich_text: [{ text: { content: serviciosList } }] },
       'Total MXN':       { number:    payload.total },
       'Comisión 6% MXN': { number:    Math.round(payload.total * 0.06) },
-      'Método de pago':  { select:    { name: payload.paymentMethod } },
+      'Método de pago':  { select:    { name: paymentForNotion } },
       'Notas':           { rich_text: [{ text: { content: payload.notes || '—' } }] },
       'Hora inicio':     { rich_text: [{ text: { content: horaInicio } }] },
       'Duración min':    { number:    payload.durationMin },
