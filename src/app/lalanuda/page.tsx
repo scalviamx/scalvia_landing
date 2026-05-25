@@ -543,6 +543,22 @@ function DateTimePicker({ durationMin, value, onChange, bookings }: {
     return arr;
   }, []);
   const slots = useMemo(() => selectedDate && durationMin ? generateSlots(selectedDate, durationMin) : [], [selectedDate, durationMin]);
+  const [busyBlocks, setBusyBlocks] = useState<{ startMin: number; endMin: number }[]>([])
+  const [loadingAvailability, setLoadingAvailability] = useState(false)
+
+  useEffect(() => {
+    if (!selectedDate) return
+    const dateStr = toISODate(selectedDate)
+    setLoadingAvailability(true)
+    fetch(`/api/lalanuda/availability?date=${dateStr}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.busy) setBusyBlocks(data.busy)
+      })
+      .catch(err => console.warn('[DateTimePicker] availability fetch error:', err))
+      .finally(() => setLoadingAvailability(false))
+  }, [selectedDate])
+
   useEffect(() => {
     if (!value || !durationMin) return;
     const d = fromISODate(value.date);
@@ -590,13 +606,18 @@ function DateTimePicker({ durationMin, value, onChange, bookings }: {
             <div className="text-[10px] uppercase" style={{ letterSpacing: "0.18em", color: "#8B7355" }}>Hora</div>
             <div className="text-[10px] uppercase" style={{ letterSpacing: "0.1em", color: "rgba(28,24,21,0.45)" }}>~{durationMin} min de servicio</div>
           </div>
-          {slots.length === 0 ? (
+          {loadingAvailability ? (
+            <div className="rounded-2xl p-5 text-sm text-center italic" style={{ backgroundColor: "#FFFEFC", border: "1px solid rgba(28,24,21,0.1)", color: "rgba(28,24,21,0.55)" }}>
+              Verificando disponibilidad…
+            </div>
+          ) : slots.length === 0 ? (
             <div className="rounded-2xl p-5 text-sm text-center italic" style={{ backgroundColor: "#FFFEFC", border: "1px solid rgba(28,24,21,0.1)", color: "rgba(28,24,21,0.55)" }}>No hay horarios disponibles ese día.</div>
           ) : (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
               {slots.map(startMin => {
                 const dateStr = toISODate(selectedDate);
-                const available = isSlotAvailable(dateStr, startMin, durationMin, bookings);
+                const available = isSlotAvailable(dateStr, startMin, durationMin, bookings) &&
+                  !busyBlocks.some(b => startMin < b.endMin && (startMin + durationMin) > b.startMin);
                 const isSel = value && value.date === dateStr && value.startMin === startMin;
                 return (
                   <button key={startMin} type="button" disabled={!available} onClick={() => onChange({ date: dateStr, startMin })}

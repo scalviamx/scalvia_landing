@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { Client } from '@notionhq/client'
+import { createCalendarEvent } from '@/lib/google-calendar'
 
 export const runtime = 'nodejs'
 
@@ -236,6 +237,22 @@ export async function POST(req: NextRequest) {
       html,
     })
     logToNotion(body).catch(err => console.error('[lalanuda/notify] Notion log error:', err))
+    createCalendarEvent({
+      date: slotDate,
+      startMin: slotStartMin,
+      durationMin,
+      summary: `🐾 ${petName} · ${items.map((i: BookingItem) => i.name).join(' + ')}`,
+      description: [
+        `Cliente: ${clientName}`,
+        `Email: ${clientEmail}`,
+        `Mascota: ${petName} (${petType})`,
+        `Raza: ${body.breed ?? '—'}`,
+        `Tamaño: ${body.sizeLabel}`,
+        `Pago: ${paymentMethod}`,
+        `Notas: ${notes || '—'}`,
+        `ID Cita: ${bookingId}`,
+      ].join('\n'),
+    }).catch(err => console.error('[lalanuda/notify] Google Calendar error:', err))
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error('[lalanuda/notify] Resend error:', err)
