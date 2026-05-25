@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { Client } from '@notionhq/client'
 
 export const runtime = 'nodejs'
 
@@ -26,6 +27,42 @@ interface NotifyPayload {
   durationMin: number
   paymentMethod: string
   notes: string
+}
+
+async function logToNotion(payload: NotifyPayload): Promise<void> {
+  const token = process.env.NOTION_TOKEN
+  const dbId  = process.env.NOTION_LALANUDA_DB_ID
+  if (!token || !dbId) {
+    console.warn('[lalanuda/notify] NOTION_TOKEN or NOTION_LALANUDA_DB_ID not set — skipping log')
+    return
+  }
+
+  const notion = new Client({ auth: token })
+
+  const serviciosList = payload.items.map(i => `${i.name} ($${i.price})`).join(', ')
+  const hh = String(Math.floor(payload.slotStartMin / 60)).padStart(2, '0')
+  const mm = String(payload.slotStartMin % 60).padStart(2, '0')
+  const horaInicio = `${hh}:${mm}`
+
+  await notion.pages.create({
+    parent: { database_id: dbId },
+    properties: {
+      'ID Cita':         { title:     [{ text: { content: payload.bookingId } }] },
+      'Fecha':           { date:      { start: payload.slotDate } },
+      'Cliente':         { rich_text: [{ text: { content: payload.clientName || '—' } }] },
+      'Email':           { email:     payload.clientEmail || null },
+      'Mascota':         { rich_text: [{ text: { content: `${payload.petName} · ${payload.petType}` } }] },
+      'Raza':            { rich_text: [{ text: { content: payload.breed || '—' } }] },
+      'Tamaño':          { select:    { name: payload.sizeLabel } },
+      'Servicios':       { rich_text: [{ text: { content: serviciosList } }] },
+      'Total MXN':       { number:    payload.total },
+      'Comisión 6% MXN': { number:    Math.round(payload.total * 0.06) },
+      'Método de pago':  { select:    { name: payload.paymentMethod } },
+      'Notas':           { rich_text: [{ text: { content: payload.notes || '—' } }] },
+      'Hora inicio':     { rich_text: [{ text: { content: horaInicio } }] },
+      'Duración min':    { number:    payload.durationMin },
+    },
+  })
 }
 
 function buildGCalUrl(slotDate: string, startMin: number, durationMin: number, petName: string, items: BookingItem[], total: number): string {
@@ -196,6 +233,7 @@ export async function POST(req: NextRequest) {
       subject: `🐾 Cita confirmada — ${petName} · ${dateLabel.split('·')[0].trim()}`,
       html,
     })
+    logToNotion(body).catch(err => console.error('[lalanuda/notify] Notion log error:', err))
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error('[lalanuda/notify] Resend error:', err)
