@@ -228,24 +228,30 @@ export async function POST(req: NextRequest) {
   const recipients = ['hola@lalanuda.mx']
   if (clientEmail) recipients.unshift(clientEmail)
 
-  // Notion + Calendar run first — independent of email
-  logToNotion(body).catch(err => console.error('[lalanuda/notify] Notion log error:', err))
-  createCalendarEvent({
-    date: slotDate,
-    startMin: slotStartMin,
-    durationMin,
-    summary: `🐾 ${petName} · ${items.map((i: BookingItem) => i.name).join(' + ')}`,
-    description: [
-      `Cliente: ${clientName}`,
-      `Email: ${clientEmail}`,
-      `Mascota: ${petName} (${petType})`,
-      `Raza: ${body.breed ?? '—'}`,
-      `Tamaño: ${body.sizeLabel}`,
-      `Pago: ${paymentMethod}`,
-      `Notas: ${notes || '—'}`,
-      `ID Cita: ${bookingId}`,
-    ].join('\n'),
-  }).catch(err => console.error('[lalanuda/notify] Google Calendar error:', err))
+  // Await both — fire-and-forget is killed by Vercel before resolving
+  const [notionResult, calendarResult] = await Promise.allSettled([
+    logToNotion(body),
+    createCalendarEvent({
+      date: slotDate,
+      startMin: slotStartMin,
+      durationMin,
+      summary: `🐾 ${petName} · ${items.map((i: BookingItem) => i.name).join(' + ')}`,
+      description: [
+        `Cliente: ${clientName}`,
+        `Email: ${clientEmail}`,
+        `Mascota: ${petName} (${petType})`,
+        `Raza: ${body.breed ?? '—'}`,
+        `Tamaño: ${body.sizeLabel}`,
+        `Pago: ${paymentMethod}`,
+        `Notas: ${notes || '—'}`,
+        `ID Cita: ${bookingId}`,
+      ].join('\n'),
+    }),
+  ])
+  if (notionResult.status === 'rejected')
+    console.error('[lalanuda/notify] Notion error:', notionResult.reason)
+  if (calendarResult.status === 'rejected')
+    console.error('[lalanuda/notify] Calendar error:', calendarResult.reason)
 
   // Email is best-effort — never fails the booking
   try {
