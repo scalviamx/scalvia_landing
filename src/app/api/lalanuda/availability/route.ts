@@ -13,7 +13,8 @@ export async function GET(req: NextRequest) {
     const busy = await getBusySlots(date)
     return NextResponse.json({ date, busy })
   } catch (err) {
-    console.error('[lalanuda/availability] error:', err)
-    return NextResponse.json({ error: 'Failed to fetch availability' }, { status: 500 })
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('[lalanuda/availability] error:', msg)
+    return NextResponse.json({ error: 'Failed to fetch availability', detail: msg }, { status: 500 })
   }
 }
