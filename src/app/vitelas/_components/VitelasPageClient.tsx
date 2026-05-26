@@ -1021,8 +1021,8 @@ function Footer() {
 // ─── Shared page shell ────────────────────────────────────────────────────────
 
 const PAGE_STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@300;400;500;600;700&display=swap');
-  .ll-display { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144, 'SOFT' 50; letter-spacing: -0.01em; }
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap');
+  .ll-display { font-family: 'Playfair Display', serif; letter-spacing: -0.01em; }
   @keyframes ll-fade-up { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
   .ll-animate { animation: ll-fade-up 0.55s ease-out both; }
   ::selection { background:#7C3AED; color:#F7F4FF; }

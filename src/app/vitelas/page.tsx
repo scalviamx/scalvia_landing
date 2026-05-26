@@ -21,7 +21,7 @@ const VitelasPageClient = dynamic(
           minHeight: "100dvh",
           backgroundColor: "#EDE8FF",
           color: "#7B6BAD",
-          fontFamily: "'Fraunces', serif",
+          fontFamily: "'Playfair Display', serif",
           fontSize: "1.25rem",
         }}
       >

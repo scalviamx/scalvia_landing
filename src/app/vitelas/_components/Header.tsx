@@ -50,7 +50,7 @@ export default function Header({ onBook, onHome, user = null, onLogin, onLogout 
         <button onClick={onHome} className="flex items-center gap-2.5 group" style={{ color: "#1E0A45" }}>
           <span className="group-hover:text-[#7C3AED] transition-colors"><PawLogo /></span>
           <div className="text-left leading-none">
-            <div style={{ fontFamily: "'Fraunces', serif", fontVariationSettings: "'opsz' 144", fontSize: "1.2rem", letterSpacing: "-0.01em" }}>Vitelas</div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", letterSpacing: "-0.01em" }}>Vitelas</div>
             <div style={{ fontSize: "0.6rem", letterSpacing: "0.18em", color: "rgba(30,10,69,0.55)", textTransform: "uppercase", marginTop: "2px" }}>Estética Canina &amp; Felina</div>
           </div>
         </button>
