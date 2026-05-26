@@ -1019,33 +1019,87 @@ function Footer() {
   );
 }
 
-// ─── Main page ────────────────────────────────────────────────────────────────
+// ─── Shared page shell ────────────────────────────────────────────────────────
 
-const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+const PAGE_STYLES = `
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@300;400;500;600;700&display=swap');
+  .ll-display { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144, 'SOFT' 50; letter-spacing: -0.01em; }
+  @keyframes ll-fade-up { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  .ll-animate { animation: ll-fade-up 0.55s ease-out both; }
+  ::selection { background:#7C3AED; color:#F7F4FF; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:rgba(30,10,69,0.18); border-radius:999px; }
+  ::-webkit-scrollbar-thumb:hover { background:rgba(30,10,69,0.32); }
+`;
 
-export default function LalanudaPage() {
+function PageShell({ view, onBook, onHome, onLeaveReview, user, onDone, onCancel }: {
+  view: "home" | "booking" | "review";
+  onBook: () => void;
+  onHome: () => void;
+  onLeaveReview: () => void;
+  user: { name?: string; email?: string } | null;
+  onDone: () => void;
+  onCancel: () => void;
+}) {
+  return (
+    <>
+      <style>{PAGE_STYLES}</style>
+      <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#EDE8FF", color: "#1E0A45", fontFamily: "'Manrope', system-ui, sans-serif", WebkitFontSmoothing: "antialiased" }}>
+        <Header onBook={onBook} onHome={onHome} />
+        <div className="flex-1">
+          {view === "home"    && <HomePage onBook={onBook} onLeaveReview={onLeaveReview}/>}
+          {view === "booking" && <BookingFlow user={user} onDone={onDone} onCancel={onCancel}/>}
+          {view === "review"  && <ReviewSubmit user={user} onDone={onDone}/>}
+        </div>
+        {view === "home" && <Footer/>}
+      </div>
+    </>
+  );
+}
+
+// ─── Demo page (sin Clerk) ────────────────────────────────────────────────────
+
+function VitelasPageDemo() {
+  const [view, setView] = useState<"home" | "booking" | "review">("home");
+  useEffect(() => { seedDemoBookings(); }, []);
+  const demoUser = { name: "Demo", email: "demo@vitelas.mx" };
+  return (
+    <PageShell
+      view={view}
+      onBook={() => setView("booking")}
+      onHome={() => setView("home")}
+      onLeaveReview={() => setView("review")}
+      user={demoUser}
+      onDone={() => setView("home")}
+      onCancel={() => setView("home")}
+    />
+  );
+}
+
+// ─── Main page (con Clerk) ────────────────────────────────────────────────────
+
+function VitelasPageWithClerk() {
   const { user: clerkUser, isSignedIn, isLoaded } = useUser();
   const { openSignIn } = useClerk();
   const [view, setView] = useState<"home"|"booking"|"review">("home");
 
   useEffect(() => { seedDemoBookings(); }, []);
 
-  const currentUser = DEMO_MODE
-    ? { name: "Demo", email: "demo@vitelas.mx" }
-    : isSignedIn && clerkUser
-      ? { name: clerkUser.firstName || clerkUser.emailAddresses[0]?.emailAddress?.split("@")[0] || "Usuario", email: clerkUser.emailAddresses[0]?.emailAddress }
-      : null;
+  const currentUser = isSignedIn && clerkUser
+    ? { name: clerkUser.firstName || clerkUser.emailAddresses[0]?.emailAddress?.split("@")[0] || "Usuario", email: clerkUser.emailAddresses[0]?.emailAddress }
+    : null;
 
   function startBooking() {
-    if (!DEMO_MODE && !isSignedIn) { openSignIn(); return; }
+    if (!isSignedIn) { openSignIn(); return; }
     setView("booking");
   }
   function goReview() {
-    if (!DEMO_MODE && !isSignedIn) { openSignIn(); return; }
+    if (!isSignedIn) { openSignIn(); return; }
     setView("review");
   }
 
-  if (!DEMO_MODE && !isLoaded) {
+  if (!isLoaded) {
     return (
       <div className="flex items-center justify-center min-h-screen text-xl" style={{ backgroundColor: "#EDE8FF", color: "#7B6BAD", fontFamily: "'Fraunces', serif" }}>
         Cargando Vitelas...
@@ -1054,28 +1108,19 @@ export default function LalanudaPage() {
   }
 
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@300;400;500;600;700&display=swap');
-        .ll-display { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144, 'SOFT' 50; letter-spacing: -0.01em; }
-        @keyframes ll-fade-up { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
-        .ll-animate { animation: ll-fade-up 0.55s ease-out both; }
-        ::selection { background:#7C3AED; color:#F7F4FF; }
-        ::-webkit-scrollbar { width:10px; height:10px; }
-        ::-webkit-scrollbar-track { background:transparent; }
-        ::-webkit-scrollbar-thumb { background:rgba(30,10,69,0.18); border-radius:999px; }
-        ::-webkit-scrollbar-thumb:hover { background:rgba(30,10,69,0.32); }
-      `}</style>
-
-      <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#EDE8FF", color: "#1E0A45", fontFamily: "'Manrope', system-ui, sans-serif", WebkitFontSmoothing: "antialiased" }}>
-        <Header onBook={startBooking} onHome={() => setView("home")} />
-        <div className="flex-1">
-          {view === "home"    && <HomePage onBook={startBooking} onLeaveReview={goReview}/>}
-          {view === "booking" && <BookingFlow user={currentUser} onDone={() => setView("home")} onCancel={() => setView("home")}/>}
-          {view === "review"  && <ReviewSubmit user={currentUser} onDone={() => setView("home")}/>}
-        </div>
-        {view === "home" && <Footer/>}
-      </div>
-    </>
+    <PageShell
+      view={view}
+      onBook={startBooking}
+      onHome={() => setView("home")}
+      onLeaveReview={goReview}
+      user={currentUser}
+      onDone={() => setView("home")}
+      onCancel={() => setView("home")}
+    />
   );
 }
+
+// ─── Export ───────────────────────────────────────────────────────────────────
+
+const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+export default DEMO_MODE ? VitelasPageDemo : VitelasPageWithClerk;
