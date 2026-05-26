@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { MenuIcon, XIcon, UserIcon, LogOutIcon } from "./icons";
 
 interface Props {
@@ -13,18 +14,6 @@ interface Props {
   onLogout?: () => void;
 }
 
-function PawLogo() {
-  return (
-    <svg width="30" height="30" viewBox="0 0 40 40" fill="currentColor">
-      <ellipse cx="11" cy="13" rx="3.2" ry="4.2"/>
-      <ellipse cx="20" cy="9" rx="3.2" ry="4.5"/>
-      <ellipse cx="29" cy="13" rx="3.2" ry="4.2"/>
-      <ellipse cx="34" cy="22" rx="3" ry="3.5"/>
-      <ellipse cx="6" cy="22" rx="3" ry="3.5"/>
-      <path d="M13 28 Q20 18 27 28 Q31 33 27 36 Q23.5 38.5 20 36.5 Q16.5 38.5 13 36 Q9 33 13 28 Z"/>
-    </svg>
-  );
-}
 
 export default function Header({ onBook, onHome, user = null, onLogin, onLogout }: Props) {
   const pathname = usePathname();
@@ -46,13 +35,9 @@ export default function Header({ onBook, onHome, user = null, onLogin, onLogout 
 
   return (
     <header className="sticky top-0 z-30 backdrop-blur-md" style={{ backgroundColor: "rgba(237,232,255,0.85)", borderBottom: "1px solid rgba(30,10,69,0.1)" }}>
-      <div className="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
-        <button onClick={onHome} className="flex items-center gap-2.5 group" style={{ color: "#1E0A45" }}>
-          <span className="group-hover:text-[#7C3AED] transition-colors"><PawLogo /></span>
-          <div className="text-left leading-none">
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", letterSpacing: "-0.01em" }}>Vitelas</div>
-            <div style={{ fontSize: "0.6rem", letterSpacing: "0.18em", color: "rgba(30,10,69,0.55)", textTransform: "uppercase", marginTop: "2px" }}>Estética Canina &amp; Felina</div>
-          </div>
+      <div className="max-w-6xl mx-auto px-5 md:px-8 h-24 flex items-center justify-between">
+        <button onClick={onHome} className="flex items-center group">
+          <Image src="/vitelas_logo.png" alt="Vitelas Grooming" width={300} height={184} className="h-20 w-auto object-contain" priority />
         </button>
 
         <nav className="hidden md:flex items-center gap-6 text-sm" style={{ color: "#1E0A45" }}>
