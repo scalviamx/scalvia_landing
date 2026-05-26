@@ -1064,19 +1064,30 @@ function PageShell({ view, onBook, onHome, onLeaveReview, user, onLogin, onLogou
 
 function VitelasPageWithClerk() {
   const [view, setView] = useState<"home" | "booking" | "review">("home");
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
   const { signOut, openSignIn } = useClerk();
 
-  const clerkUser = isLoaded && user
+  const clerkUser = isSignedIn && user
     ? { name: user.fullName ?? user.firstName ?? "", email: user.primaryEmailAddress?.emailAddress ?? "", avatarUrl: user.imageUrl }
     : null;
+
+  function startBooking() {
+    if (!isSignedIn) { openSignIn(); return; }
+    setView("booking");
+  }
+  function goReview() {
+    if (!isSignedIn) { openSignIn(); return; }
+    setView("review");
+  }
+
+  if (!isLoaded) return null;
 
   return (
     <PageShell
       view={view}
-      onBook={() => setView("booking")}
+      onBook={startBooking}
       onHome={() => setView("home")}
-      onLeaveReview={() => setView("review")}
+      onLeaveReview={goReview}
       user={clerkUser}
       onLogin={() => openSignIn()}
       onLogout={() => signOut()}
