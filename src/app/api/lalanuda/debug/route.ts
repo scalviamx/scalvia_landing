@@ -1,10 +1,13 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { Client } from '@notionhq/client'
 import { createCalendarEvent } from '@/lib/google-calendar'
 
 export const runtime = 'nodejs'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  if (req.nextUrl.searchParams.get('secret') !== process.env.DEBUG_SECRET) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
   const results: Record<string, unknown> = {}
 
   const token = process.env.NOTION_TOKEN
