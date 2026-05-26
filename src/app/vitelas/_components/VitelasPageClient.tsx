@@ -359,15 +359,6 @@ function HomePage({ onBook, onLeaveReview }: { onBook: () => void; onLeaveReview
         </div>
       </section>
 
-      {/* Info bar */}
-      <section style={{ borderTop: "1px solid rgba(30,10,69,0.1)", borderBottom: "1px solid rgba(30,10,69,0.1)", backgroundColor: "#F7F4FF" }}>
-        <div className="max-w-6xl mx-auto px-5 md:px-8 py-6 grid sm:grid-cols-3 gap-4 text-sm">
-          <InfoChip icon={<MapPinIcon className="w-4 h-4"/>} label={company.address}/>
-          <InfoChip icon={<ClockIcon className="w-4 h-4"/>} label="Todos los días · 10 a 18h"/>
-          <InfoChip icon={<PhoneIcon className="w-4 h-4"/>} label={company.phone}/>
-        </div>
-      </section>
-
       {/* Galería */}
       <section id="galeria" className="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
         <div className="flex items-end justify-between mb-12 gap-6 flex-wrap">

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { Client } from '@notionhq/client'
 import { createCalendarEvent } from '@/lib/google-calendar'
+import { demoMode } from '@/lib/flags'
 
 export const runtime = 'nodejs'
 
@@ -220,6 +221,13 @@ export async function POST(req: NextRequest) {
   </table>
 </body>
 </html>`
+
+  const isDemo = await demoMode()
+
+  if (isDemo) {
+    console.log('[lalanuda/notify] DEMO_MODE activo — integraciones desactivadas. Booking ID:', bookingId)
+    return NextResponse.json({ success: true, demo: true })
+  }
 
   const resend = new Resend(process.env.RESEND_API_KEY)
 
