@@ -1045,7 +1045,7 @@ function PageShell({ view, onBook, onHome, onLeaveReview, user, onDone, onCancel
     <>
       <style>{PAGE_STYLES}</style>
       <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#EDE8FF", color: "#1E0A45", fontFamily: "'Manrope', system-ui, sans-serif", WebkitFontSmoothing: "antialiased" }}>
-        <Header onBook={onBook} onHome={onHome} />
+        <Header onBook={onBook} onHome={onHome} user={user} />
         <div className="flex-1">
           {view === "home"    && <HomePage onBook={onBook} onLeaveReview={onLeaveReview}/>}
           {view === "booking" && <BookingFlow user={user} onDone={onDone} onCancel={onCancel}/>}

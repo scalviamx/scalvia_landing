@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useUser, useClerk } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { MenuIcon, XIcon, UserIcon, LogOutIcon } from "./icons";
 
 interface Props {
   onBook: () => void;
   onHome: () => void;
+  /** Usuario actual. null = no autenticado. En Demo se pasa un user ficticio. */
+  user?: { name?: string; email?: string; avatarUrl?: string } | null;
+  onLogin?: () => void;
+  onLogout?: () => void;
 }
 
 function PawLogo() {
@@ -24,19 +26,21 @@ function PawLogo() {
   );
 }
 
-export default function Header({ onBook, onHome }: Props) {
-  const { user, isSignedIn } = useUser();
-  const { signOut, openSignIn } = useClerk();
+export default function Header({ onBook, onHome, user = null, onLogin, onLogout }: Props) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const displayName = isSignedIn
-    ? (user?.firstName || user?.emailAddresses[0]?.emailAddress?.split("@")[0] || "Usuario")
-    : null;
-  const avatarUrl = isSignedIn ? user?.imageUrl : null;
+  const isSignedIn = !!user;
+  const displayName = user?.name ?? null;
+  const avatarUrl = user?.avatarUrl ?? null;
 
   function handleLogin() {
-    openSignIn();
+    onLogin?.();
+    setMenuOpen(false);
+  }
+
+  function handleLogout() {
+    onLogout?.();
     setMenuOpen(false);
   }
 
@@ -66,7 +70,7 @@ export default function Header({ onBook, onHome }: Props) {
           {isSignedIn ? (
             <div className="flex items-center gap-2">
               {avatarUrl ? (
-                <Image src={avatarUrl} alt={displayName || ""} width={28} height={28} className="rounded-full" />
+                <img src={avatarUrl} alt={displayName || ""} width={28} height={28} className="rounded-full" />
               ) : (
                 <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium"
                   style={{ backgroundColor: "rgba(124,107,173,0.2)", color: "#7B6BAD" }}>
@@ -74,7 +78,7 @@ export default function Header({ onBook, onHome }: Props) {
                 </div>
               )}
               <span className="text-sm" style={{ color: "rgba(30,10,69,0.7)" }}>{displayName}</span>
-              <button onClick={() => signOut({ redirectUrl: pathname })} style={{ color: "rgba(30,10,69,0.5)" }}
+              <button onClick={handleLogout} style={{ color: "rgba(30,10,69,0.5)" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#1E0A45")}
                 onMouseLeave={e => (e.currentTarget.style.color = "rgba(30,10,69,0.5)")}>
                 <LogOutIcon className="w-4 h-4" />
@@ -110,7 +114,7 @@ export default function Header({ onBook, onHome }: Props) {
           {isSignedIn ? (
             <>
               <span className="text-sm mt-2 py-1" style={{ color: "rgba(30,10,69,0.6)" }}>{displayName}</span>
-              <button onClick={() => { signOut({ redirectUrl: pathname }); setMenuOpen(false); }}
+              <button onClick={handleLogout}
                 className="text-left text-sm flex items-center gap-1.5 py-1"
                 style={{ color: "rgba(30,10,69,0.5)" }}>
                 <LogOutIcon className="w-4 h-4" /> Cerrar sesión
