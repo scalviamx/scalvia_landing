@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { useUser, useClerk } from "@clerk/nextjs";
 import Header from "./Header";
 import {
   ArrowRightIcon, ArrowLeftIcon, ClockIcon, MapPinIcon, PhoneIcon,
@@ -1077,49 +1076,6 @@ function VitelasPageDemo() {
   );
 }
 
-// ─── Main page (con Clerk) ────────────────────────────────────────────────────
-
-function VitelasPageWithClerk() {
-  const { user: clerkUser, isSignedIn, isLoaded } = useUser();
-  const { openSignIn } = useClerk();
-  const [view, setView] = useState<"home"|"booking"|"review">("home");
-
-  useEffect(() => { seedDemoBookings(); }, []);
-
-  const currentUser = isSignedIn && clerkUser
-    ? { name: clerkUser.firstName || clerkUser.emailAddresses[0]?.emailAddress?.split("@")[0] || "Usuario", email: clerkUser.emailAddresses[0]?.emailAddress }
-    : null;
-
-  function startBooking() {
-    if (!isSignedIn) { openSignIn(); return; }
-    setView("booking");
-  }
-  function goReview() {
-    if (!isSignedIn) { openSignIn(); return; }
-    setView("review");
-  }
-
-  if (!isLoaded) {
-    return (
-      <div className="flex items-center justify-center min-h-screen text-xl" style={{ backgroundColor: "#EDE8FF", color: "#7B6BAD", fontFamily: "'Fraunces', serif" }}>
-        Cargando Vitelas...
-      </div>
-    );
-  }
-
-  return (
-    <PageShell
-      view={view}
-      onBook={startBooking}
-      onHome={() => setView("home")}
-      onLeaveReview={goReview}
-      user={currentUser}
-      onDone={() => setView("home")}
-      onCancel={() => setView("home")}
-    />
-  );
-}
-
 // ─── Export ───────────────────────────────────────────────────────────────────
-// Branch Demo: siempre sin Clerk. La versión con Clerk vive en main/PROD.
+// Branch Demo: sin Clerk. La versión con Clerk vive en main/PROD.
 export default VitelasPageDemo;
