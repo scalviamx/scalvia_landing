@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BlurFade } from '@/components/ui/BlurFade'
-import { MagicCard } from '@/components/ui/MagicCard'
-import { MagneticButton } from '@/components/ui/magnetic-button'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 type ContactChallenge = { submittedAt: string; submittedSig: string }
@@ -226,53 +224,36 @@ export function Contacto() {
 
   return (
     <>
-      <section className="bg-forest pt-32 pb-28 relative overflow-hidden">
+      {/* Hero forest */}
+      <section className="bg-forest pt-28 pb-20 px-6 relative overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 60% 80% at 50% 0%, rgba(61,187,122,0.08) 0%, transparent 70%)',
+              'radial-gradient(ellipse 70% 80% at 50% 0%, rgba(61,187,122,0.10) 0%, transparent 70%)',
           }}
           aria-hidden="true"
         />
-        <div className="relative z-10 w-full max-w-[1120px] mx-auto px-6">
-          <BlurFade delay={0.1}>
-            <div className="max-w-[860px] mx-auto text-center">
-              <div>
-                <div className="inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.1em] uppercase text-growth bg-growth/10 border border-growth/20 px-3.5 py-1.5 rounded-full mb-6">
-                  <span className="w-1.5 h-1.5 bg-growth rounded-full animate-pulse-dot" />
-                  Asistente virtual
-                </div>
-                <h2 className="text-[clamp(2rem,5vw,3.25rem)] font-extrabold text-white leading-[1.1] tracking-tight mb-5">
-                  ¿Quieres probar la experiencia de
-                  <br />
-                  <span className="text-growth">un agente de IA?</span>
-                </h2>
-                <p className="text-white/60 text-lg leading-relaxed max-w-[560px] mx-auto">
-                  Contacta a Sofía, nuestra asistente virtual.
-                </p>
-              </div>
-
-              <div className="flex justify-center mt-8">
-                <MagicCard className="group border border-growth/25 bg-growth/8 p-1 rounded-2xl">
-                  <MagneticButton>
-                    <button
-                      type="button"
-                      className="inline-flex items-center justify-center text-[0.9375rem] font-bold text-ink bg-growth px-6 py-3.5 rounded-xl group-hover:bg-[#2ea865] transition-all duration-200"
-                    >
-                      Agente IA
-                    </button>
-                  </MagneticButton>
-                </MagicCard>
-              </div>
+        <div className="relative z-10 w-full max-w-[760px] mx-auto text-center">
+          <BlurFade delay={0.05}>
+            <div className="inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.1em] uppercase text-growth bg-growth/10 border border-growth/20 px-3.5 py-1.5 rounded-full mb-6">
+              Diagnóstico gratuito
             </div>
+            <h1 className="text-[clamp(2rem,5vw,3rem)] font-extrabold text-white leading-[1.1] tracking-tight mb-4">
+              ¿Listo para que tu empresa trabaje más{' '}
+              <span className="text-growth">inteligente</span>?
+            </h1>
+            <p className="text-white/60 text-lg leading-relaxed max-w-[520px] mx-auto">
+              Analizamos tu operación en 30 minutos y te mostramos exactamente qué procesos puedes automatizar con IA, sin costo.
+            </p>
           </BlurFade>
         </div>
       </section>
 
-      <section id="contacto" className="py-20 px-6 bg-white" aria-labelledby="cta-title">
+      {/* Formulario */}
+      <section id="contacto" className="flex-1 flex items-center py-16 px-6 bg-white" aria-labelledby="cta-title">
         <div className="w-full max-w-[1120px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start lg:items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <BlurFade className="flex flex-col">
               <div className="flex flex-col gap-4">
                 <p className="text-xs font-bold tracking-widest uppercase text-growth">Contacto</p>

@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 
 export default function ContactoPage() {
   return (
-    <div className="min-h-screen bg-forest flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Nav />
-      <main className="flex-1">
+      <main className="flex-1 bg-white flex flex-col">
         <Contacto />
       </main>
       <Footer />
