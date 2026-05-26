@@ -1,16 +1,11 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export default clerkMiddleware((auth, req) => {
-  // Clerk solo activo en rutas /lalanuda
+// Branch Demo: sin Clerk. Middleware simple que solo deja pasar.
+// En main/PROD se restaura clerkMiddleware.
+export default function middleware() {
   return NextResponse.next();
-});
+}
 
 export const config = {
-  matcher: [
-    // Solo rutas de lalanuda y Clerk proxy
-    "/lalanuda(.*)",
-    "/__clerk/(.*)",
-  ],
+  matcher: ["/vitelas(.*)"],
 };
