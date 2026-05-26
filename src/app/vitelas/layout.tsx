@@ -1,5 +1,7 @@
 import ClerkProviderClient from "@/components/ClerkProviderClient";
 
+export const dynamic = "force-dynamic";
+
 const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
 export default function VitelasLayout({
