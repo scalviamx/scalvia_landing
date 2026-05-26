@@ -1083,7 +1083,7 @@ function VitelasPageWithClerk() {
       onLeaveReview={goReview}
       user={clerkUser}
       onLogin={() => openSignIn()}
-      onLogout={() => signOut()}
+      onLogout={() => signOut({ redirectUrl: "/vitelas" })}
       onDone={() => setView("home")}
       onCancel={() => setView("home")}
     />
