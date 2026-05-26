@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getBusySlots } from '@/lib/google-calendar'
+import { demoMode } from '@/lib/flags'
 
 export const runtime = 'nodejs'
 
@@ -7,6 +8,12 @@ export async function GET(req: NextRequest) {
   const date = req.nextUrl.searchParams.get('date')
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return NextResponse.json({ error: 'Missing or invalid date param (YYYY-MM-DD)' }, { status: 400 })
+  }
+
+  const isDemo = await demoMode()
+  if (isDemo) {
+    // En demo: calendario siempre libre, sin llamar a Google Calendar
+    return NextResponse.json({ date, busy: [] })
   }
 
   try {
