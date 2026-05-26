@@ -1021,6 +1021,8 @@ function Footer() {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
+const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+
 export default function LalanudaPage() {
   const { user: clerkUser, isSignedIn, isLoaded } = useUser();
   const { openSignIn } = useClerk();
@@ -1028,20 +1030,22 @@ export default function LalanudaPage() {
 
   useEffect(() => { seedDemoBookings(); }, []);
 
-  const currentUser = isSignedIn && clerkUser
-    ? { name: clerkUser.firstName || clerkUser.emailAddresses[0]?.emailAddress?.split("@")[0] || "Usuario", email: clerkUser.emailAddresses[0]?.emailAddress }
-    : null;
+  const currentUser = DEMO_MODE
+    ? { name: "Demo", email: "demo@vitelas.mx" }
+    : isSignedIn && clerkUser
+      ? { name: clerkUser.firstName || clerkUser.emailAddresses[0]?.emailAddress?.split("@")[0] || "Usuario", email: clerkUser.emailAddresses[0]?.emailAddress }
+      : null;
 
   function startBooking() {
-    if (!isSignedIn) { openSignIn(); return; }
+    if (!DEMO_MODE && !isSignedIn) { openSignIn(); return; }
     setView("booking");
   }
   function goReview() {
-    if (!isSignedIn) { openSignIn(); return; }
+    if (!DEMO_MODE && !isSignedIn) { openSignIn(); return; }
     setView("review");
   }
 
-  if (!isLoaded) {
+  if (!DEMO_MODE && !isLoaded) {
     return (
       <div className="flex items-center justify-center min-h-screen text-xl" style={{ backgroundColor: "#EDE8FF", color: "#7B6BAD", fontFamily: "'Fraunces', serif" }}>
         Cargando Vitelas...

@@ -9,8 +9,8 @@ export default clerkMiddleware((auth, req) => {
 
 export const config = {
   matcher: [
-    // Solo rutas de lalanuda y Clerk proxy
-    "/lalanuda(.*)",
+    // Solo rutas de vitelas y Clerk proxy
+    "/vitelas(.*)",
     "/__clerk/(.*)",
   ],
 };
