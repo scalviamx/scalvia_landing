@@ -86,7 +86,6 @@ const breeds = {
 } as Record<string, string[]>;
 
 const PAYMENT_METHODS = [
-  { id: "online",       title: "Tarjeta en línea",    desc: "Paga ahora con tarjeta de crédito o débito.",  status: "pagado",    Icon: CreditCardIcon },
   { id: "card_on_site", title: "Tarjeta en el lugar", desc: "Pagas con tarjeta cuando llegues al estudio.", status: "pendiente", Icon: StoreIcon },
   { id: "cash_on_site", title: "Efectivo en el lugar",desc: "Pagas en efectivo cuando llegues al estudio.", status: "pendiente", Icon: BanknoteIcon },
 ];
@@ -829,12 +828,6 @@ function SummaryStep({ booking, patch, user, onConfirmed }: {
         if (!booking.slot || !booking.paymentMethod) return (
           <button disabled className="mt-10 w-full py-4 rounded-full inline-flex items-center justify-center gap-2" style={{ backgroundColor: "#1E0A45", color: "#EDE8FF", opacity: 0.3, cursor: "not-allowed" }}>
             {!booking.slot ? "Selecciona fecha y hora" : "Selecciona método de pago"}
-          </button>
-        );
-        if (booking.paymentMethod === "online") return (
-          <button onClick={handlePay} className="mt-10 w-full py-4 rounded-full inline-flex items-center justify-center gap-2 transition-colors" style={{ backgroundColor: "#1E0A45", color: "#EDE8FF" }}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#7C3AED")} onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1E0A45")}>
-            <CreditCardIcon className="w-4 h-4"/> Pagar {formatMXN(total)} en línea
           </button>
         );
         return (

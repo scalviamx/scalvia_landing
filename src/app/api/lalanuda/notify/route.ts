@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
                 <td style="background:#1E0A45;padding:28px 32px">
                   <p style="margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#A78BFA">Cita confirmada</p>
                   <h1 style="margin:0;font-size:24px;font-weight:700;color:#EDE8FF;line-height:1.2">
-                    ¡Hasta pronto, ${clientName.split(' ')[0]}! 🐾
+                    Gracias por confirmar, ${clientName.split(' ')[0]}.
                   </h1>
                 </td>
               </tr>
@@ -209,7 +209,7 @@ export async function POST(req: NextRequest) {
         <tr>
           <td align="center" style="padding:24px 0 0">
             <p style="margin:0;font-size:12px;color:rgba(30,10,69,0.5)">
-              Vitelas · Calle Hidalgo 412, Centro, Monterrey · hola@lalanuda.mx
+              Vitelas · Calle Hidalgo 412, Centro, Monterrey · hola@vitelas.mx
             </p>
             <p style="margin:4px 0 0;font-size:11px;color:rgba(30,10,69,0.35)">ID de cita: ${bookingId}</p>
           </td>
@@ -254,9 +254,9 @@ export async function POST(req: NextRequest) {
   // Email is best-effort — never fails the booking
   try {
     await resend.emails.send({
-      from: 'La Lanuda <noreply@info.scalvia.mx>',
+      from: 'Vitelas <noreply@info.scalvia.mx>',
       to: recipients,
-      replyTo: 'hola@lalanuda.mx',
+      replyTo: 'hola@vitelas.mx',
       subject: `🐾 Cita confirmada — ${petName} · ${dateLabel.split('·')[0].trim()}`,
       html,
     })
