@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { useUser, useClerk } from "@clerk/nextjs";
 import Header from "./Header";
 import {
   ArrowRightIcon, ArrowLeftIcon, ClockIcon, MapPinIcon, PhoneIcon,
@@ -1032,12 +1033,14 @@ const PAGE_STYLES = `
   ::-webkit-scrollbar-thumb:hover { background:rgba(30,10,69,0.32); }
 `;
 
-function PageShell({ view, onBook, onHome, onLeaveReview, user, onDone, onCancel }: {
+function PageShell({ view, onBook, onHome, onLeaveReview, user, onLogin, onLogout, onDone, onCancel }: {
   view: "home" | "booking" | "review";
   onBook: () => void;
   onHome: () => void;
   onLeaveReview: () => void;
-  user: { name?: string; email?: string } | null;
+  user: { name?: string; email?: string; avatarUrl?: string } | null;
+  onLogin?: () => void;
+  onLogout?: () => void;
   onDone: () => void;
   onCancel: () => void;
 }) {
@@ -1045,7 +1048,7 @@ function PageShell({ view, onBook, onHome, onLeaveReview, user, onDone, onCancel
     <>
       <style>{PAGE_STYLES}</style>
       <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#EDE8FF", color: "#1E0A45", fontFamily: "'Manrope', system-ui, sans-serif", WebkitFontSmoothing: "antialiased" }}>
-        <Header onBook={onBook} onHome={onHome} user={user} />
+        <Header onBook={onBook} onHome={onHome} user={user} onLogin={onLogin} onLogout={onLogout} />
         <div className="flex-1">
           {view === "home"    && <HomePage onBook={onBook} onLeaveReview={onLeaveReview}/>}
           {view === "booking" && <BookingFlow user={user} onDone={onDone} onCancel={onCancel}/>}
@@ -1057,25 +1060,30 @@ function PageShell({ view, onBook, onHome, onLeaveReview, user, onDone, onCancel
   );
 }
 
-// ─── Demo page (sin Clerk) ────────────────────────────────────────────────────
+// ─── Page con Clerk ──────────────────────────────────────────────────────────
 
-function VitelasPageDemo() {
+function VitelasPageWithClerk() {
   const [view, setView] = useState<"home" | "booking" | "review">("home");
-  useEffect(() => { seedDemoBookings(); }, []);
-  const demoUser = { name: "Demo", email: "demo@vitelas.mx" };
+  const { user, isLoaded } = useUser();
+  const { signOut, openSignIn } = useClerk();
+
+  const clerkUser = isLoaded && user
+    ? { name: user.fullName ?? user.firstName ?? "", email: user.primaryEmailAddress?.emailAddress ?? "", avatarUrl: user.imageUrl }
+    : null;
+
   return (
     <PageShell
       view={view}
       onBook={() => setView("booking")}
       onHome={() => setView("home")}
       onLeaveReview={() => setView("review")}
-      user={demoUser}
+      user={clerkUser}
+      onLogin={() => openSignIn()}
+      onLogout={() => signOut()}
       onDone={() => setView("home")}
       onCancel={() => setView("home")}
     />
   );
 }
 
-// ─── Export ───────────────────────────────────────────────────────────────────
-// Branch Demo: sin Clerk. La versión con Clerk vive en main/PROD.
-export default VitelasPageDemo;
+export default VitelasPageWithClerk;
