@@ -1121,6 +1121,5 @@ function VitelasPageWithClerk() {
 }
 
 // ─── Export ───────────────────────────────────────────────────────────────────
-
-const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
-export default DEMO_MODE ? VitelasPageDemo : VitelasPageWithClerk;
+// Branch Demo: siempre sin Clerk. La versión con Clerk vive en main/PROD.
+export default VitelasPageDemo;
