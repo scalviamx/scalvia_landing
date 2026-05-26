@@ -1,8 +1,11 @@
+"use client";
+
 import dynamic from "next/dynamic";
 
 /**
- * Wrapper server component.
- * ssr: false garantiza que VitelasPageClient (que usa useUser/useClerk)
+ * Client Component wrapper.
+ * ssr: false solo puede usarse en Client Components (Next.js 15).
+ * Garantiza que VitelasPageClient (que usa useUser/useClerk)
  * NUNCA se ejecute en el servidor — evita el crash de ClerkProvider.
  */
 const VitelasPageClient = dynamic(
