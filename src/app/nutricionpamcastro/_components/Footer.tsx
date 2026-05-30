@@ -30,6 +30,7 @@ export default function Footer() {
               { href: "/nutricionpamcastro", label: "Inicio" },
               { href: "/nutricionpamcastro/mi-historia", label: "Mi Historia" },
               { href: "/nutricionpamcastro/consultas", label: "Consultas" },
+              { href: "/nutricionpamcastro/tienda", label: "Tienda" },
               { href: "/nutricionpamcastro/testimonios", label: "Testimonios" },
               { href: "/nutricionpamcastro/mi-canal", label: "Mi Canal" },
             ].map((l) => (
