@@ -1,48 +1,11 @@
 import Footer from "@/app/nutricionpamcastro/_components/Footer";
 import Navbar from "@/app/nutricionpamcastro/_components/Navbar";
-
-const products = [
-  {
-    title: "Cita individual",
-    price: "$1,700.00",
-    image:
-      "https://i0.wp.com/nutriologapamcastro.com/wp-content/uploads/2020/12/CONSULTA-INICIAL-10.png?resize=600%2C600&ssl=1",
-    href: "https://nutriologapamcastro.com/tienda/?add-to-cart=775",
-    detailHref: "https://nutriologapamcastro.com/product/cita-inicial-o-reingreso/",
-    description: "Primera cita o reingreso para revisar historial, objetivos y siguiente plan de trabajo.",
-  },
-  {
-    title: "Consulta de seguimiento individual",
-    price: "$1,200.00",
-    image:
-      "https://i0.wp.com/nutriologapamcastro.com/wp-content/uploads/2020/03/CONSULTA-INICIAL-9.png?resize=600%2C600&ssl=1",
-    href: "https://nutriologapamcastro.com/tienda/?add-to-cart=125",
-    detailHref: "https://nutriologapamcastro.com/product/consulta-inicial-online/",
-    description: "Sesión de seguimiento para ajustar tu plan de alimentación según avances y síntomas.",
-  },
-  {
-    title: "Paquete 3 consultas de seguimiento Online",
-    price: "$3,600.00",
-    image:
-      "https://i0.wp.com/nutriologapamcastro.com/wp-content/uploads/2020/03/CONSULTA-INICIAL-7.png?resize=600%2C600&ssl=1",
-    href: "https://nutriologapamcastro.com/tienda/?add-to-cart=141",
-    detailHref: "https://nutriologapamcastro.com/product/paquete-3-consultas-seguimiento-online/",
-    description: "Tres consultas de seguimiento para mantener continuidad y hacer ajustes periódicos.",
-  },
-  {
-    title: "Paquete 5 consultas de seguimiento Online",
-    price: "$6,000.00",
-    image:
-      "https://i0.wp.com/nutriologapamcastro.com/wp-content/uploads/2020/03/CONSULTA-INICIAL-8.png?resize=600%2C600&ssl=1",
-    href: "https://nutriologapamcastro.com/tienda/?add-to-cart=144",
-    detailHref: "https://nutriologapamcastro.com/product/paquete-5-consultas-seguimiento-online/",
-    description: "Cinco consultas de seguimiento para acompañamiento más completo durante el proceso.",
-  },
-];
+import AddToCartButton from "@/app/nutricionpamcastro/_components/AddToCartButton";
+import { formatMoney, products } from "@/app/nutricionpamcastro/_lib/shop";
 
 const notes = [
   "Las consultas son en línea por videollamada de WhatsApp.",
-  "El pago se completa en la tienda original de Nutrición Pam Castro.",
+  "Puedes agregar varios productos y revisar el total estimado antes de pagar.",
   "Después de comprar, se agenda la cita según disponibilidad.",
 ];
 
@@ -142,7 +105,7 @@ export default function Tienda() {
                     className="text-2xl font-semibold text-[#3D6B4F] mb-3"
                     style={{ fontFamily: "var(--font-lora)" }}
                   >
-                    {product.price}
+                    {formatMoney(product.priceCents)}
                   </p>
                   <p
                     className="text-sm leading-relaxed text-[#6B6B60] mb-5"
@@ -150,26 +113,7 @@ export default function Tienda() {
                   >
                     {product.description}
                   </p>
-                  <div className="mt-auto flex flex-col gap-2">
-                    <a
-                      href={product.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center bg-[#3D6B4F] px-4 py-3 text-sm font-semibold text-white hover:bg-[#527A5F] transition-colors"
-                      style={{ fontFamily: "var(--font-raleway)" }}
-                    >
-                      Comprar
-                    </a>
-                    <a
-                      href={product.detailHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center border border-[#E4DED4] px-4 py-3 text-sm font-semibold text-[#1C1C1A] hover:border-[#3D6B4F] hover:text-[#3D6B4F] transition-colors"
-                      style={{ fontFamily: "var(--font-raleway)" }}
-                    >
-                      Ver detalle
-                    </a>
-                  </div>
+                  <AddToCartButton productId={product.productId} />
                 </div>
               </article>
             ))}

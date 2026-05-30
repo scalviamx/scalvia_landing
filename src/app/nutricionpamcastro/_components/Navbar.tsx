@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CART_CHANGED_EVENT, readCart } from "@/app/nutricionpamcastro/_lib/cart-storage";
+import { getCartTotals } from "@/app/nutricionpamcastro/_lib/shop";
 
 const links = [
   { href: "/nutricionpamcastro", label: "Inicio" },
   { href: "/nutricionpamcastro/mi-historia", label: "Mi Historia" },
   { href: "/nutricionpamcastro/consultas", label: "Consultas" },
   { href: "/nutricionpamcastro/tienda", label: "Tienda" },
+  { href: "/nutricionpamcastro/carrito", label: "Carrito" },
   { href: "/nutricionpamcastro/testimonios", label: "Testimonios" },
   { href: "/nutricionpamcastro/mi-canal", label: "Mi Canal" },
 ];
@@ -16,6 +19,20 @@ const WA_LINK = "https://wa.me/message/I6Z4V2NBJQ7QO1";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const refreshCartCount = () => setCartCount(getCartTotals(readCart()).itemCount);
+
+    refreshCartCount();
+    window.addEventListener(CART_CHANGED_EVENT, refreshCartCount);
+    window.addEventListener("storage", refreshCartCount);
+
+    return () => {
+      window.removeEventListener(CART_CHANGED_EVENT, refreshCartCount);
+      window.removeEventListener("storage", refreshCartCount);
+    };
+  }, []);
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-[#FAFAF7]/90 backdrop-blur-md border-b border-[#E4DED4]">
@@ -45,6 +62,7 @@ export default function Navbar() {
                 style={{ fontFamily: "var(--font-raleway)" }}
               >
                 {l.label}
+                {l.href.endsWith("/carrito") && cartCount > 0 ? ` (${cartCount})` : ""}
               </Link>
             </li>
           ))}
@@ -97,6 +115,7 @@ export default function Navbar() {
               style={{ fontFamily: "var(--font-raleway)" }}
             >
               {l.label}
+              {l.href.endsWith("/carrito") && cartCount > 0 ? ` (${cartCount})` : ""}
             </Link>
           ))}
           <a
