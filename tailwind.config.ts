@@ -21,6 +21,13 @@ const config: Config = {
         'ink-40':   '#888888',
         surface:    '#F7FAF8',
         border:     '#E2EDE8',
+        bone: '#f6f2ec',
+        linen: '#ebe3d6',
+        oak: '#c8a778',
+        walnut: '#473424',
+        charcoal: '#171513',
+        graphite: '#3b3936',
+        marble: '#f8f7f4',
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'system-ui', 'sans-serif'],
@@ -53,6 +60,9 @@ const config: Config = {
           '0%':   { transform: 'translateZ(0) rotate(0)' },
           '100%': { transform: 'translateZ(0) rotate(360deg)' },
         },
+      },
+      boxShadow: {
+        soft: '0 10px 30px rgba(23, 21, 19, 0.08)',
       },
     },
   },
