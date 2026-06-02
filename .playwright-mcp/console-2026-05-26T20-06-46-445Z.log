@@ -1,0 +1,15 @@
+[    4606ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@15.5.18_@playwright+test@1.60.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/next/dist/compiled/react-dom/cjs/react-dom-client.development.js:25630
+[    4987ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://clerk.scalvia.mx/v1/client?__clerk_api_version=2025-11-10&_clerk_js_version=6.12.0:0
+[    4989ms] [ERROR] e: Clerk: Production Keys are only allowed for domain "scalvia.mx". 
+API Error: The Request HTTP Origin header must be equal to or a subdomain of the requesting URL.
+    at https://clerk.scalvia.mx/npm/@clerk/clerk-js@6/dist/clerk.browser.js:17:8907
+    at tB._baseFetch (https://clerk.scalvia.mx/npm/@clerk/clerk-js@6/dist/clerk.browser.js:18:38)
+    at async tj.execute (https://clerk.scalvia.mx/npm/@clerk/clerk-js@6/dist/clerk.browser.js:17:6738)
+    at async i3._baseGet (https://clerk.scalvia.mx/npm/@clerk/clerk-js@6/dist/clerk.browser.js:18:497)
+    at async Promise.all (index 1)
+    at async #e_ (https://clerk.scalvia.mx/npm/@clerk/clerk-js@6/dist/clerk.browser.js:18:210463)
+    at async nG.load (https://clerk.scalvia.mx/npm/@clerk/clerk-js@6/dist/clerk.browser.js:18:168228)
+    at async _IsomorphicClerk.getEntryChunks (webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/@clerk+react@6.7.1_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/@clerk/react/dist/chunk-IJRZE3CE.mjs:1901:9) @ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@15.5.18_@playwright+test@1.60.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:56
+[    5089ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@15.5.18_@playwright+test@1.60.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/next/dist/client/dev/hot-reloader/app/hot-reloader-app.js:196
+[    5275ms] [LOG] [Fast Refresh] done in 186ms @ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@15.5.18_@playwright+test@1.60.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/next/dist/client/dev/report-hmr-latency.js:13
+[    5645ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3099/favicon.png:0

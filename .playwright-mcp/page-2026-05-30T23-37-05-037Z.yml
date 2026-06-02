@@ -1,0 +1,135 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - navigation [ref=e4]:
+        - link "Pam Castro Nutrióloga Clínica" [ref=e5] [cursor=pointer]:
+          - /url: /nutricionpamcastro
+          - generic [ref=e6]: Pam Castro
+          - generic [ref=e7]: Nutrióloga Clínica
+        - button "Abrir menú" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+    - main [ref=e10]:
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - paragraph [ref=e14]: Tienda
+          - heading "Elige tu consulta y continúa tu proceso." [level=1] [ref=e15]
+          - paragraph [ref=e16]: Compra tu cita inicial o paquete de seguimiento. El pago se realiza en la tienda original para mantener el proceso de cobro y confirmación existente.
+        - generic [ref=e17]:
+          - heading "Antes de comprar" [level=2] [ref=e18]
+          - list [ref=e19]:
+            - listitem [ref=e20]:
+              - img [ref=e21]
+              - generic [ref=e23]: Las consultas son en línea por videollamada de WhatsApp.
+            - listitem [ref=e24]:
+              - img [ref=e25]
+              - generic [ref=e27]: Puedes agregar varios productos y revisar el total estimado antes de pagar.
+            - listitem [ref=e28]:
+              - img [ref=e29]
+              - generic [ref=e31]: Después de comprar, se agenda la cita según disponibilidad.
+      - generic [ref=e33]:
+        - article [ref=e34]:
+          - link "Ver detalle de Cita individual" [ref=e35] [cursor=pointer]:
+            - /url: https://nutriologapamcastro.com/product/cita-inicial-o-reingreso/
+            - img "Cita individual" [ref=e36]
+          - generic [ref=e37]:
+            - heading "Cita individual" [level=2] [ref=e38]
+            - paragraph [ref=e39]: $1,700.00
+            - paragraph [ref=e40]: Primera cita o reingreso para revisar historial, objetivos y siguiente plan de trabajo.
+            - generic [ref=e41]:
+              - button "Agregar al carrito" [ref=e42] [cursor=pointer]
+              - link "Ver carrito" [ref=e43] [cursor=pointer]:
+                - /url: /nutricionpamcastro/carrito
+        - article [ref=e44]:
+          - link "Ver detalle de Consulta de seguimiento individual" [ref=e45] [cursor=pointer]:
+            - /url: https://nutriologapamcastro.com/product/consulta-inicial-online/
+            - img "Consulta de seguimiento individual" [ref=e46]
+          - generic [ref=e47]:
+            - heading "Consulta de seguimiento individual" [level=2] [ref=e48]
+            - paragraph [ref=e49]: $1,200.00
+            - paragraph [ref=e50]: Sesión de seguimiento para ajustar tu plan de alimentación según avances y síntomas.
+            - generic [ref=e51]:
+              - button "Agregar al carrito" [ref=e52] [cursor=pointer]
+              - link "Ver carrito" [ref=e53] [cursor=pointer]:
+                - /url: /nutricionpamcastro/carrito
+        - article [ref=e54]:
+          - link "Ver detalle de Paquete 3 consultas de seguimiento Online" [ref=e55] [cursor=pointer]:
+            - /url: https://nutriologapamcastro.com/product/paquete-3-consultas-seguimiento-online/
+            - img "Paquete 3 consultas de seguimiento Online" [ref=e56]
+          - generic [ref=e57]:
+            - heading "Paquete 3 consultas de seguimiento Online" [level=2] [ref=e58]
+            - paragraph [ref=e59]: $3,600.00
+            - paragraph [ref=e60]: Tres consultas de seguimiento para mantener continuidad y hacer ajustes periódicos.
+            - generic [ref=e61]:
+              - button "Agregar al carrito" [ref=e62] [cursor=pointer]
+              - link "Ver carrito" [ref=e63] [cursor=pointer]:
+                - /url: /nutricionpamcastro/carrito
+        - article [ref=e64]:
+          - link "Ver detalle de Paquete 5 consultas de seguimiento Online" [ref=e65] [cursor=pointer]:
+            - /url: https://nutriologapamcastro.com/product/paquete-5-consultas-seguimiento-online/
+            - img "Paquete 5 consultas de seguimiento Online" [ref=e66]
+          - generic [ref=e67]:
+            - heading "Paquete 5 consultas de seguimiento Online" [level=2] [ref=e68]
+            - paragraph [ref=e69]: $6,000.00
+            - paragraph [ref=e70]: Cinco consultas de seguimiento para acompañamiento más completo durante el proceso.
+            - generic [ref=e71]:
+              - button "Agregar al carrito" [ref=e72] [cursor=pointer]
+              - link "Ver carrito" [ref=e73] [cursor=pointer]:
+                - /url: /nutricionpamcastro/carrito
+    - contentinfo [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - paragraph [ref=e77]: Pam Castro
+          - paragraph [ref=e78]: Nutrióloga Clínica
+          - paragraph [ref=e79]: Especialista en nutrición funcional y autoinmune. Harvard Medical School · España.
+        - generic [ref=e80]:
+          - paragraph [ref=e81]: Navegación
+          - list [ref=e82]:
+            - listitem [ref=e83]:
+              - link "Inicio" [ref=e84] [cursor=pointer]:
+                - /url: /nutricionpamcastro
+            - listitem [ref=e85]:
+              - link "Mi Historia" [ref=e86] [cursor=pointer]:
+                - /url: /nutricionpamcastro/mi-historia
+            - listitem [ref=e87]:
+              - link "Consultas" [ref=e88] [cursor=pointer]:
+                - /url: /nutricionpamcastro/consultas
+            - listitem [ref=e89]:
+              - link "Tienda" [ref=e90] [cursor=pointer]:
+                - /url: /nutricionpamcastro/tienda
+            - listitem [ref=e91]:
+              - link "Carrito" [ref=e92] [cursor=pointer]:
+                - /url: /nutricionpamcastro/carrito
+            - listitem [ref=e93]:
+              - link "Testimonios" [ref=e94] [cursor=pointer]:
+                - /url: /nutricionpamcastro/testimonios
+            - listitem [ref=e95]:
+              - link "Mi Canal" [ref=e96] [cursor=pointer]:
+                - /url: /nutricionpamcastro/mi-canal
+        - generic [ref=e97]:
+          - paragraph [ref=e98]: Contacto
+          - list [ref=e99]:
+            - listitem [ref=e100]:
+              - link "WhatsApp para citas" [ref=e101] [cursor=pointer]:
+                - /url: https://wa.me/message/I6Z4V2NBJQ7QO1
+                - img [ref=e102]
+                - text: WhatsApp para citas
+            - listitem [ref=e105]:
+              - link "Instagram" [ref=e106] [cursor=pointer]:
+                - /url: https://www.instagram.com/nutricionpamcastro/
+                - img [ref=e107]
+                - text: Instagram
+            - listitem [ref=e109]:
+              - link "Facebook" [ref=e110] [cursor=pointer]:
+                - /url: https://www.facebook.com/nutricionpamcastro/
+                - img [ref=e111]
+                - text: Facebook
+            - listitem [ref=e113]:
+              - link "TikTok" [ref=e114] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@nutriologapamcastro
+                - img [ref=e115]
+                - text: TikTok
+      - generic [ref=e117]:
+        - paragraph [ref=e118]: © 2025 Nutrición Pam Castro. Todos los derechos reservados.
+        - link "Aviso de privacidad" [ref=e119] [cursor=pointer]:
+          - /url: /nutricionpamcastro/aviso-de-privacidad
+  - alert [ref=e120]
