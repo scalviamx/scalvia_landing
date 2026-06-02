@@ -24,11 +24,16 @@ const NAV_LINKS = [
   { href: '/resultados', label: 'Resultados' },
 ]
 
-export function Nav() {
+type NavProps = {
+  variant?: 'transparent' | 'solid'
+}
+
+export function Nav({ variant = 'transparent' }: NavProps) {
   const isLite = useMotionProfile('auto') === 'lite'
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
+  const showSolidBackground = variant === 'solid' || scrolled
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -46,7 +51,7 @@ export function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center transition-all duration-300 ${
-          scrolled
+          showSolidBackground
             ? isLite
               ? 'bg-forest shadow-[0_1px_0_rgba(255,255,255,0.06)]'
               : 'bg-forest/95 backdrop-blur-md shadow-[0_1px_0_rgba(255,255,255,0.06)]'

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function CookiesPage() {
   return (
     <>
-      <Nav />
+      <Nav variant="solid" />
       <LegalPage
         title="Política de Cookies"
         updatedAt="2 de junio de 2026"

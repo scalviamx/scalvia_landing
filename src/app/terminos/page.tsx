@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function TerminosPage() {
   return (
     <>
-      <Nav />
+      <Nav variant="solid" />
       <LegalPage
         title="Términos y Condiciones"
         updatedAt="2 de junio de 2026"

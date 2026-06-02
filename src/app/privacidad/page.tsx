@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function PrivacidadPage() {
   return (
     <>
-      <Nav />
+      <Nav variant="solid" />
       <LegalPage
         title="Política de Privacidad"
         updatedAt="2 de junio de 2026"
