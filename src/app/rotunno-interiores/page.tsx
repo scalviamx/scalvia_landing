@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import {
+  Instagram,
   Menu,
   MessageCircle,
   Ruler,
@@ -246,7 +247,18 @@ export default function Home() {
       <footer className="border-t border-charcoal/10 bg-marble py-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm text-graphite sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p>Rotunno Interiores</p>
-          <p>Cocinas, closets y carpinteria personalizada en Monterrey.</p>
+          <div className="flex items-center gap-4">
+            <p>Cocinas, closets y carpinteria personalizada en Monterrey.</p>
+            <a
+              href="https://www.instagram.com/rotunnointeriores"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram de Rotunno Interiores"
+              className="transition hover:text-charcoal"
+            >
+              <Instagram size={18} />
+            </a>
+          </div>
         </div>
       </footer>
 
