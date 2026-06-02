@@ -1,0 +1,89 @@
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f8f7f4;
+  color: #171513;
+  font-family: Satoshi, "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+::selection {
+  background: #473424;
+  color: #f8f7f4;
+}
+
+.image-settle {
+  animation: imageSettle 700ms ease-out both;
+}
+
+.fade-up {
+  animation: fadeUp 520ms ease-out both;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 500ms ease-out,
+    transform 500ms ease-out;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-children > *:nth-child(1) { transition-delay: 0ms; }
+.stagger-children > *:nth-child(2) { transition-delay: 80ms; }
+.stagger-children > *:nth-child(3) { transition-delay: 160ms; }
+.stagger-children > *:nth-child(4) { transition-delay: 240ms; }
+.stagger-children > *:nth-child(5) { transition-delay: 320ms; }
+.stagger-children > *:nth-child(6) { transition-delay: 400ms; }
+
+@keyframes imageSettle {
+  from {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up:nth-child(1) { animation-delay: 80ms; }
+.fade-up:nth-child(2) { animation-delay: 180ms; }
+.fade-up:nth-child(3) { animation-delay: 280ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .image-settle,
+  .fade-up,
+  .reveal,
+  .reveal.in-view {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
