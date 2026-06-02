@@ -26,9 +26,10 @@ const NAV_LINKS = [
 
 type NavProps = {
   variant?: 'transparent' | 'solid'
+  animated?: boolean
 }
 
-export function Nav({ variant = 'transparent' }: NavProps) {
+export function Nav({ variant = 'transparent', animated = true }: NavProps) {
   const isLite = useMotionProfile('auto') === 'lite'
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -47,9 +48,9 @@ export function Nav({ variant = 'transparent' }: NavProps) {
   return (
     <>
       <motion.nav
-        initial={{ y: -64, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        initial={animated ? { y: -64, opacity: 0 } : false}
+        animate={animated ? { y: 0, opacity: 1 } : undefined}
+        transition={animated ? { duration: 0.5, ease: [0.16, 1, 0.3, 1] } : undefined}
         className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center transition-all duration-300 ${
           showSolidBackground
             ? isLite
