@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const ScalviaLogo = () => (
   <svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true">
     <rect width="56" height="56" rx="12" fill="rgba(255,255,255,0.06)" />
@@ -9,6 +11,13 @@ const ScalviaLogo = () => (
 )
 
 export function Footer() {
+  const legalLinks = [
+    { href: '/privacidad', label: 'Política de Privacidad' },
+    { href: '/terminos', label: 'Términos y Condiciones' },
+    { href: '/cookies', label: 'Política de Cookies' },
+    { href: '/contacto', label: 'Contacto' },
+  ]
+
   const socialLinks = [
     {
       href: 'https://instagram.com/scalviamx',
@@ -79,6 +88,18 @@ export function Footer() {
               </a>
             ))}
           </div>
+
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2" aria-label="Enlaces legales">
+            {legalLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-semibold text-white/65 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#052d22]"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
           <p className="text-base text-white/70">© 2025 Scalvia. Todos los derechos reservados.</p>
         </div>
