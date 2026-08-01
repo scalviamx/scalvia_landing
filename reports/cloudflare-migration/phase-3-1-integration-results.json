@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "generatedAt": "2026-08-01T06:19:15Z",
+  "worker": {
+    "name": "scalvia-landing-preview",
+    "url": "https://scalvia-landing-preview.hola-7e3.workers.dev",
+    "codeDeployVersionId": "1f272500-5406-4b22-8494-6191ca0ff06b",
+    "finalActiveVersionId": "a2dcf566-9b00-4c0e-a37f-c8c2b416445a",
+    "baseCommit": "10ce74eb9a0ac9255dde361ddb6baf8f96396591"
+  },
+  "googleOAuth": {
+    "scenario": "INVALID_CLIENT_ID",
+    "rootCause": "Local GOOGLE_CLIENT_ID was not a Google OAuth client ID. Existing local client secret and refresh token worked after pairing with the corrected client ID.",
+    "localAvailability": {
+      "path": "/api/lalanuda/availability?date=2026-08-03",
+      "status": 200,
+      "result": "PASS"
+    },
+    "previewAvailability": {
+      "path": "/api/lalanuda/availability?date=2026-08-03",
+      "status": 200,
+      "result": "PASS"
+    }
+  },
+  "turnstile": {
+    "configuration": "official-cloudflare-testing-keys",
+    "positivePath": "PASS",
+    "negativePath": "PASS",
+    "productionCutoverReady": false,
+    "note": "Testing keys must be replaced with production-grade keys before cutover."
+  },
+  "resend": {
+    "secretConfigured": true,
+    "senderChecked": "noreply@info.scalvia.mx",
+    "controlledRecipient": true,
+    "controlledSend": "PASS"
+  },
+  "contactApi": {
+    "challenge": "PASS",
+    "invalidJson": "PASS",
+    "invalidPayload": "PASS",
+    "invalidOrigin": "PASS",
+    "turnstileFailure": "PASS",
+    "turnstileSuccess": "PASS",
+    "validControlledRequest": "PASS"
+  },
+  "vitelas": {
+    "availability": "PASS",
+    "notify": "SAFE_TEST_LIMITATION",
+    "endpointsRenamed": false,
+    "knownRecipientMismatch": "notify still includes hola@lalanuda.mx"
+  },
+  "scopeGuards": {
+    "dnsChanged": false,
+    "customDomainAttached": false,
+    "vercelDeployed": false,
+    "opsTouched": false,
+    "chatTouched": false,
+    "vpsTouched": false,
+    "chatwootTouched": false,
+    "pushed": false,
+    "committed": false
+  }
+}

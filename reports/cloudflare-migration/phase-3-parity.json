@@ -1,0 +1,62 @@
+{
+  "status": "PASS_WITH_SAFE_TEST_LIMITATION",
+  "generatedAt": "2026-08-01T06:19:15Z",
+  "productionBaseUrl": "https://www.scalvia.mx",
+  "previewBaseUrl": "https://scalvia-landing-preview.hola-7e3.workers.dev",
+  "routes": {
+    "/": {
+      "productionStatus": 200,
+      "previewStatus": 200,
+      "result": "PASS"
+    },
+    "/contacto": {
+      "productionStatus": 200,
+      "previewStatus": 200,
+      "result": "PASS"
+    },
+    "/vitelas": {
+      "productionStatus": 200,
+      "previewStatus": 200,
+      "result": "PASS"
+    },
+    "/rotunno-interiores": {
+      "productionStatus": 200,
+      "previewStatus": 200,
+      "result": "PASS"
+    },
+    "/nutricionpamcastro": {
+      "productionStatus": 200,
+      "previewStatus": 200,
+      "result": "PASS"
+    },
+    "/nutricionpamcastro/mi-canal": {
+      "productionStatus": 200,
+      "previewStatus": 200,
+      "result": "PASS_WITH_CACHE_DIFFERENCE"
+    },
+    "/robots.txt": {
+      "productionStatus": 200,
+      "previewStatus": 200,
+      "result": "PASS_WITH_PREVIEW_NOINDEX"
+    },
+    "/sitemap.xml": {
+      "productionStatus": 404,
+      "previewStatus": 200,
+      "result": "EXPECTED_DIFFERENCE_PRODUCTION_BEHIND"
+    }
+  },
+  "headers": {
+    "securityHeaders": "PASS_ON_MAIN_HTML_ROUTES",
+    "contentSecurityPolicy": "ABSENT_IN_BOTH",
+    "previewNoindex": "PASS",
+    "cacheControl": "EXPECTED_RUNTIME_DIFFERENCE"
+  },
+  "apis": {
+    "contactChallenge": "PASS",
+    "contactSubmit": "PASS_CONTROLLED_RESEND",
+    "turnstile": "PASS_WITH_OFFICIAL_TEST_KEYS",
+    "calendarAvailability": "PASS",
+    "lalanudaNotify": "PARTIAL_INVALID_PAYLOAD_ONLY",
+    "lalanudaDebug": "PASS_PREVIEW_404"
+  }
+}

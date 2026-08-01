@@ -19,9 +19,9 @@ export async function GET(req: NextRequest) {
   const results: Record<string, unknown> = {}
 
   const token = process.env.NOTION_TOKEN
-  const dbId  = process.env.NOTION_LALANUDA_DB_ID
+  const dbId  = process.env.NOTION_VITELAS_DB_ID
   if (!token || !dbId) {
-    results.notion = { ok: false, error: 'NOTION_TOKEN or NOTION_LALANUDA_DB_ID not set in env' }
+    results.notion = { ok: false, error: 'NOTION_TOKEN or NOTION_VITELAS_DB_ID not set in env' }
   } else {
     try {
       const notion = new Client({ auth: token })
@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
       date: dateStr,
       startMin: 600,
       durationMin: 30,
-      summary: '🐾 Debug Test — La Lanuda',
+      summary: '🐾 Debug Test — Vitelas',
       description: 'Automated debug endpoint test. Safe to delete.',
     })
     results.calendar = { ok: true, eventId, date: dateStr, startMin: 600 }

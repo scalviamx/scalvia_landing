@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "generatedAt": "2026-08-01T06:19:15Z",
+  "tests": [
+    {
+      "target": "production",
+      "baseUrl": "https://www.scalvia.mx",
+      "command": "BASE_URL=https://www.scalvia.mx npx playwright test tests/smoke/parity.spec.ts --reporter=line",
+      "result": "PASS",
+      "passed": 15,
+      "failed": 0
+    },
+    {
+      "target": "cloudflare-preview",
+      "baseUrl": "https://scalvia-landing-preview.hola-7e3.workers.dev",
+      "command": "BASE_URL=https://scalvia-landing-preview.hola-7e3.workers.dev npx playwright test tests/smoke/parity.spec.ts --reporter=line",
+      "result": "PASS",
+      "passed": 15,
+      "failed": 0
+    }
+  ],
+  "coverage": {
+    "pages": [
+      "/",
+      "/contacto",
+      "/vitelas",
+      "/rotunno-interiores",
+      "/nutricionpamcastro"
+    ],
+    "viewports": [
+      "desktop 1280x900",
+      "mobile 390x844"
+    ],
+    "hiddenRoutes": [
+      "/lalanuda",
+      "/otunno-interiores",
+      "/cliente-falso"
+    ],
+    "seoEndpoints": [
+      "/robots.txt",
+      "/sitemap.xml"
+    ],
+    "apiEndpoints": [
+      "/api/contact/challenge"
+    ]
+  }
+}

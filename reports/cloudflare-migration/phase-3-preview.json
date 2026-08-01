@@ -1,0 +1,64 @@
+{
+  "status": "PASS_WITH_SAFE_TEST_LIMITATION",
+  "generatedAt": "2026-08-01T06:19:15Z",
+  "worker": {
+    "name": "scalvia-landing-preview",
+    "url": "https://scalvia-landing-preview.hola-7e3.workers.dev",
+    "accountName": "Hola@scalvia.mx's Account",
+    "baseCommit": "10ce74eb9a0ac9255dde361ddb6baf8f96396591",
+    "latestTestedVersionId": "a2dcf566-9b00-4c0e-a37f-c8c2b416445a",
+    "latestCodeDeployVersionId": "1f272500-5406-4b22-8494-6191ca0ff06b",
+    "versions": [
+      {
+        "id": "0355ddae-b080-4fec-adff-b63afd806500",
+        "purpose": "initial-preview-upload"
+      },
+      {
+        "id": "250ce38f-bbeb-4d54-9f49-0c82ed5fe055",
+        "purpose": "workers-preview-noindex"
+      },
+      {
+        "id": "d5fcebf4-9cee-412c-a39c-3db661770c2d",
+        "purpose": "latest-tested-google-calendar-fetch-runtime"
+      },
+      {
+        "id": "1f272500-5406-4b22-8494-6191ca0ff06b",
+        "purpose": "phase-3-1-code-deploy"
+      },
+      {
+        "id": "a2dcf566-9b00-4c0e-a37f-c8c2b416445a",
+        "purpose": "phase-3-1-final-active-secret-restore"
+      }
+    ],
+    "deployedFromUncommittedPhase3Changes": true
+  },
+  "scopeGuards": {
+    "customDomainAttached": false,
+    "dnsChanged": false,
+    "vercelProductionChanged": false,
+    "opsTouched": false,
+    "chatTouched": false,
+    "vpsTouched": false,
+    "chatwootTouched": false
+  },
+  "secrets": {
+    "loadedNamesOnly": [
+      "CLERK_SECRET_KEY",
+      "NOTION_TOKEN",
+      "NOTION_LALANUDA_DB_ID",
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET",
+      "GOOGLE_REFRESH_TOKEN",
+      "GOOGLE_CALENDAR_ID",
+      "CONTACT_ALLOWED_ORIGINS",
+      "CONTACT_FORM_SIGNING_SECRET",
+      "CONTACT_TO_EMAIL",
+      "RESEND_API_KEY",
+      "TURNSTILE_SECRET_KEY",
+      "NEXT_PUBLIC_TURNSTILE_SITE_KEY"
+    ],
+    "missingForFullParity": [],
+    "turnstilePreviewUsesTestingKeys": true,
+    "valuesReported": false
+  }
+}

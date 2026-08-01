@@ -16,6 +16,7 @@ import {
 
 const BAD_REQUEST_MESSAGE = 'No pudimos procesar tu solicitud. Verifica tus datos e intenta de nuevo.'
 const FORBIDDEN_MESSAGE = 'No pudimos validar tu solicitud. Intenta de nuevo.'
+const DEFAULT_CONTACT_TO_EMAIL = 'hola@scalvia.mx'
 
 export const runtime = 'nodejs'
 
@@ -88,9 +89,10 @@ export async function POST(req: NextRequest) {
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY)
+    const contactToEmail = process.env.CONTACT_TO_EMAIL || DEFAULT_CONTACT_TO_EMAIL
     await resend.emails.send({
       from: 'Scalvia <noreply@info.scalvia.mx>',
-      to: 'hola@scalvia.mx',
+      to: contactToEmail,
       replyTo: payload.email,
       subject: `Nuevo prospecto IA: ${payload.empresa}`,
       html: `

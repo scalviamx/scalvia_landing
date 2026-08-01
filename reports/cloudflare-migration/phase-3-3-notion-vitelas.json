@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "generatedAt": "2026-08-01T06:38:42Z",
+  "worker": {
+    "name": "scalvia-landing-preview",
+    "url": "https://scalvia-landing-preview.hola-7e3.workers.dev",
+    "newPreviewVersionId": "81e1ebd2-2543-40e0-9ca1-b812d4bf8f3e",
+    "baseCommit": "10ce74eb9a0ac9255dde361ddb6baf8f96396591"
+  },
+  "notion": {
+    "existingDatabase": {
+      "title": "La Lanuda — Citas",
+      "classification": "WRONG_DATABASE",
+      "recordsRead": false,
+      "recordsCopied": false
+    },
+    "vitelasDatabase": {
+      "title": "Vitelas — Citas",
+      "created": true,
+      "requiredSchemaPresent": true,
+      "propertyCount": 14,
+      "idReported": false
+    },
+    "qaWrite": {
+      "method": "direct-notion-api",
+      "created": true,
+      "archivedImmediately": true,
+      "usedNotifyRoute": false,
+      "reasonNotifyNotUsed": "Notify also triggers Calendar and Resend side effects."
+    }
+  },
+  "code": {
+    "notifyUses": "NOTION_VITELAS_DB_ID",
+    "debugUses": "NOTION_VITELAS_DB_ID",
+    "fallbackToLalanudaDatabase": false,
+    "endpointsRenamed": false
+  },
+  "qa": {
+    "npmRunBuild": "PASS",
+    "npmRunBuildCloudflare": "PASS",
+    "playwrightProduction": "PASS_15_OF_15",
+    "playwrightPreview": "PASS_15_OF_15",
+    "contactChallenge": "PASS",
+    "contactApi": "PASS_CONTROLLED",
+    "calendarAvailability": "PASS",
+    "notifyInvalidPayload": "PASS"
+  },
+  "scopeGuards": {
+    "dnsChanged": false,
+    "customDomainAttached": false,
+    "cutover": false,
+    "vercelProductionTouched": false,
+    "opsTouched": false,
+    "chatTouched": false,
+    "vpsTouched": false,
+    "chatwootTouched": false,
+    "historicalDataMigrated": false,
+    "pushed": false
+  }
+}

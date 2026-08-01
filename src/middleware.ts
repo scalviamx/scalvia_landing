@@ -10,6 +10,8 @@ const fileExtensionPattern = /\.[a-z0-9]+$/i;
 export default function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const pathname = request.nextUrl.pathname;
+  const host = request.headers.get("host")?.toLowerCase() ?? "";
+  const isWorkersPreview = host.endsWith(".workers.dev");
   const isHiddenRoute = hiddenRoutes.some(
     (route) => route.path.startsWith("/") && pathname === route.path,
   );
@@ -18,6 +20,7 @@ export default function middleware(request: NextRequest) {
   const isApi = pathname.startsWith("/api/");
   const isAsset = fileExtensionPattern.test(pathname);
   const shouldNoIndex =
+    isWorkersPreview ||
     isHiddenRoute ||
     (isApi && !isPublicApi) ||
     (!isApi && !isAsset && !isPublicRoute);

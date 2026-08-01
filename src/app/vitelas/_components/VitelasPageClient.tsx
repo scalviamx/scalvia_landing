@@ -99,7 +99,7 @@ const reviews = [
   { id: "r6", author: "Andrea Solís",   rating: 5, pet: "Pelusa, Maltés",          text: "Pelusa quedó como muñequita. El corte estilo cachorrito es perfecto. Definitivamente regresamos." },
   { id: "r7", author: "Iván Castillo",  rating: 5, pet: "Bruno, Bulldog Francés",  text: "Excelente atención y precios justos. Bruno entra contento, eso lo dice todo." },
   { id: "r8", author: "Paulina Vega",   rating: 5, pet: "Nala, Bengalí",           text: "La forma en que manejan a los gatos es admirable. Cero estrés para Nala, y eso no tiene precio." },
-  { id: "r9", author: "Roberto Aguilar",rating: 5, pet: "Simón, Poodle",           text: "Tres años yendo a La Lanuda. Nunca hemos tenido una mala experiencia. Cuidan los detalles." },
+  { id: "r9", author: "Roberto Aguilar",rating: 5, pet: "Simón, Poodle",           text: "Tres años yendo a Vitelas. Nunca hemos tenido una mala experiencia. Cuidan los detalles." },
 ];
 
 // ─── Booking utils ────────────────────────────────────────────────────────────

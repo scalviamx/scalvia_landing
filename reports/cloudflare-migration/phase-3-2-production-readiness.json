@@ -1,0 +1,82 @@
+{
+  "status": "PASS_WITH_NOTES",
+  "generatedAt": "2026-08-01T06:38:42Z",
+  "worker": {
+    "name": "scalvia-landing-preview",
+    "url": "https://scalvia-landing-preview.hola-7e3.workers.dev",
+    "previousActiveVersionId": "a2dcf566-9b00-4c0e-a37f-c8c2b416445a",
+    "newPreviewVersionId": "517d59ad-c365-4692-8e01-3ee825ee13d0",
+    "baseCommit": "10ce74eb9a0ac9255dde361ddb6baf8f96396591"
+  },
+  "turnstile": {
+    "preview": "testing credentials",
+    "production": "real credentials present in Vercel Production env",
+    "productionBundleSitekeyDetected": true,
+    "productionBundleSitekeyFingerprint": {
+      "length": 24,
+      "prefix": "0x4A",
+      "suffix": "Tba8",
+      "sha12": "f2895a25124b"
+    },
+    "hostnameAllowlistConfirmedInDashboard": false,
+    "dashboardCheckRequired": [
+      "scalvia.mx",
+      "www.scalvia.mx"
+    ],
+    "valuesReported": false
+  },
+  "vitelasAudit": {
+    "activeEndpointsKept": [
+      "/api/lalanuda/availability",
+      "/api/lalanuda/notify"
+    ],
+    "endpointRenamePerformed": false,
+    "frontendCallsRemain": true,
+    "wrongRecipientCorrected": {
+      "from": "hola@lalanuda.mx",
+      "to": "hola@vitelas.mx"
+    },
+    "wrongBrandingCorrected": {
+      "calendarTitle": {
+        "from": "Cita La Lanuda",
+        "to": "Cita Vitelas"
+      },
+      "activeVitelasTestimonial": {
+        "from": "Tres años yendo a La Lanuda.",
+        "to": "Tres años yendo a Vitelas."
+      }
+    },
+    "notionDatabase": {
+      "variableName": "NOTION_VITELAS_DB_ID",
+      "reachable": true,
+      "titleClassification": "title-indicates-vitelas",
+      "classification": "DEDICATED_VITELAS_DATABASE",
+      "blocker": false,
+      "resolvedIn": "phase-3-3"
+    }
+  },
+  "qa": {
+    "npmRunBuild": "PASS",
+    "npmRunBuildCloudflare": "PASS",
+    "playwrightProduction": "PASS_15_OF_15",
+    "playwrightPreview": "PASS_15_OF_15",
+    "contactChallenge": "PASS",
+    "contactApi": "PASS_CONTROLLED",
+    "calendarAvailability": "PASS",
+    "vitelasNotify": "SAFE_TEST_LIMITATION_SIDE_EFFECTS_ISOLATED_BY_DIRECT_NOTION_QA"
+  },
+  "scopeGuards": {
+    "dnsChanged": false,
+    "customDomainAttached": false,
+    "vercelProductionTouched": false,
+    "opsTouched": false,
+    "chatTouched": false,
+    "vpsTouched": false,
+    "chatwootTouched": false,
+    "pushed": false
+  },
+  "gitCheckpoint": {
+    "created": false,
+    "reason": "Checkpoint is created after final Phase 3.3 validation."
+  }
+}

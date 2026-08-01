@@ -33,9 +33,9 @@ interface NotifyPayload {
 
 async function logToNotion(payload: NotifyPayload): Promise<void> {
   const token = process.env.NOTION_TOKEN
-  const dbId  = process.env.NOTION_LALANUDA_DB_ID
+  const dbId  = process.env.NOTION_VITELAS_DB_ID
   if (!token || !dbId) {
-    console.warn('[lalanuda/notify] NOTION_TOKEN or NOTION_LALANUDA_DB_ID not set — skipping log')
+    console.warn('[lalanuda/notify] NOTION_TOKEN or NOTION_VITELAS_DB_ID not set — skipping log')
     return
   }
 
@@ -79,7 +79,7 @@ function buildGCalUrl(slotDate: string, startMin: number, durationMin: number, p
   const endM = endTotalMin % 60
   const dtStart = `${y}${m}${d}T${pad(startH)}${pad(startM)}00`
   const dtEnd   = `${y}${m}${d}T${pad(endH)}${pad(endM)}00`
-  const title   = encodeURIComponent(`Cita La Lanuda — ${petName}`)
+  const title   = encodeURIComponent(`Cita Vitelas — ${petName}`)
   const details = encodeURIComponent(
     `Servicios: ${items.map(i => i.name).join(', ')}\nTotal: $${total.toLocaleString('es-MX')} MXN\n\nCalle Hidalgo 412, Centro, Monterrey`
   )
@@ -231,7 +231,7 @@ export async function POST(req: NextRequest) {
 
   const resend = new Resend(process.env.RESEND_API_KEY)
 
-  const recipients = ['hola@lalanuda.mx']
+  const recipients = ['hola@vitelas.mx']
   if (clientEmail) recipients.unshift(clientEmail)
 
   // Await both — fire-and-forget is killed by Vercel before resolving
