@@ -1,0 +1,31 @@
+{
+  "phase": "4B",
+  "generatedAt": "2026-08-01T07:33:45Z",
+  "result": "PASS",
+  "cutover": "SUCCESS",
+  "checks": [
+    { "target": "https://scalvia.mx", "status": 307, "expected": "redirect_to_www", "result": "PASS" },
+    { "target": "https://www.scalvia.mx", "status": 200, "expected": "worker_200", "xOpenNext": true, "xVercelId": false, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/contacto", "status": 200, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/vitelas", "status": 200, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/rotunno-interiores", "status": 200, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/nutricionpamcastro", "status": 200, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/robots.txt", "status": 200, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/sitemap.xml", "status": 200, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/api/contact/challenge", "status": 200, "result": "PASS" },
+    { "target": "https://www.scalvia.mx/api/lalanuda/availability?date=2026-08-03", "status": 200, "result": "PASS" },
+    { "target": "https://ops.scalvia.mx", "status": 307, "expected": "preserved_vercel", "result": "PASS" },
+    { "target": "https://chat.scalvia.mx", "status": 502, "expected": "preserved_preexisting_502", "result": "PASS" }
+  ],
+  "contact": {
+    "challenge": "PASS",
+    "invalidPayload": "PASS_NO_EMAIL",
+    "positiveControlledQa": "PASS_EMAIL_INTERNAL",
+    "turnstileChallengePath": "PASS_403_CHALLENGE_REQUIRED"
+  },
+  "vitelas": {
+    "availability": "PASS_GOOGLE_CALENDAR",
+    "notifyInvalidPayload": "PASS_NO_SIDE_EFFECT",
+    "realBookingCreated": false
+  }
+}

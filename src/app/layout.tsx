@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { HashAnchorScroller } from '@/components/HashAnchorScroller'
+import { SITE_ORIGIN } from '@/config/public-allowlist'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -11,6 +12,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_ORIGIN),
   title: 'Scalvia · The path to scale.',
   description:
     'Agencia de inteligencia artificial para empresas. Agentes de IA para atención al cliente, ventas, reclutamiento y automatización de operaciones.',
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
     title: 'Scalvia · The path to scale.',
     description:
       'Agentes de IA para atención al cliente, ventas, reclutamiento y operaciones, implementados en 2 a 4 semanas.',
-    url: 'https://scalvia.mx',
+    url: SITE_ORIGIN,
     siteName: 'Scalvia',
     locale: 'es_MX',
     type: 'website',

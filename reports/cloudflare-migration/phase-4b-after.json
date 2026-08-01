@@ -1,0 +1,65 @@
+{
+  "phase": "4B",
+  "snapshot": "after",
+  "generatedAt": "2026-08-01T07:33:45Z",
+  "result": "PASS",
+  "cutover": "SUCCESS",
+  "worker": {
+    "name": "scalvia-landing",
+    "url": "https://scalvia-landing.hola-7e3.workers.dev",
+    "versionId": "eb921aa7-525b-4bd0-b727-4d2c74209506",
+    "routes": [
+      "scalvia.mx/*",
+      "www.scalvia.mx/*"
+    ]
+  },
+  "records": [
+    {
+      "hostname": "scalvia.mx",
+      "dns": "REDACTED_CLOUDFLARE_ANYCAST",
+      "httpStatus": 307,
+      "location": "https://www.scalvia.mx/",
+      "server": "cloudflare",
+      "xOpenNextPresent": false,
+      "xVercelIdPresent": false,
+      "result": "PASS"
+    },
+    {
+      "hostname": "www.scalvia.mx",
+      "dns": "REDACTED_CLOUDFLARE_ANYCAST",
+      "httpStatus": 200,
+      "server": "cloudflare",
+      "xOpenNextPresent": true,
+      "xVercelIdPresent": false,
+      "result": "PASS"
+    },
+    {
+      "hostname": "ops.scalvia.mx",
+      "dns": "REDACTED_VERCEL_DNS_TARGET",
+      "httpStatus": 307,
+      "location": "/sign-in",
+      "server": "Vercel",
+      "xVercelIdPresent": true,
+      "result": "PRESERVED"
+    },
+    {
+      "hostname": "chat.scalvia.mx",
+      "dns": "REDACTED_CLOUDFLARE_ANYCAST",
+      "httpStatus": 502,
+      "server": "cloudflare",
+      "result": "PRESERVED_PREEXISTING_502"
+    }
+  ],
+  "tls": {
+    "scalvia.mx": "PASS",
+    "www.scalvia.mx": "PASS",
+    "issuer": "Let's Encrypt",
+    "notAfter": "2026-10-01T17:28:05Z"
+  },
+  "vercelRollback": {
+    "deployment": "dpl_8reqJeE2NY3vrVPidQ7NLjqn1LN9",
+    "status": "Ready",
+    "aliasesStillListed": true,
+    "deleted": false
+  }
+}

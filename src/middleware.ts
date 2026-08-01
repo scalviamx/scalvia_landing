@@ -8,9 +8,16 @@ const fileExtensionPattern = /\.[a-z0-9]+$/i;
 // Branch Demo: sin Clerk. Middleware simple que solo deja pasar.
 // En main/PROD se restaura clerkMiddleware.
 export default function middleware(request: NextRequest) {
-  const response = NextResponse.next();
   const pathname = request.nextUrl.pathname;
   const host = request.headers.get("host")?.toLowerCase() ?? "";
+
+  if (host === "scalvia.mx") {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.hostname = "www.scalvia.mx";
+    return NextResponse.redirect(redirectUrl, 307);
+  }
+
+  const response = NextResponse.next();
   const isWorkersPreview = host.endsWith(".workers.dev");
   const isHiddenRoute = hiddenRoutes.some(
     (route) => route.path.startsWith("/") && pathname === route.path,

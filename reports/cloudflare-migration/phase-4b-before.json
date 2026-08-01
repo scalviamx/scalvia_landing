@@ -1,0 +1,86 @@
+{
+  "phase": "4B",
+  "snapshot": "before",
+  "generatedAt": "2026-08-01T07:30:44Z",
+  "git": {
+    "checkpoint": "0f80e0d6e3a7242f0d474a1b4453ccbc2035f0d7",
+    "workingTreeAtStart": "clean"
+  },
+  "workerCandidate": {
+    "name": "scalvia-landing",
+    "url": "https://scalvia-landing.hola-7e3.workers.dev",
+    "versionId": "eb921aa7-525b-4bd0-b727-4d2c74209506",
+    "playwright": "PASS_15_OF_15"
+  },
+  "turnstile": {
+    "widget": "Scalvia Production",
+    "mode": "managed",
+    "hostnames": [
+      "scalvia.mx",
+      "www.scalvia.mx"
+    ],
+    "sitekeyFingerprint": "sha256:8855e1ba8219",
+    "secretPrinted": false
+  },
+  "secretsConfiguredByName": [
+    "CLERK_SECRET_KEY",
+    "CONTACT_ALLOWED_ORIGINS",
+    "CONTACT_FORM_SIGNING_SECRET",
+    "CONTACT_TO_EMAIL",
+    "DEMO_MODE",
+    "GOOGLE_CALENDAR_ID",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_REFRESH_TOKEN",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+    "NOTION_TOKEN",
+    "NOTION_VITELAS_DB_ID",
+    "RESEND_API_KEY",
+    "TURNSTILE_SECRET_KEY"
+  ],
+  "records": [
+    {
+      "hostname": "scalvia.mx",
+      "dns": "REDACTED_CLOUDFLARE_ANYCAST",
+      "httpStatus": 307,
+      "location": "https://www.scalvia.mx/",
+      "server": "cloudflare",
+      "xVercelIdPresent": true,
+      "currentServing": "Vercel behind Cloudflare",
+      "cutoverAction": "CHANGE"
+    },
+    {
+      "hostname": "www.scalvia.mx",
+      "dns": "REDACTED_CLOUDFLARE_ANYCAST",
+      "httpStatus": 200,
+      "server": "cloudflare",
+      "xVercelIdPresent": true,
+      "currentServing": "Vercel behind Cloudflare",
+      "cutoverAction": "CHANGE"
+    },
+    {
+      "hostname": "ops.scalvia.mx",
+      "dns": "REDACTED_VERCEL_DNS_TARGET",
+      "httpStatus": 307,
+      "location": "/sign-in",
+      "server": "Vercel",
+      "xVercelIdPresent": true,
+      "currentServing": "Vercel direct",
+      "cutoverAction": "PRESERVE_EXACTLY"
+    },
+    {
+      "hostname": "chat.scalvia.mx",
+      "dns": "REDACTED_CLOUDFLARE_ANYCAST",
+      "httpStatus": 502,
+      "server": "cloudflare",
+      "currentServing": "VPS / Chatwoot incident path",
+      "cutoverAction": "PRESERVE_EXACTLY"
+    }
+  ],
+  "rollback": {
+    "vercelDeployment": "dpl_8reqJeE2NY3vrVPidQ7NLjqn1LN9",
+    "status": "Ready",
+    "aliasesPreserved": true
+  }
+}

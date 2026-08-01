@@ -1,0 +1,39 @@
+{
+  "phase": "4B",
+  "generatedAt": "2026-08-01T07:33:45Z",
+  "result": "PASS",
+  "baseUrl": "https://www.scalvia.mx",
+  "playwright": {
+    "command": "BASE_URL=https://www.scalvia.mx npx playwright test tests/smoke/parity.spec.ts",
+    "result": "PASS",
+    "passed": 15,
+    "failed": 0
+  },
+  "coverage": {
+    "pagesDesktopAndMobile": [
+      "/",
+      "/contacto",
+      "/vitelas",
+      "/rotunno-interiores",
+      "/nutricionpamcastro"
+    ],
+    "hiddenRoutes": [
+      "/lalanuda",
+      "/otunno-interiores",
+      "/cliente-falso"
+    ],
+    "seo": [
+      "/robots.txt",
+      "/sitemap.xml"
+    ],
+    "api": [
+      "/api/contact/challenge"
+    ]
+  },
+  "manualApiChecks": {
+    "availability": "PASS",
+    "contactInvalidPayload": "PASS",
+    "contactPositiveControlledQa": "PASS",
+    "notifyInvalidPayload": "PASS"
+  }
+}
