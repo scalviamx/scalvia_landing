@@ -6,3 +6,7 @@ node_modules
 .claude
 *.orig
 .vercel
+.open-next
+.wrangler
+.dev.vars
+.dev.vars.*

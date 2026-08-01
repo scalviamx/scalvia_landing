@@ -1,0 +1,47 @@
+{
+  "phase": 2,
+  "apis": [
+    {
+      "route": "/api/contact",
+      "status": "COMPATIBLE",
+      "runtime": "nodejs",
+      "dependencies": ["Resend", "Cloudflare Turnstile", "node:crypto", "Buffer"],
+      "required_variables": ["RESEND_API_KEY", "TURNSTILE_SECRET_KEY", "CONTACT_FORM_SIGNING_SECRET"],
+      "notes": "Build passed; real email send should be tested only in controlled preview."
+    },
+    {
+      "route": "/api/contact/challenge",
+      "status": "COMPATIBLE",
+      "runtime": "nodejs",
+      "dependencies": ["node:crypto"],
+      "required_variables": ["CONTACT_FORM_SIGNING_SECRET"],
+      "notes": "No-store response; stable signing secret recommended for multi-isolate Workers."
+    },
+    {
+      "route": "/api/lalanuda/availability",
+      "status": "REQUIRES_ADAPTATION",
+      "runtime": "nodejs",
+      "dependencies": ["googleapis"],
+      "required_variables": ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_REFRESH_TOKEN", "GOOGLE_CALENDAR_ID"],
+      "notes": "Build passed; runtime smoke required because googleapis imports Node modules."
+    },
+    {
+      "route": "/api/lalanuda/notify",
+      "status": "REQUIRES_ADAPTATION",
+      "runtime": "nodejs",
+      "dependencies": ["Resend", "Notion SDK", "googleapis"],
+      "required_variables": ["RESEND_API_KEY", "NOTION_TOKEN", "NOTION_LALANUDA_DB_ID", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_REFRESH_TOKEN", "GOOGLE_CALENDAR_ID"],
+      "notes": "Build passed; Google Calendar runtime smoke remains required."
+    },
+    {
+      "route": "/api/lalanuda/debug",
+      "status": "LEGACY",
+      "runtime": "nodejs",
+      "dependencies": ["Notion SDK"],
+      "required_variables": ["DEBUG_SECRET", "NOTION_TOKEN", "NOTION_LALANUDA_DB_ID"],
+      "notes": "Hidden by default; do not enable during migration unless explicitly needed."
+    }
+  ],
+  "renamed_routes": [],
+  "production_changes": false
+}

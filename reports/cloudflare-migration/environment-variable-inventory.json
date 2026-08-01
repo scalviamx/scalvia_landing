@@ -1,0 +1,139 @@
+{
+  "phase": 2,
+  "values_copied": false,
+  "variables": [
+    {
+      "name": "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+      "classes": ["PUBLIC", "BUILD_TIME"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "CLERK_SECRET_KEY",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "NEXT_PUBLIC_CLERK_SIGN_IN_URL",
+      "classes": ["PUBLIC", "BUILD_TIME"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL",
+      "classes": ["PUBLIC", "BUILD_TIME"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL",
+      "classes": ["PUBLIC", "BUILD_TIME"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+      "classes": ["PUBLIC", "BUILD_TIME"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "TURNSTILE_SECRET_KEY",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "CONTACT_ALLOWED_ORIGINS",
+      "classes": ["RUNTIME", "OPTIONAL"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep_if_present"
+    },
+    {
+      "name": "CONTACT_FORM_SIGNING_SECRET",
+      "classes": ["SERVER_SECRET", "RUNTIME", "OPTIONAL"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep_if_present"
+    },
+    {
+      "name": "RESEND_API_KEY",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "NOTION_TOKEN",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "NOTION_LALANUDA_DB_ID",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "GOOGLE_CLIENT_ID",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "GOOGLE_CLIENT_SECRET",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "GOOGLE_REFRESH_TOKEN",
+      "classes": ["SERVER_SECRET", "RUNTIME"],
+      "cloudflare": "secret",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "GOOGLE_CALENDAR_ID",
+      "classes": ["RUNTIME", "OPTIONAL"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep"
+    },
+    {
+      "name": "DEBUG_SECRET",
+      "classes": ["SERVER_SECRET", "RUNTIME", "LEGACY"],
+      "cloudflare": "secret_if_enabled",
+      "local": ".env.local",
+      "vercel_rollback": "keep_absent_unless_needed"
+    },
+    {
+      "name": "DEMO_MODE",
+      "classes": ["RUNTIME", "OPTIONAL"],
+      "cloudflare": "environment_variable",
+      "local": ".env.local",
+      "vercel_rollback": "keep_if_present"
+    },
+    {
+      "name": "NEXTJS_ENV",
+      "classes": ["RUNTIME", "OPTIONAL"],
+      "cloudflare": "local_dev_only",
+      "local": ".dev.vars",
+      "vercel_rollback": "not_required"
+    }
+  ]
+}

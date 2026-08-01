@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-08-01",
+  "services": [
+    {
+      "hostname": "www.scalvia.mx",
+      "runtime": "Vercel LAMBDAS / Next.js",
+      "repository": "github.com/scalviamx/scalvia_landing",
+      "dependencies": [
+        { "name": "Vercel Functions", "purpose": "Next.js API routes and dynamic routes" },
+        { "name": "Resend", "purpose": "Contact and booking email delivery" },
+        { "name": "Cloudflare Turnstile", "purpose": "Contact form anti-abuse verification" },
+        { "name": "Google Calendar", "purpose": "Vitelas availability and booking event creation" },
+        { "name": "Notion", "purpose": "Booking log integration" },
+        { "name": "Clerk", "purpose": "Current Vitelas auth dependency in app code" },
+        { "name": "WordPress/WooCommerce", "purpose": "Nutricion Pam Castro cart handoff" }
+      ],
+      "migrationRisks": [
+        "Static export would break API routes unless replaced.",
+        "Renaming /api/lalanuda/* before compatibility aliases would break Vitelas.",
+        "Cloudflare Turnstile hostnames and server-side verification must be tested in preview."
+      ]
+    },
+    {
+      "hostname": "ops.scalvia.mx",
+      "runtime": "Vercel LAMBDAS / Next.js",
+      "repository": "github.com/scalviamx/scalviadashboard",
+      "dependencies": [
+        { "name": "Postgres", "purpose": "Drizzle and BetterAuth database via DATABASE_URL" },
+        { "name": "BetterAuth", "purpose": "Current repo auth implementation" },
+        { "name": "Clerk", "purpose": "Observed in current production headers/routes; likely old production auth state" },
+        { "name": "Google OAuth", "purpose": "Ops login provider" },
+        { "name": "Resend", "purpose": "Invitations, reset email, digest email" },
+        { "name": "Vercel Cron", "purpose": "/api/cron/daily-digest" }
+      ],
+      "migrationRisks": [
+        "Do not change Ops during public-site cutover.",
+        "Audit production auth state before merging or deploying BetterAuth changes."
+      ]
+    },
+    {
+      "hostname": "chat.scalvia.mx",
+      "runtime": "Docker on scalvia-vps",
+      "repository": "No Chatwoot source repo found locally; infra docs point to /opt/scalvia/chatwoot",
+      "dependencies": [
+        { "name": "Chatwoot Rails", "purpose": "Web application" },
+        { "name": "Sidekiq", "purpose": "Background jobs" },
+        { "name": "Postgres", "purpose": "Chatwoot database" },
+        { "name": "Redis", "purpose": "Queue/cache dependency" },
+        { "name": "Cloudflare proxy", "purpose": "Public HTTPS edge for chat.scalvia.mx" }
+      ],
+      "migrationRisks": [
+        "Current public endpoint returns Cloudflare 502.",
+        "Local infrastructure docs list Chatwoot Rails as restarting.",
+        "Repair requires dedicated production maintenance window and current backups."
+      ]
+    }
+  ]
+}

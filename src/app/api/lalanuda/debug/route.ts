@@ -5,8 +5,16 @@ import { createCalendarEvent } from '@/lib/google-calendar'
 export const runtime = 'nodejs'
 
 export async function GET(req: NextRequest) {
-  if (req.nextUrl.searchParams.get('secret') !== process.env.DEBUG_SECRET) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const headers = {
+    'Cache-Control': 'no-store',
+    'X-Robots-Tag': 'noindex, nofollow, noarchive',
+  }
+
+  const configuredSecret = process.env.DEBUG_SECRET
+  const providedSecret = req.nextUrl.searchParams.get('secret')
+
+  if (!configuredSecret || providedSecret !== configuredSecret) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404, headers })
   }
   const results: Record<string, unknown> = {}
 
@@ -59,5 +67,5 @@ export async function GET(req: NextRequest) {
   }
 
   const allOk = Object.values(results).every((r) => (r as { ok: boolean }).ok)
-  return NextResponse.json({ allOk, results }, { status: allOk ? 200 : 500 })
+  return NextResponse.json({ allOk, results }, { status: allOk ? 200 : 500, headers })
 }

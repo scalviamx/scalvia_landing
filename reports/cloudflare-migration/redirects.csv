@@ -1,0 +1,4 @@
+source,target,status,owner,notes
+https://scalvia.mx/,https://www.scalvia.mx/,307,external_dns_or_hosting,Observed in prior audit; not configured in this repository.
+/otunno-interiores,,404,next_app,Legacy misspelled route must remain hidden.
+/lalanuda,,404,next_app,Legacy La Lanuda route must remain hidden.

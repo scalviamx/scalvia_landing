@@ -1,0 +1,536 @@
+{
+  "auditDate": "2026-08-01",
+  "scope": "Local read-only repository audit plus lightweight HTTP checks. No code, infrastructure, DNS, deployment, config, commit, or push changes.",
+  "summary": {
+    "rootDomainsFound": 5,
+    "subdomainsFound": 3,
+    "deploymentsFound": 1,
+    "publicRoutesFound": 26,
+    "applicationsFound": 6,
+    "brokenOrInconsistentReferences": [
+      "https://www.scalvia.mx/lalanuda returns 404 but historical docs still reference scalvia.mx/lalanuda.",
+      "Current /vitelas frontend calls /api/lalanuda/* endpoints.",
+      "src/app/api/lalanuda/notify/route.ts mixes Vitelas branding with hola@lalanuda.mx recipients.",
+      "https://bot.scalvia.mx did not resolve DNS during audit.",
+      "https://scalvia-landing-demo.vercel.app returned DEPLOYMENT_NOT_FOUND.",
+      "scalvia.com appears in branding HTML while production metadata uses scalvia.mx.",
+      "No robots.txt or sitemap.xml found."
+    ]
+  },
+  "inventory": [
+    {
+      "url": "https://scalvia.mx",
+      "type": "dominio",
+      "foundAt": ["src/app/layout.tsx:21", "src/app/privacidad/page.tsx:111", "src/app/terminos/page.tsx:20", "src/app/cookies/page.tsx:20"],
+      "status": "activo; HTTP 307 a https://www.scalvia.mx/",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx",
+      "type": "subdominio",
+      "foundAt": ["HTTP redirect desde scalvia.mx", "src/lib/contactSecurity.ts:180-183"],
+      "status": "activo; HTTP 200",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "info.scalvia.mx",
+      "type": "subdominio/email",
+      "foundAt": ["src/app/api/contact/route.ts:92", "src/app/api/lalanuda/notify/route.ts:265", "docs/superpowers/plans/2026-05-24-lalanuda-booking-notifications.md:422"],
+      "status": "desconocido como web; usado para email",
+      "platform": "Resend/DNS desconocido",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://bot.scalvia.mx",
+      "type": "subdominio/app legacy",
+      "foundAt": ["index.html:1649-1657"],
+      "status": "roto; DNS no resuelve",
+      "platform": "Typebot/Cloudflare desconocido",
+      "recommendation": "ocultar"
+    },
+    {
+      "url": "scalvia.com",
+      "type": "dominio legacy/branding",
+      "foundAt": ["scalvia_brand_identity.html:312"],
+      "status": "desconocido",
+      "platform": "desconocida",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://scalvia-landing-demo.vercel.app",
+      "type": "deployment",
+      "foundAt": ["docs/superpowers/plans/2026-05-23-client-landings-infrastructure.md:231"],
+      "status": "legado; HTTP 404 DEPLOYMENT_NOT_FOUND",
+      "platform": "Vercel",
+      "recommendation": "ocultar"
+    },
+    {
+      "url": "https://www.scalvia.mx/",
+      "type": "ruta",
+      "foundAt": ["src/app/page.tsx"],
+      "status": "activo; HTTP 200",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/problema",
+      "type": "ruta",
+      "foundAt": ["src/app/problema/page.tsx:1", "src/components/sections/Nav.tsx:20"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/soluciones",
+      "type": "ruta",
+      "foundAt": ["src/app/soluciones/page.tsx:1", "src/components/sections/Nav.tsx:21"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/proceso",
+      "type": "ruta",
+      "foundAt": ["src/app/proceso/page.tsx:1", "src/components/sections/Nav.tsx:22"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/marketing",
+      "type": "ruta",
+      "foundAt": ["src/app/marketing/page.tsx:1", "src/components/sections/Nav.tsx:23"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/resultados",
+      "type": "ruta",
+      "foundAt": ["src/app/resultados/page.tsx:1", "src/components/sections/Nav.tsx:24"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/contacto",
+      "type": "ruta",
+      "foundAt": ["src/app/contacto/page.tsx:1", "src/components/sections/Nav.tsx:89-94", "src/components/sections/Nav.tsx:145-151"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/privacidad",
+      "type": "ruta legal",
+      "foundAt": ["src/app/privacidad/page.tsx:1", "src/components/sections/Footer.tsx:15"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/terminos",
+      "type": "ruta legal",
+      "foundAt": ["src/app/terminos/page.tsx:1", "src/components/sections/Footer.tsx:16"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/cookies",
+      "type": "ruta legal",
+      "foundAt": ["src/app/cookies/page.tsx:1", "src/components/sections/Footer.tsx:17"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/vitelas",
+      "type": "micrositio/app",
+      "foundAt": ["src/app/vitelas/page.tsx:1", "src/app/vitelas/layout.tsx:1", "src/middleware.ts:10"],
+      "status": "activo; HTTP 200",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/rotunno-interiores",
+      "type": "micrositio/app",
+      "foundAt": ["src/app/rotunno-interiores/page.tsx:1", "src/app/rotunno-interiores/layout.tsx:1", "docs/superpowers/specs/2026-06-02-rotunno-interiores-integration-design.md:4"],
+      "status": "activo; HTTP 200",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/otunno-interiores",
+      "type": "ruta legacy eliminada",
+      "foundAt": ["docs/superpowers/specs/2026-06-02-rotunno-interiores-integration-design.md:87", "docs/superpowers/plans/2026-06-02-rotunno-interiores-integration.md:512"],
+      "status": "legado; 404 esperada",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "ocultar"
+    },
+    {
+      "url": "https://www.scalvia.mx/lalanuda",
+      "type": "micrositio legacy",
+      "foundAt": ["src/clientes/lalanuda/index.html", "src/clientes/manifest.ts:9", "docs/superpowers/plans/2026-05-23-client-landings-infrastructure.md:5", "docs/superpowers/plans/2026-05-23-lalanuda-auth-clerk.md:765"],
+      "status": "roto/legado; HTTP 404",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://www.scalvia.mx/[cliente]",
+      "type": "ruta dinámica",
+      "foundAt": ["src/app/[cliente]/page.tsx:1", "src/clientes/manifest.ts:8-11"],
+      "status": "inactiva/desconocida; manifest vacío",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro",
+      "type": "micrositio/app",
+      "foundAt": ["src/app/nutricionpamcastro/page.tsx:1", "src/app/nutricionpamcastro/layout.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro/tienda",
+      "type": "ruta micrositio",
+      "foundAt": ["src/app/nutricionpamcastro/tienda/page.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro/carrito",
+      "type": "ruta micrositio",
+      "foundAt": ["src/app/nutricionpamcastro/carrito/page.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro/consultas",
+      "type": "ruta micrositio",
+      "foundAt": ["src/app/nutricionpamcastro/consultas/page.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro/mi-historia",
+      "type": "ruta micrositio",
+      "foundAt": ["src/app/nutricionpamcastro/mi-historia/page.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro/testimonios",
+      "type": "ruta micrositio",
+      "foundAt": ["src/app/nutricionpamcastro/testimonios/page.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro/mi-canal",
+      "type": "ruta micrositio",
+      "foundAt": ["src/app/nutricionpamcastro/mi-canal/page.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/nutricionpamcastro/aviso-de-privacidad",
+      "type": "ruta legal micrositio",
+      "foundAt": ["src/app/nutricionpamcastro/aviso-de-privacidad/page.tsx:1"],
+      "status": "activo por App Router",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/api/contact/challenge",
+      "type": "API pública GET",
+      "foundAt": ["src/app/api/contact/challenge/route.ts:6-11", "src/components/sections/Contacto.tsx:86-89"],
+      "status": "activo por código",
+      "platform": "Vercel Serverless",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/api/contact",
+      "type": "API pública POST",
+      "foundAt": ["src/app/api/contact/route.ts:22", "src/components/sections/Contacto.tsx:151-156"],
+      "status": "activo por código",
+      "platform": "Vercel Serverless + Resend + Cloudflare Turnstile",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/api/lalanuda/availability?date=YYYY-MM-DD",
+      "type": "API pública GET",
+      "foundAt": ["src/app/api/lalanuda/availability/route.ts:7-21", "src/app/vitelas/_components/VitelasPageClient.tsx:539-549"],
+      "status": "activo por código; naming inconsistente",
+      "platform": "Vercel Serverless + Google Calendar",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://www.scalvia.mx/api/lalanuda/notify",
+      "type": "API pública POST",
+      "foundAt": ["src/app/api/lalanuda/notify/route.ts:90-275", "src/app/vitelas/_components/VitelasPageClient.tsx:680-700"],
+      "status": "activo por código; naming/marca inconsistente",
+      "platform": "Vercel Serverless + Resend + Notion + Google Calendar",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://www.scalvia.mx/api/lalanuda/debug?secret=...",
+      "type": "API debug protegida",
+      "foundAt": ["src/app/api/lalanuda/debug/route.ts:7-10", "docs/superpowers/plans/2026-05-25-lalanuda-notify-fix.md:109"],
+      "status": "activo por código; protegido por query secret",
+      "platform": "Vercel Serverless + Notion + Google Calendar",
+      "recommendation": "ocultar"
+    },
+    {
+      "url": "https://www.scalvia.mx/favicon.png",
+      "type": "asset público",
+      "foundAt": ["src/app/layout.tsx:36-37", "favicon.png"],
+      "status": "activo por asset",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/vitelas_logo.png",
+      "type": "asset público",
+      "foundAt": ["public/vitelas_logo.png"],
+      "status": "activo por asset",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.scalvia.mx/vitelas_logo_black.png",
+      "type": "asset público",
+      "foundAt": ["public/vitelas_logo_black.png", "src/app/api/lalanuda/notify/route.ts:131"],
+      "status": "activo por asset",
+      "platform": "Vercel + Cloudflare",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://instagram.com/scalviamx",
+      "type": "URL externa Scalvia",
+      "foundAt": ["src/components/sections/Footer.tsx:23", "index.html:1603", "index.html:1612"],
+      "status": "desconocido",
+      "platform": "Instagram",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://facebook.com/scalviamx",
+      "type": "URL externa Scalvia",
+      "foundAt": ["src/components/sections/Footer.tsx:34", "index.html:1619"],
+      "status": "desconocido",
+      "platform": "Facebook",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://tiktok.com/@scalviamx",
+      "type": "URL externa Scalvia",
+      "foundAt": ["src/components/sections/Footer.tsx:49", "index.html:1624"],
+      "status": "desconocido",
+      "platform": "TikTok",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://wa.me/528131119893",
+      "type": "URL externa Scalvia",
+      "foundAt": ["src/components/WaFab.tsx:8", "index.html:1635-1637"],
+      "status": "desconocido",
+      "platform": "WhatsApp",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "lalanuda.mx",
+      "type": "dominio/email cliente legacy",
+      "foundAt": ["src/clientes/lalanuda/index.html:122", "src/app/api/lalanuda/notify/route.ts:234", "docs/superpowers/plans/2026-05-24-lalanuda-booking-notifications.md:35-36"],
+      "status": "legado/inconsistente",
+      "platform": "email/DNS desconocido",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "vitelas.mx",
+      "type": "dominio/email cliente",
+      "foundAt": ["src/app/vitelas/_components/VitelasPageClient.tsx:25-26", "src/app/api/lalanuda/notify/route.ts:213", "src/app/api/lalanuda/notify/route.ts:267"],
+      "status": "activo como identidad/email; web no validada",
+      "platform": "DNS/email desconocido",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://wa.me/528120367228",
+      "type": "URL externa Vitelas",
+      "foundAt": ["src/app/vitelas/_components/VitelasPageClient.tsx:24", "src/app/vitelas/_components/VitelasPageClient.tsx:232"],
+      "status": "desconocido",
+      "platform": "WhatsApp",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://wa.me/528112345678",
+      "type": "URL externa Rotunno",
+      "foundAt": ["src/app/rotunno-interiores/page.tsx:20"],
+      "status": "desconocido; parece placeholder",
+      "platform": "WhatsApp",
+      "recommendation": "revisar"
+    },
+    {
+      "url": "https://www.instagram.com/rotunnointeriores",
+      "type": "URL externa Rotunno",
+      "foundAt": ["src/app/rotunno-interiores/page.tsx:253"],
+      "status": "desconocido",
+      "platform": "Instagram",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://nutriologapamcastro.com",
+      "type": "dominio cliente externo",
+      "foundAt": ["src/app/nutricionpamcastro/_lib/shop.ts:24-52", "src/app/nutricionpamcastro/_lib/shop.ts:109", "docs/pamcastro/scalvia-cart-handoff.php:4"],
+      "status": "activo; HTTP 200",
+      "platform": "WordPress/Bluehost",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://nutriologapamcastro.com/wp-admin/admin-post.php?action=scalvia_cart_handoff",
+      "type": "webhook/handoff externo",
+      "foundAt": ["src/app/nutricionpamcastro/_lib/shop.ts:97-110", "docs/pamcastro/scalvia-cart-handoff.php:12-15"],
+      "status": "activo por integración; no ejecutado",
+      "platform": "WordPress/WooCommerce",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://nutriologapamcastro.com/product/cita-inicial-o-reingreso/",
+      "type": "URL producto externo",
+      "foundAt": ["src/app/nutricionpamcastro/_lib/shop.ts:25"],
+      "status": "desconocido",
+      "platform": "WordPress/WooCommerce",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://nutriologapamcastro.com/product/consulta-inicial-online/",
+      "type": "URL producto externo",
+      "foundAt": ["src/app/nutricionpamcastro/_lib/shop.ts:34"],
+      "status": "desconocido",
+      "platform": "WordPress/WooCommerce",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://nutriologapamcastro.com/product/paquete-3-consultas-seguimiento-online/",
+      "type": "URL producto externo",
+      "foundAt": ["src/app/nutricionpamcastro/_lib/shop.ts:43"],
+      "status": "desconocido",
+      "platform": "WordPress/WooCommerce",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://nutriologapamcastro.com/product/paquete-5-consultas-seguimiento-online/",
+      "type": "URL producto externo",
+      "foundAt": ["src/app/nutricionpamcastro/_lib/shop.ts:52"],
+      "status": "desconocido",
+      "platform": "WordPress/WooCommerce",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.instagram.com/nutricionpamcastro/",
+      "type": "URL externa Nutricion Pam Castro",
+      "foundAt": ["src/app/nutricionpamcastro/_components/Footer.tsx:68"],
+      "status": "desconocido",
+      "platform": "Instagram",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.facebook.com/nutricionpamcastro/",
+      "type": "URL externa Nutricion Pam Castro",
+      "foundAt": ["src/app/nutricionpamcastro/_components/Footer.tsx:78"],
+      "status": "desconocido",
+      "platform": "Facebook",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.tiktok.com/@nutriologapamcastro",
+      "type": "URL externa Nutricion Pam Castro",
+      "foundAt": ["src/app/nutricionpamcastro/_components/Footer.tsx:88"],
+      "status": "desconocido",
+      "platform": "TikTok",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.youtube.com/@nutriologapamcastro",
+      "type": "URL externa Nutricion Pam Castro",
+      "foundAt": ["src/app/nutricionpamcastro/mi-canal/page.tsx:5"],
+      "status": "desconocido",
+      "platform": "YouTube",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=...",
+      "type": "feed externo",
+      "foundAt": ["src/app/nutricionpamcastro/mi-canal/page.tsx:16-17"],
+      "status": "desconocido",
+      "platform": "YouTube",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+      "type": "script externo seguridad",
+      "foundAt": ["src/components/sections/Contacto.tsx:16", "vercel.json:17"],
+      "status": "activo por configuración",
+      "platform": "Cloudflare Turnstile",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      "type": "API externa seguridad",
+      "foundAt": ["src/lib/contactSecurity.ts:254"],
+      "status": "activo por configuración",
+      "platform": "Cloudflare Turnstile",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "https://calendar.google.com/calendar/render",
+      "type": "URL externa calendario",
+      "foundAt": ["src/app/api/lalanuda/notify/route.ts:72-88"],
+      "status": "activo por construcción de email",
+      "platform": "Google Calendar",
+      "recommendation": "mantener"
+    },
+    {
+      "url": "http://localhost:3000 / http://localhost:3002 / http://127.0.0.1:3000 / http://127.0.0.1:4173 / http://localhost:3333/callback",
+      "type": "rutas locales/dev",
+      "foundAt": ["scripts/design-export/capture.mjs:11", "scripts/test-api-availability.mjs:26", "package.json:10", "scripts/get-google-refresh-token.mjs:12"],
+      "status": "desarrollo local",
+      "platform": "local",
+      "recommendation": "mantener fuera de docs públicas"
+    }
+  ],
+  "reviewedFiles": [
+    "vercel.json",
+    "next.config.ts",
+    "src/middleware.ts",
+    "src/app/**/page.tsx",
+    "src/app/**/layout.tsx",
+    "src/app/api/**/route.ts",
+    "src/components/sections/Nav.tsx",
+    "src/components/sections/Footer.tsx",
+    "src/components/sections/Contacto.tsx",
+    "src/clientes/manifest.ts",
+    "src/clientes/lalanuda/index.html",
+    "docs/superpowers/**",
+    "docs/pamcastro/**",
+    "scripts/**",
+    "index.html",
+    "index-v2.html",
+    "scalvia_brand_identity.html",
+    ".env.local (domains only; secrets not copied)"
+  ],
+  "qaNotes": [
+    "No commits, push, deployments, migrations, DNS, or config changes were made.",
+    "No POST endpoints were executed.",
+    "The debug endpoint was not called with a secret because it can create Notion/Google Calendar records.",
+    "No robots.txt or sitemap.xml files/routes were found."
+  ]
+}

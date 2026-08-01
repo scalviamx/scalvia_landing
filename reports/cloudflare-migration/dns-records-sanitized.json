@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-08-01",
+  "zone": "scalvia.mx",
+  "nameservers": ["bjorn.ns.cloudflare.com", "paloma.ns.cloudflare.com"],
+  "records": [
+    {
+      "hostname": "scalvia.mx",
+      "type": "A",
+      "value": "REDACTED_CLOUDFLARE_ANYCAST",
+      "proxyProviderInferred": "Cloudflare",
+      "notes": "HTTP response includes server: cloudflare and x-vercel-id."
+    },
+    {
+      "hostname": "www.scalvia.mx",
+      "type": "A",
+      "value": "REDACTED_CLOUDFLARE_ANYCAST",
+      "proxyProviderInferred": "Cloudflare",
+      "notes": "No public CNAME observed."
+    },
+    {
+      "hostname": "ops.scalvia.mx",
+      "type": "CNAME",
+      "value": "ea55ba098dfb8b66.vercel-dns-017.com.",
+      "proxyProviderInferred": "none_observed",
+      "notes": "HTTP response comes directly from server: Vercel."
+    },
+    {
+      "hostname": "ops.scalvia.mx",
+      "type": "A",
+      "value": "REDACTED_VERCEL_EDGE",
+      "proxyProviderInferred": "none_observed",
+      "notes": "Resolved through Vercel DNS target."
+    },
+    {
+      "hostname": "chat.scalvia.mx",
+      "type": "A",
+      "value": "REDACTED_CLOUDFLARE_ANYCAST",
+      "proxyProviderInferred": "Cloudflare",
+      "notes": "HTTP response currently returns Cloudflare 502."
+    },
+    {
+      "hostname": "chat.scalvia.mx",
+      "type": "AAAA",
+      "value": "REDACTED_CLOUDFLARE_ANYCAST_IPV6",
+      "proxyProviderInferred": "Cloudflare",
+      "notes": "No public CNAME observed."
+    },
+    {
+      "hostname": "scalvia.mx",
+      "type": "TXT",
+      "value": "google-site-verification=REDACTED",
+      "notes": "Preserve during DNS changes."
+    },
+    {
+      "hostname": "scalvia.mx",
+      "type": "TXT",
+      "value": "v=spf1 include:_spf.google.com ~all",
+      "notes": "Preserve during DNS changes."
+    }
+  ]
+}

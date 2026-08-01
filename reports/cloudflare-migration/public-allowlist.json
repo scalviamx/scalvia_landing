@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-08-01",
+  "source": "reports/scalvia-domain-inventory.json and local route review",
+  "domains": [
+    {
+      "url": "https://scalvia.mx",
+      "status": "public",
+      "notes": "Apex domain must remain operational; currently redirects to https://www.scalvia.mx/."
+    },
+    {
+      "url": "https://www.scalvia.mx",
+      "status": "public",
+      "notes": "Canonical public website host."
+    },
+    {
+      "url": "https://ops.scalvia.mx",
+      "status": "public_required_pending_hosting_confirmation",
+      "notes": "Must remain operational; hosting classification belongs to Phase 1."
+    },
+    {
+      "url": "https://chat.scalvia.mx",
+      "status": "public_required_pending_hosting_confirmation",
+      "notes": "Must remain operational; hosting classification belongs to Phase 1."
+    }
+  ],
+  "routes": [
+    "/",
+    "/problema",
+    "/soluciones",
+    "/proceso",
+    "/marketing",
+    "/resultados",
+    "/contacto",
+    "/privacidad",
+    "/terminos",
+    "/cookies",
+    "/vitelas",
+    "/rotunno-interiores",
+    "/nutricionpamcastro",
+    "/nutricionpamcastro/tienda",
+    "/nutricionpamcastro/carrito",
+    "/nutricionpamcastro/consultas",
+    "/nutricionpamcastro/mi-historia",
+    "/nutricionpamcastro/testimonios",
+    "/nutricionpamcastro/mi-canal",
+    "/nutricionpamcastro/aviso-de-privacidad"
+  ],
+  "apis": [
+    {
+      "path": "/api/contact/challenge",
+      "methods": ["GET"],
+      "status": "public",
+      "requiredBy": ["Scalvia contact form"]
+    },
+    {
+      "path": "/api/contact",
+      "methods": ["POST"],
+      "status": "public",
+      "requiredBy": ["Scalvia contact form"]
+    },
+    {
+      "path": "/api/lalanuda/availability",
+      "methods": ["GET"],
+      "status": "public_compatibility",
+      "requiredBy": ["Vitelas booking flow"],
+      "migrationNote": "Rename to /api/vitelas/availability in a later phase while preserving a temporary compatibility route."
+    },
+    {
+      "path": "/api/lalanuda/notify",
+      "methods": ["POST"],
+      "status": "public_compatibility",
+      "requiredBy": ["Vitelas booking flow"],
+      "migrationNote": "Rename to /api/vitelas/notify in a later phase while preserving a temporary compatibility route."
+    }
+  ],
+  "excluded": [
+    "/lalanuda",
+    "/otunno-interiores",
+    "/api/lalanuda/debug",
+    "/[cliente] when slug is not present in src/clientes/manifest.ts",
+    "bot.scalvia.mx",
+    "scalvia-landing-demo.vercel.app",
+    "scalvia.com public references"
+  ]
+}

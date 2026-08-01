@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-08-01",
+  "routes": [
+    {
+      "path": "/lalanuda",
+      "classification": "legacy_hidden",
+      "expectedBehavior": "404",
+      "sitemap": "excluded",
+      "robots": "disallowed",
+      "notes": "Historical implementation remains in src/clientes/lalanuda/index.html but is not exposed through the manifest."
+    },
+    {
+      "path": "/otunno-interiores",
+      "classification": "legacy_hidden",
+      "expectedBehavior": "404",
+      "sitemap": "excluded",
+      "robots": "disallowed",
+      "notes": "Canonical active route is /rotunno-interiores."
+    },
+    {
+      "path": "/api/lalanuda/debug",
+      "classification": "debug_hidden",
+      "expectedBehavior": "404 without a valid DEBUG_SECRET query parameter",
+      "sitemap": "excluded",
+      "robots": "disallowed",
+      "headers": ["X-Robots-Tag: noindex, nofollow, noarchive", "Cache-Control: no-store"],
+      "notes": "The endpoint is retained for controlled diagnostics but should not be linked or indexed."
+    },
+    {
+      "path": "/[cliente]",
+      "classification": "dynamic_guarded",
+      "expectedBehavior": "404 for slugs not present in src/clientes/manifest.ts",
+      "sitemap": "excluded unless a slug is explicitly allowlisted",
+      "notes": "Runtime guard checks src/clientes/manifest.ts and calls notFound() for unknown slugs."
+    }
+  ],
+  "legacyHosts": [
+    {
+      "host": "bot.scalvia.mx",
+      "classification": "legacy_hidden",
+      "notes": "Found only in legacy Typebot HTML; do not include in public architecture until ownership and purpose are confirmed."
+    },
+    {
+      "host": "scalvia-landing-demo.vercel.app",
+      "classification": "legacy_hidden",
+      "notes": "Prior audit observed DEPLOYMENT_NOT_FOUND; do not use as an active preview target."
+    }
+  ]
+}

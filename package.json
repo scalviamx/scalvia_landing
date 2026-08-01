@@ -5,6 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "design:export": "node scripts/design-export/run.mjs",
     "design:export:capture": "node scripts/design-export/capture.mjs",
     "design:export:capture:local": "node scripts/design-export/capture.mjs --base-url http://127.0.0.1:4173"
@@ -14,6 +17,7 @@
     "@clerk/nextjs": "^7.4.1",
     "@gsap/react": "^2.1.2",
     "@notionhq/client": "^5.22.0",
+    "@opennextjs/cloudflare": "^1.20.2",
     "clsx": "^2.1.1",
     "flags": "^4.0.6",
     "framer-motion": "^11.18.2",
@@ -34,6 +38,7 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.118.0"
   }
 }

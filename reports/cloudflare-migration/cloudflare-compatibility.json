@@ -1,0 +1,74 @@
+{
+  "phase": 2,
+  "status": "PASS",
+  "architecture": "Cloudflare Workers + OpenNext",
+  "static_export_selected": false,
+  "runtime": {
+    "next": "15.5.22",
+    "react": "19.2.5",
+    "react_dom": "19.2.5",
+    "local_node": "22.22.3",
+    "opennext_cloudflare": "1.20.2",
+    "wrangler": "4.118.0",
+    "worker_compatibility_date": "2026-08-01",
+    "compatibility_flags": [
+      "nodejs_compat",
+      "global_fetch_strictly_public"
+    ]
+  },
+  "matrix": [
+    {
+      "area": "App Router",
+      "status": "COMPATIBLE",
+      "evidence": "OpenNext build completed."
+    },
+    {
+      "area": "Route handlers",
+      "status": "COMPATIBLE",
+      "evidence": "/api/contact, /api/contact/challenge, /api/lalanuda/availability, /api/lalanuda/notify, and /api/lalanuda/debug compiled."
+    },
+    {
+      "area": "Middleware",
+      "status": "COMPATIBLE",
+      "evidence": "Middleware uses NextResponse and local allowlist only; no Node APIs."
+    },
+    {
+      "area": "node:crypto and Buffer",
+      "status": "COMPATIBLE",
+      "evidence": "Cloudflare nodejs_compat enabled and build passed."
+    },
+    {
+      "area": "Google Calendar SDK",
+      "status": "REQUIRES_ADAPTATION",
+      "evidence": "googleapis imports Node modules; build passed, runtime smoke remains required."
+    },
+    {
+      "area": "ISR cache",
+      "status": "REQUIRES_ADAPTATION",
+      "evidence": "One route uses next.revalidate; persistent R2 cache is not configured in Phase 2."
+    },
+    {
+      "area": "Worker upload size",
+      "status": "UNKNOWN",
+      "evidence": "Build generated .open-next locally; upload size is checked by Wrangler during remote preview/upload."
+    }
+  ],
+  "known_blockers": [],
+  "non_blocking_risks": [
+    "Google Calendar SDK requires Workers runtime smoke test with real credentials.",
+    "Persistent ISR cache is not configured with R2.",
+    "npm install reported high severity audit findings; no automatic dependency fix was applied."
+  ],
+  "validation": {
+    "next_build": "PASS",
+    "cloudflare_build": "PASS"
+  },
+  "production_changes": {
+    "deploy": false,
+    "dns": false,
+    "custom_domains": false,
+    "vercel_production": false,
+    "ops_scalvia_mx": false,
+    "chat_scalvia_mx": false
+  }
+}

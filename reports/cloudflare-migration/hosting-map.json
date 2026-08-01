@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-08-01",
+  "services": [
+    {
+      "hostname": "scalvia.mx",
+      "dnsProvider": "Cloudflare",
+      "proxyProvider": "Cloudflare",
+      "hostingClassification": "VERCEL",
+      "origin": "Vercel project prj_OHZ1Q1EJPi0Ef8PRlrtkJfFwizSG / deployment dpl_8reqJeE2NY3vrVPidQ7NLjqn1LN9",
+      "repository": "github.com/scalviamx/scalvia_landing",
+      "deploymentOrService": "scalvia-landing production deployment",
+      "dependencies": ["Next.js", "Vercel Functions", "Resend", "Cloudflare Turnstile", "Google Calendar", "Notion", "Clerk", "external WooCommerce handoff"],
+      "evidence": [
+        "Vercel get_deployment(www.scalvia.mx): aliases include scalvia.mx and www.scalvia.mx.",
+        "Vercel deployment metadata: repo scalviamx/scalvia_landing, branch main, commit 70c410196ff45b4f4766513800c458e8696f9270.",
+        "HTTP https://scalvia.mx/ returned 307 Location: https://www.scalvia.mx/ with server cloudflare and x-vercel-id.",
+        "DNS NS scalvia.mx returned Cloudflare nameservers."
+      ],
+      "confidence": "HIGH",
+      "migrationAction": "MIGRATE"
+    },
+    {
+      "hostname": "www.scalvia.mx",
+      "dnsProvider": "Cloudflare",
+      "proxyProvider": "Cloudflare",
+      "hostingClassification": "VERCEL",
+      "origin": "Vercel project prj_OHZ1Q1EJPi0Ef8PRlrtkJfFwizSG / deployment dpl_8reqJeE2NY3vrVPidQ7NLjqn1LN9",
+      "repository": "github.com/scalviamx/scalvia_landing",
+      "deploymentOrService": "scalvia-landing production deployment",
+      "dependencies": ["Next.js", "Vercel Functions", "Resend", "Cloudflare Turnstile", "Google Calendar", "Notion", "Clerk", "external WooCommerce handoff"],
+      "evidence": [
+        "Vercel project scalvia-landing domains include www.scalvia.mx.",
+        "HTTP https://www.scalvia.mx/ returned 200 with server cloudflare, x-vercel-id, x-vercel-cache, and x-matched-path.",
+        "DNS www.scalvia.mx resolves to Cloudflare anycast A records; no public CNAME observed."
+      ],
+      "confidence": "HIGH",
+      "migrationAction": "MIGRATE"
+    },
+    {
+      "hostname": "ops.scalvia.mx",
+      "dnsProvider": "Cloudflare zone",
+      "proxyProvider": "None observed",
+      "hostingClassification": "VERCEL",
+      "origin": "Vercel project prj_mjv2oiUY2NnjSF3X6OMPm68aGF1f / deployment dpl_97JuZk4ZJjwo5Juycn7BQ6X1RQya",
+      "repository": "github.com/scalviamx/scalviadashboard",
+      "deploymentOrService": "scalviadashboard production deployment",
+      "dependencies": ["Next.js", "Vercel Functions", "Postgres", "BetterAuth in current repo", "Clerk in current production behavior", "Google OAuth", "Resend", "cron route"],
+      "evidence": [
+        "Vercel project scalviadashboard domains include ops.scalvia.mx.",
+        "Vercel get_deployment(ops.scalvia.mx): production deployment dpl_97JuZk4ZJjwo5Juycn7BQ6X1RQya.",
+        "DNS CNAME ops.scalvia.mx points to a vercel-dns target.",
+        "HTTP https://ops.scalvia.mx/dashboard returned 307 from server Vercel.",
+        "HTTP production showed x-clerk-auth-* headers and redirect to /sign-in."
+      ],
+      "confidence": "HIGH",
+      "migrationAction": "KEEP_AS_IS"
+    },
+    {
+      "hostname": "chat.scalvia.mx",
+      "dnsProvider": "Cloudflare",
+      "proxyProvider": "Cloudflare",
+      "hostingClassification": "VPS_DOCKER",
+      "origin": "scalvia-vps Chatwoot Docker stack; exact public origin route not confirmed",
+      "repository": "No application repo found locally for Chatwoot; infrastructure docs point to /opt/scalvia/chatwoot",
+      "deploymentOrService": "scalvia-chatwoot-rails, scalvia-chatwoot-sidekiq, scalvia-chatwoot-postgres, scalvia-chatwoot-redis",
+      "dependencies": ["Docker", "Chatwoot Rails", "Sidekiq", "Postgres", "Redis", "Cloudflare proxy", "Scalvia VPS"],
+      "evidence": [
+        "DNS chat.scalvia.mx resolves to Cloudflare anycast A/AAAA records; no public CNAME observed.",
+        "HTTP https://chat.scalvia.mx/ returned Cloudflare 502.",
+        "TLS certificate for chat.scalvia.mx uses wildcard SAN for *.scalvia.mx at the Cloudflare edge.",
+        "Local infrastructure docs list /opt/scalvia/chatwoot and scalvia-chatwoot-* containers on scalvia-vps.",
+        "Local known issue documents scalvia-chatwoot-rails restarting."
+      ],
+      "confidence": "MEDIUM",
+      "migrationAction": "KEEP_AS_IS"
+    }
+  ]
+}
