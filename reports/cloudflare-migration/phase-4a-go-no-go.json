@@ -1,0 +1,60 @@
+{
+  "phase": "4A.1",
+  "generatedAt": "2026-08-01T07:08:01Z",
+  "result": "PASS",
+  "cutoverStatus": "GO",
+  "checklist": [
+    { "item": "Cloudflare production Worker listo", "status": "PASS", "critical": true },
+    { "item": "Production build PASS", "status": "PASS", "critical": true },
+    { "item": "Worker candidate QA PASS", "status": "PASS_15_OF_15", "critical": true },
+    { "item": "Production secrets cargados", "status": "PASS", "critical": true },
+    { "item": "Turnstile production hostnames confirmados", "status": "PASS", "critical": true },
+    { "item": "scalvia.mx permitido en Turnstile", "status": "PASS", "critical": true },
+    { "item": "www.scalvia.mx permitido en Turnstile", "status": "PASS", "critical": true },
+    { "item": "production Turnstile credentials configuradas", "status": "PASS", "critical": true },
+    { "item": "Contact API production config lista", "status": "PASS", "critical": true },
+    { "item": "Google Calendar PASS", "status": "PASS", "critical": true },
+    { "item": "Notion Vitelas PASS", "status": "PASS_CONFIGURED", "critical": true },
+    { "item": "Resend configuration PASS", "status": "PASS_CONFIGURED", "critical": true },
+    { "item": "CONTACT_ALLOWED_ORIGINS correcto", "status": "PASS", "critical": true },
+    { "item": "DNS snapshot guardado", "status": "PASS", "critical": true },
+    { "item": "ops.scalvia.mx untouched", "status": "PASS", "critical": true },
+    { "item": "chat.scalvia.mx untouched", "status": "PASS", "critical": true },
+    { "item": "Vercel rollback disponible", "status": "PASS", "critical": true }
+  ],
+  "productionCandidate": {
+    "worker": "scalvia-landing",
+    "url": "https://scalvia-landing.hola-7e3.workers.dev",
+    "versionId": "1a54fe14-3d8b-4d1b-856a-18f2ebe67230",
+    "commit": "1b386253fec48b69de9ae8c0569ffe6a1d6fbd88",
+    "createdAt": "2026-08-01T07:05:35.676Z"
+  },
+  "turnstile": {
+    "status": "PASS",
+    "widgetName": "Scalvia Production",
+    "mode": "managed",
+    "hostnames": [
+      "scalvia.mx",
+      "www.scalvia.mx"
+    ],
+    "sitekeyFingerprint": "sha256:8855e1ba8219",
+    "secretPrinted": false,
+    "workersDevHostnameAdded": false
+  },
+  "qa": {
+    "playwrightCandidate": "PASS_15_OF_15",
+    "contactChallenge": "PASS",
+    "contactInvalidPayload": "PASS_NO_RESEND_SIDE_EFFECT",
+    "availability": "PASS_GOOGLE_CALENDAR",
+    "notifyInvalidPayload": "PASS_NO_NOTION_CALENDAR_RESEND_SIDE_EFFECT"
+  },
+  "recordsEligibleForCutover": [
+    "scalvia.mx",
+    "www.scalvia.mx"
+  ],
+  "recordsToPreserveExactly": [
+    "ops.scalvia.mx",
+    "chat.scalvia.mx"
+  ],
+  "blockers": []
+}

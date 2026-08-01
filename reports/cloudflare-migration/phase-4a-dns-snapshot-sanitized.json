@@ -1,0 +1,81 @@
+{
+  "phase": "4A",
+  "generatedAt": "2026-08-01T06:49:32Z",
+  "zone": "scalvia.mx",
+  "valuesCopied": false,
+  "apiDnsRead": {
+    "attempted": true,
+    "result": "UNAVAILABLE",
+    "reason": "Wrangler exposes zone read, but direct API bearer request failed after the local OAuth token expired. Public HTTP/DNS evidence and prior sanitized Phase 1 snapshot were used."
+  },
+  "records": [
+    {
+      "hostname": "scalvia.mx",
+      "type": "A",
+      "proxyState": "proxied_inferred",
+      "destinationSanitized": "REDACTED_CLOUDFLARE_ANYCAST",
+      "currentServing": "Vercel behind Cloudflare",
+      "httpEvidence": {
+        "status": 307,
+        "location": "https://www.scalvia.mx/",
+        "server": "cloudflare",
+        "xVercelIdPresent": true
+      },
+      "purpose": "primary apex redirect to canonical www",
+      "cutoverAction": "CHANGE_IN_PHASE_4B_ONLY"
+    },
+    {
+      "hostname": "www.scalvia.mx",
+      "type": "A",
+      "proxyState": "proxied_inferred",
+      "destinationSanitized": "REDACTED_CLOUDFLARE_ANYCAST",
+      "currentServing": "Vercel behind Cloudflare",
+      "httpEvidence": {
+        "status": 200,
+        "server": "cloudflare",
+        "xVercelIdPresent": true,
+        "xVercelCachePresent": true
+      },
+      "purpose": "canonical public Scalvia frontend",
+      "cutoverAction": "CHANGE_IN_PHASE_4B_ONLY"
+    },
+    {
+      "hostname": "ops.scalvia.mx",
+      "type": "CNAME",
+      "proxyState": "dns_only_inferred",
+      "destinationSanitized": "REDACTED.vercel-dns-017.com.",
+      "currentServing": "Vercel direct",
+      "httpEvidence": {
+        "status": 307,
+        "server": "Vercel",
+        "location": "/sign-in",
+        "xVercelIdPresent": true,
+        "xClerkAuthStatusPresent": true
+      },
+      "purpose": "Ops application",
+      "cutoverAction": "PRESERVE_EXACTLY"
+    },
+    {
+      "hostname": "chat.scalvia.mx",
+      "type": "A/AAAA",
+      "proxyState": "proxied_inferred",
+      "destinationSanitized": "REDACTED_CLOUDFLARE_TO_VPS",
+      "currentServing": "VPS / Chatwoot incident path",
+      "httpEvidence": {
+        "status": 502,
+        "server": "cloudflare"
+      },
+      "purpose": "Chatwoot",
+      "cutoverAction": "PRESERVE_EXACTLY"
+    }
+  ],
+  "recordsEligibleForCutover": [
+    "scalvia.mx",
+    "www.scalvia.mx"
+  ],
+  "recordsToPreserveExactly": [
+    "ops.scalvia.mx",
+    "chat.scalvia.mx"
+  ],
+  "otherRecordsPolicy": "Do not touch MX, TXT, mail, VPS, or unrelated subdomains."
+}

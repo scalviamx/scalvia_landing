@@ -1,0 +1,80 @@
+{
+  "phase": "4A.1",
+  "generatedAt": "2026-08-01T07:08:01Z",
+  "result": "PASS",
+  "cutoverStatus": "GO",
+  "scopeGuards": {
+    "dnsChanged": false,
+    "customDomainsAttached": false,
+    "productionTrafficChanged": false,
+    "vercelDeploymentCreated": false,
+    "vercelAliasesChanged": false,
+    "opsTouched": false,
+    "chatTouched": false,
+    "vpsTouched": false,
+    "chatwootTouched": false,
+    "pushed": false
+  },
+  "turnstile": {
+    "widgetName": "Scalvia Production",
+    "mode": "managed",
+    "hostnames": [
+      "scalvia.mx",
+      "www.scalvia.mx"
+    ],
+    "sitekeyFingerprint": "sha256:8855e1ba8219",
+    "secretPrinted": false,
+    "testingKeysUsed": false,
+    "workersDevHostnameAdded": false
+  },
+  "worker": {
+    "name": "scalvia-landing",
+    "url": "https://scalvia-landing.hola-7e3.workers.dev",
+    "versionId": "1a54fe14-3d8b-4d1b-856a-18f2ebe67230",
+    "commit": "1b386253fec48b69de9ae8c0569ffe6a1d6fbd88",
+    "createdAt": "2026-08-01T07:05:35.676Z",
+    "customDomainsAttached": false,
+    "routesAttached": false
+  },
+  "secretsConfiguredByName": [
+    "CLERK_SECRET_KEY",
+    "CONTACT_ALLOWED_ORIGINS",
+    "CONTACT_FORM_SIGNING_SECRET",
+    "CONTACT_TO_EMAIL",
+    "DEMO_MODE",
+    "GOOGLE_CALENDAR_ID",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_REFRESH_TOKEN",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+    "NOTION_TOKEN",
+    "NOTION_VITELAS_DB_ID",
+    "RESEND_API_KEY",
+    "TURNSTILE_SECRET_KEY"
+  ],
+  "legacySecretsExcluded": [
+    "NOTION_LALANUDA_DB_ID"
+  ],
+  "contactAllowedOrigins": [
+    "https://scalvia.mx",
+    "https://www.scalvia.mx"
+  ],
+  "qa": {
+    "npmRunBuild": "PASS",
+    "npmRunBuildCloudflare": "PASS",
+    "playwrightCandidate": "PASS_15_OF_15",
+    "httpHeaders": "PASS",
+    "contactChallenge": "PASS",
+    "contactInvalidPayload": "PASS_NO_RESEND_SIDE_EFFECT",
+    "availability": "PASS_GOOGLE_CALENDAR",
+    "notifyInvalidPayload": "PASS_NO_NOTION_CALENDAR_RESEND_SIDE_EFFECT",
+    "notionVitelas": "PASS_CONFIGURED_BY_SECRET_AND_CODE",
+    "resend": "PASS_CONFIGURED_BY_SECRET"
+  },
+  "notes": [
+    "No real Vitelas booking was created.",
+    "Notion debug endpoint was not executed because it creates a test page and calendar event.",
+    "Resend was not exercised with a valid send because that would create an email side effect."
+  ]
+}

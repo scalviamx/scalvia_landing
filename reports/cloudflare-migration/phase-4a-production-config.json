@@ -1,0 +1,160 @@
+{
+  "phase": "4A.1",
+  "generatedAt": "2026-08-01T07:08:01Z",
+  "result": "PASS",
+  "cutoverStatus": "GO",
+  "scopeGuards": {
+    "dnsChanged": false,
+    "customDomainsAttached": false,
+    "cloudflareProductionTrafficChanged": false,
+    "vercelDeploymentCreated": false,
+    "vercelAliasesChanged": false,
+    "opsTouched": false,
+    "chatTouched": false,
+    "vpsTouched": false,
+    "chatwootTouched": false,
+    "pushed": false
+  },
+  "git": {
+    "checkpoint": "1b386253fec48b69de9ae8c0569ffe6a1d6fbd88",
+    "recentCommits": [
+      "1b38625 chore: validate cloudflare preview and production readiness",
+      "10ce74e chore: prepare scalvia site for cloudflare migration",
+      "70c4101 Disable legal pages header animation"
+    ],
+    "remote": "git@github.com-scalvia:scalviamx/scalvia_landing.git"
+  },
+  "vercelRollback": {
+    "project": "scalvia-landing",
+    "deploymentId": "dpl_8reqJeE2NY3vrVPidQ7NLjqn1LN9",
+    "target": "production",
+    "status": "Ready",
+    "aliases": [
+      "https://scalvia.mx",
+      "https://www.scalvia.mx"
+    ]
+  },
+  "cloudflare": {
+    "accountName": "Hola@scalvia.mx's Account",
+    "accountId": "7e31f4523136bac16637fd728572c4ec",
+    "previewWorker": {
+      "name": "scalvia-landing-preview",
+      "url": "https://scalvia-landing-preview.hola-7e3.workers.dev",
+      "validatedVersion": "81e1ebd2-2543-40e0-9ca1-b812d4bf8f3e"
+    },
+    "productionWorker": {
+      "name": "scalvia-landing",
+      "exists": true,
+      "url": "https://scalvia-landing.hola-7e3.workers.dev",
+      "version": "1a54fe14-3d8b-4d1b-856a-18f2ebe67230",
+      "createdAt": "2026-08-01T07:05:35.676Z",
+      "secretsConfigured": true,
+      "routesAttached": false,
+      "customDomainsAttached": false
+    },
+    "wranglerConfig": {
+      "trackedConfigTargetsPreview": true,
+      "name": "scalvia-landing-preview",
+      "main": ".open-next/worker.js",
+      "compatibilityDate": "2026-08-01",
+      "compatibilityFlags": [
+        "nodejs_compat",
+        "global_fetch_strictly_public"
+      ],
+      "workersDev": true,
+      "assetsBinding": "ASSETS",
+      "observabilityEnabled": true
+    }
+  },
+  "variables": [
+    { "name": "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", "classification": "BUILD_TIME_PUBLIC", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "CLERK_SECRET_KEY", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "NEXT_PUBLIC_TURNSTILE_SITE_KEY", "classification": "BUILD_TIME_PUBLIC", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "TURNSTILE_SECRET_KEY", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "CONTACT_ALLOWED_ORIGINS", "classification": "PLAIN_RUNTIME", "required": true, "intendedProductionValue": "https://scalvia.mx,https://www.scalvia.mx", "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "CONTACT_FORM_SIGNING_SECRET", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "CONTACT_TO_EMAIL", "classification": "PLAIN_RUNTIME", "required": true, "intendedProductionValue": "hola@scalvia.mx", "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "RESEND_API_KEY", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "NOTION_TOKEN", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "NOTION_VITELAS_DB_ID", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "GOOGLE_CLIENT_ID", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "GOOGLE_CLIENT_SECRET", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "GOOGLE_REFRESH_TOKEN", "classification": "SECRET", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "GOOGLE_CALENDAR_ID", "classification": "PLAIN_RUNTIME", "required": true, "status": "CONFIGURED_CLOUDFLARE" },
+    { "name": "DEMO_MODE", "classification": "PLAIN_RUNTIME", "required": false, "status": "CONFIGURED_FALSE" },
+    { "name": "NEXTJS_ENV", "classification": "NOT_REQUIRED", "required": false, "status": "NOT_REQUIRED" },
+    { "name": "DEBUG_SECRET", "classification": "NOT_REQUIRED", "required": false, "status": "NOT_REQUIRED" },
+    { "name": "NEXT_PUBLIC_DEMO_MODE", "classification": "LEGACY", "required": false, "status": "LEGACY" },
+    { "name": "NOTION_LALANUDA_DB_ID", "classification": "LEGACY", "required": false, "status": "EXCLUDED_FROM_PRODUCTION_WORKER" }
+  ],
+  "secretNamesConfigured": [
+    "CLERK_SECRET_KEY",
+    "CONTACT_ALLOWED_ORIGINS",
+    "CONTACT_FORM_SIGNING_SECRET",
+    "CONTACT_TO_EMAIL",
+    "DEMO_MODE",
+    "GOOGLE_CALENDAR_ID",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_REFRESH_TOKEN",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+    "NOTION_TOKEN",
+    "NOTION_VITELAS_DB_ID",
+    "RESEND_API_KEY",
+    "TURNSTILE_SECRET_KEY"
+  ],
+  "turnstile": {
+    "status": "PASS",
+    "widgetName": "Scalvia Production",
+    "mode": "managed",
+    "productionHostnamesVerified": true,
+    "requiredHostnames": [
+      "scalvia.mx",
+      "www.scalvia.mx"
+    ],
+    "sitekeyFingerprint": "sha256:8855e1ba8219",
+    "secretPrinted": false,
+    "testingKeysAllowedInProduction": false,
+    "workersDevHostnameAdded": false
+  },
+  "contactApi": {
+    "status": "PASS",
+    "requiredAllowedOrigins": [
+      "https://scalvia.mx",
+      "https://www.scalvia.mx"
+    ],
+    "workersDevAllowedOrigin": false,
+    "challengeApi": "PASS",
+    "invalidPayload": "PASS_NO_RESEND_SIDE_EFFECT"
+  },
+  "vitelas": {
+    "status": "PASS",
+    "activeNotionVariable": "NOTION_VITELAS_DB_ID",
+    "legacyNotionVariableUsedByActiveCode": false,
+    "legacyNotionSecretConfiguredInProductionWorker": false,
+    "endpointsRenamed": false,
+    "availability": "PASS_GOOGLE_CALENDAR",
+    "notifyInvalidPayload": "PASS_NO_SIDE_EFFECT"
+  },
+  "resend": {
+    "status": "PASS_CONFIGURED_BY_SECRET",
+    "validSendExecuted": false,
+    "reason": "A valid send would create an email side effect."
+  },
+  "canonical": {
+    "strategy": "https://scalvia.mx redirects to https://www.scalvia.mx/",
+    "siteOrigin": "https://www.scalvia.mx",
+    "robotsUsesSiteOrigin": true,
+    "sitemapUsesSiteOrigin": true,
+    "openGraphUrl": "https://scalvia.mx",
+    "openGraphNote": "Left unchanged in Phase 4A.1."
+  },
+  "qa": {
+    "npmRunBuild": "PASS",
+    "npmRunBuildCloudflare": "PASS",
+    "playwrightCandidate": "PASS_15_OF_15",
+    "httpHeaders": "PASS"
+  },
+  "blockers": []
+}
