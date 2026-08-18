@@ -45,6 +45,13 @@ export function Nav({ variant = 'transparent', animated = true }: NavProps) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
   const closeMenu = () => setMenuOpen(false)
 
   return (
@@ -104,15 +111,15 @@ export function Nav({ variant = 'transparent', animated = true }: NavProps) {
           >
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-              className="block w-5.5 h-0.5 bg-white rounded-sm"
+              className="block w-[22px] h-0.5 bg-white rounded-sm"
             />
             <motion.span
               animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="block w-5.5 h-0.5 bg-white rounded-sm"
+              className="block w-[22px] h-0.5 bg-white rounded-sm"
             />
             <motion.span
               animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-              className="block w-5.5 h-0.5 bg-white rounded-sm"
+              className="block w-[22px] h-0.5 bg-white rounded-sm"
             />
           </button>
         </div>
@@ -126,7 +133,7 @@ export function Nav({ variant = 'transparent', animated = true }: NavProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className={`fixed top-16 left-0 right-0 z-40 border-b border-white/8 px-6 py-5 flex flex-col gap-2 md:hidden ${
+            className={`fixed top-16 left-0 right-0 bottom-0 z-40 overflow-y-auto px-6 py-5 flex flex-col gap-2 md:hidden ${
               isLite ? 'bg-forest' : 'bg-forest/98 backdrop-blur-xl'
             }`}
           >
