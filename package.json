@@ -7,6 +7,7 @@
     "start": "next start",
     "build:cloudflare": "opennextjs-cloudflare build",
     "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy:cloudflare": "npm run build:cloudflare && wrangler deploy .open-next/worker.js --name scalvia-landing --compatibility-date 2026-08-01 --compatibility-flag nodejs_compat --compatibility-flag global_fetch_strictly_public --assets .open-next/assets --keep-vars",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "design:export": "node scripts/design-export/run.mjs",
     "design:export:capture": "node scripts/design-export/capture.mjs",
