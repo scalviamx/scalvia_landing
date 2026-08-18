@@ -16,7 +16,7 @@ export default function PrivacidadPage() {
       <Nav variant="solid" animated={false} />
       <LegalPage
         title="Política de Privacidad"
-        updatedAt="2 de junio de 2026"
+        updatedAt="2026"
         intro={[
           'En Scalvia respetamos la privacidad de nuestros usuarios, prospectos, clientes y visitantes. Esta Política de Privacidad explica cómo recopilamos, usamos, protegemos y, en su caso, compartimos la información personal que nos proporcionas al visitar nuestro sitio web, llenar formularios de contacto, comunicarte con nosotros por WhatsApp, correo electrónico, redes sociales, teléfono u otros canales digitales.',
           'Al utilizar nuestro sitio web o comunicarte con nosotros, aceptas los términos descritos en esta Política de Privacidad.',

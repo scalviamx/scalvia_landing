@@ -4,16 +4,18 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
+import localFont from 'next/font/local'
 import { useMotionProfile } from '@/lib/motion'
 
+const dmSans = localFont({
+  src: '../../fonts/DMSans-Variable.ttf',
+  weight: '100 1000',
+  display: 'swap',
+})
+
 const ScalviaLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-    <rect width="56" height="56" rx="12" fill="rgba(255,255,255,0.08)" />
-    <rect x="12" y="38" width="10" height="6" rx="3" fill="#7AC4A0" />
-    <rect x="24" y="28" width="10" height="6" rx="3" fill="#3DBB7A" />
-    <rect x="36" y="18" width="10" height="6" rx="3" fill="#FFFFFF" />
-    <path d="M22 41 L26 31 L38 21" stroke="white" strokeWidth="1.5" strokeOpacity="0.3" strokeDasharray="3 3" fill="none" />
-  </svg>
+  <Image src="/brand/isotipo-3@256.png" alt="" width={28} height={28} aria-hidden="true" />
 )
 
 const NAV_LINKS = [
@@ -62,7 +64,7 @@ export function Nav({ variant = 'transparent', animated = true }: NavProps) {
         <div className="w-full max-w-[1120px] mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 no-underline" aria-label="Scalvia inicio">
             <ScalviaLogo />
-            <span className="text-white font-extrabold text-lg tracking-tight">Scalvia</span>
+            <span className={`${dmSans.className} text-white font-extrabold text-lg tracking-tight`}>Scalvia</span>
           </Link>
 
           {/* Desktop links */}

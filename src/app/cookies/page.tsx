@@ -15,7 +15,7 @@ export default function CookiesPage() {
       <Nav variant="solid" animated={false} />
       <LegalPage
         title="Política de Cookies"
-        updatedAt="2 de junio de 2026"
+        updatedAt="2026"
         intro={[
           'Esta Política de Cookies explica cómo Scalvia puede utilizar cookies y tecnologías similares en el sitio web https://scalvia.mx para operar el sitio, mejorar la experiencia del usuario, analizar tráfico y optimizar nuestros canales digitales.',
         ]}

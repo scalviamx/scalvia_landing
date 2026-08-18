@@ -15,7 +15,7 @@ export default function TerminosPage() {
       <Nav variant="solid" animated={false} />
       <LegalPage
         title="Términos y Condiciones"
-        updatedAt="2 de junio de 2026"
+        updatedAt="2026"
         intro={[
           'Estos Términos y Condiciones regulan el uso del sitio web https://scalvia.mx y la información publicada por Scalvia. Al acceder al sitio o comunicarte con nosotros por canales digitales, aceptas estos términos en lo que resulte aplicable.',
         ]}
